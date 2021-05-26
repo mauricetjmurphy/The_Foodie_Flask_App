@@ -1,0 +1,80 @@
+<!-- Header Section Starts Here -->
+<header>
+    <div class="container text-md-center">
+        <nav class="navbar navbar-expand-md d-md-block">
+            <a class="navbar-brand" href="{{ url_for('index') }}"
+                ><h1>The Foodie</h1></a
+            >
+            <button
+                class="navbar-toggler navbar-toggler-right hamburger-menu-btn ml-auto"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+                class="collapse navbar-collapse nav-border"
+                id="navbarNavDropdown"
+            >
+                <ul class="social-links list-inline">
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com" title=""
+                            ><i class="fab fa-facebook-f"></i
+                        ></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com" title=""><i class="fab fa-twitter"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com" title=""
+                            ><i class="fab fa-instagram"></i
+                        ></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.youtube.com" title=""><i class="fab fa-youtube"></i></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav justify-content-center">
+                    <li class="nav-item {% if index %} active {% endif %}">
+                        <a class="nav-link" href="{{ url_for('index') }}"
+                            >Home</a
+                        >
+                    </li>
+
+                    <li class="nav-item {% if about %} active {% endif %}">
+                        <a class="nav-link" href="{{ url_for('about') }}"
+                            >About</a
+                        >
+                    </li>
+                    <li class="nav-item {% if contact%} active {% endif %}">
+                        <a class="nav-link" href="{{ url_for('contact') }}"
+                            >Contact</a
+                        >
+                    </li>
+                    <li class="nav-item {% if new_recipe %} active {% endif %}">
+                        <a class="nav-link" href="{{ url_for('new_recipe') }}"
+                            >Add Recipe</a
+                        >
+                    </li>
+                    <div class="search">
+                        <a href="{{ url_for('account') }}"
+                            ><i class="fas fa-user"></i
+                        ></a>
+                        {% if current_user.is_authenticated%}
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                        {% else %}
+                        <a href="{{ url_for('login') }}">Log In</a>
+                </ul>
+                
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Header Section Ends Here -->
