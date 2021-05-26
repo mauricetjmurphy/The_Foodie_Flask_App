@@ -41,7 +41,7 @@ def account():
     return render_template('account.html', about=True)
 
 
-@app.route("/category", methods=["GET", "POST"])
+@app.route("/category")
 
 def category():
 
