@@ -14,19 +14,19 @@ The Foodie is an online platform where users can share recipes and ideas. The us
 
 ---
 
-- [The Foodie](#the-foodie)
-  - [Table of Contents](#table-of-contents)
-  - [UI/UX](#uiux)
-    - [Project goals](#project-goals)
-    - [User Stories](#user-stories)
-  - [Design](#design)
-    - [Wireframes](#wireframes)
-    - [Colour Scheme](#colour-scheme)
-    - [Database Schema](#database-schema)
-    - [Defensive Design](#defensive-design)
-  - [Features](#features)
-    - [Existing features](#existing-features)
-    - [Future features](#future-features)
+-   [The Foodie](#the-foodie)
+    -   [Table of Contents](#table-of-contents)
+    -   [UI/UX](#uiux)
+        -   [Project goals](#project-goals)
+        -   [User Stories](#user-stories)
+    -   [Design](#design)
+        -   [Wireframes](#wireframes)
+        -   [Colour Scheme](#colour-scheme)
+        -   [Database Schema](#database-schema)
+        -   [Defensive Design](#defensive-design)
+    -   [Features](#features)
+        -   [Existing features](#existing-features)
+        -   [Future features](#future-features)
 
 ---
 
@@ -67,7 +67,7 @@ I developed my wireframes using the Figma browser based design tool. Initially I
 
 ### Colour Scheme
 
-![color scheme]()
+![color scheme](https://res.cloudinary.com/gemtech-solutions/image/upload/v1622023857/The%20Foodie/colour-palette_nhhq2v.png)
 
 ### Database Schema
 
