@@ -1,5 +1,6 @@
 from flask import render_template, url_for
 from app import app
+from app import app, mongo
 
 # Decorators (app routes)
 @app.route("/")
