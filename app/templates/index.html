@@ -1,1 +1,272 @@
-<h1>Hello Earth</h1>
+{% extends 'layout.html' %}
+<!-- Hero Section Starts Here -->
+
+{% block content %}
+
+<section class="blog-section hero-section lg-mt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div id="hero-slider">
+                    <div class="blog-item">
+                        <div class="blog-img hero-img">
+                            <img
+                                src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622038008/The%20Foodie/butter_chicken_hcd99b.jpg"
+                                alt=""
+                                class="img-fluid hero"
+                            />
+                        </div>
+
+                        <div class="blog-info">
+                            <a href="#" title="" class="post-category">Foody</a>
+
+                            <h3 class="post-title">
+                                <a href="#" title=""
+                                    >Creamy Garlic Parmesan Chicken Salad</a
+                                >
+                            </h3>
+
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Nulla ipsum risus, ultricies eu
+                                ligula.
+                            </p>
+
+                            <ul class="list-inline meta">
+                                <li class="list-inline-item">May 24, 2020</li>
+
+                                <li class="list-inline-item">
+                                    <i class="fa fa-eye"></i>3258
+                                </li>
+
+                                <li class="list-inline-item">
+                                    <a href="#" title=""
+                                        ><i class="fa fa-comments"></i>4</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="blog-item">
+                        <div class="blog-img  hero-img">
+                            <img
+                                src=""
+                                alt=""
+                                class="img-fluid hero"
+                            />
+                        </div>
+
+                        <div class="blog-info">
+                            <a href="#" title="" class="post-category">Foody</a>
+
+                            <h3 class="post-title">
+                                <a href="#" title=""
+                                    >Creamy Garlic Parmesan Chicken Salad</a
+                                >
+                            </h3>
+
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Nulla ipsum risus, ultricies eu
+                                ligula.
+                            </p>
+
+                            <ul class="list-inline meta">
+                                <li class="list-inline-item">May 24, 2020</li>
+
+                                <li class="list-inline-item">
+                                    <i class="fa fa-eye"></i>3258
+                                </li>
+
+                                <li class="list-inline-item">
+                                    <a href="#" title=""
+                                        ><i class="fa fa-comments"></i>4</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="blog-item">
+                        <div class="blog-img  hero-img">
+                            <img
+                                src=""
+                                alt=""
+                                class="img-fluid hero"
+                            />
+                        </div>
+
+                        <div class="blog-info">
+                            <a href="#" title="" class="post-category">Foody</a>
+
+                            <h3 class="post-title">
+                                <a href="" title=""
+                                    >Creamy Garlic Parmesan Chicken Salad</a
+                                >
+                            </h3>
+
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Nulla ipsum risus, ultricies eu
+                                ligula.
+                            </p>
+
+                            <ul class="list-inline meta">
+                                <li class="list-inline-item">May 24, 2020</li>
+
+                                <li class="list-inline-item">
+                                    <i class="fa fa-eye"></i>3258
+                                </li>
+
+                                <li class="list-inline-item">
+                                    <a href="#" title=""
+                                        ><i class="fa fa-comments"></i>4</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="blog-item">
+                        <div class="blog-img  hero-img">
+                            <img
+                                src=""
+                                alt=""
+                                class="img-fluid hero"
+                            />
+                        </div>
+
+                        <div class="blog-info">
+                            <a href="#" title="" class="post-category">Foody</a>
+
+                            <h3 class="post-title">
+                                <a href="" title=""
+                                    >Creamy Garlic Parmesan Chicken Salad</a
+                                >
+                            </h3>
+
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Nulla ipsum risus, ultricies eu
+                                ligula.
+                            </p>
+
+                            <ul class="list-inline meta">
+                                <li class="list-inline-item">May 24, 2020</li>
+
+                                <li class="list-inline-item">
+                                    <i class="fa fa-eye"></i>3258
+                                </li>
+
+                                <li class="list-inline-item">
+                                    <a href="#" title=""
+                                        ><i class="fa fa-comments"></i>4</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Hero Section Ends Here -->
+
+<!-- Featured Section Starts Here -->
+
+<section class="featured-categories">
+    <div class="container">
+        <div class="sec-title">
+            <h3 class="mb-5">Featured Categories</h3>
+        </div>
+
+        <div class="blog-items">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="blog-item">
+                        <a
+                            href="{{ url_for('category', category="Breakfast")}}"
+                        >
+                            <div class="blog-img">
+                                <img
+                                    src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622038629/The%20Foodie/breakfast_eac71d.jpg"
+                                    alt=""
+                                    class="img-fluid"
+                                />
+                            </div>
+
+                            <div class="blog-cat text-center d-inline">
+                                <h4>breakfast</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="blog-item">
+                        <a href="{{ url_for('category', category="Lunch")}}">
+                            <div class="blog-img">
+                                <img
+                                    src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622038611/The%20Foodie/lunch_dmnayw.jpg"
+                                    alt=""
+                                    class="img-fluid"
+                                />
+                            </div>
+
+                            <div class="blog-cat text-center d-inline">
+                                <h4>Lunch</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="blog-item">
+                        <a href="{{ url_for('category', category="Dinner")}}">
+                            <div class="blog-img">
+                                <img
+                                    src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622038615/The%20Foodie/dinner_hwl41f.jpg"
+                                    alt=""
+                                    class="img-fluid"
+                                />
+                            </div>
+
+                            <div class="blog-cat text-center d-inline">
+                                <h4>Dinner</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="blog-item">
+                        <a href="{{ url_for('category', category="Dessert")}}">
+                            <div class="blog-img">
+                                <img
+                                    src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622038626/The%20Foodie/dessert_wmagl6.jpg"
+                                    alt=""
+                                    class="img-fluid"
+                                />
+                            </div>
+
+                            <div class="blog-cat text-center d-inline">
+                                <h4>dessert</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Section Ends Here -->
+
+
+
+
+<!-- Main Content Section Ends Here -->
+{% endblock content %}
