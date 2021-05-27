@@ -1,5 +1,6 @@
 from app import db
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # Pass to document object to the class  to allow the wtf forms directive to create fields
 class User(db.Document, UserMixin):
