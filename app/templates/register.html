@@ -1,0 +1,46 @@
+{% extends 'layout.html' %} {% block content %}
+
+<form name="register" action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <div class="register-form-container">
+        <div class="register-form-s1">
+            <h1>Sign Up</h1>
+            <img src="" alt="" />
+            <p>It's quick and easy.</p>
+        </div>
+        <div class="register-form-s2">
+            <div class="register-text-input-container">
+                {{ form.first_name(size= 30, placeholder="First Name") }} {% for
+                error in form.first_name.errors %}
+                <span class="error-message">{{error}}</span>
+                {% endfor %}
+                <!-- prettier ignore -->
+                {{ form.last_name(size= 30, placeholder="Last Name") }} {% for
+                error in form.last_name.errors %}
+                <span class="error-message">{{error}}</span>
+                {% endfor %}
+            </div>
+
+            {{ form.email(placeholder="Email address", class="email-input") }}
+            {% for error in form.email.errors %}
+            <span class="error-message">{{error}}</span>
+            {% endfor %}
+            <!-- prettier ignore -->
+            {{ form.password(placeholder="Password" ) }} {% for error in
+            form.password.errors %}
+            <span class="error-message">{{error}}</span>
+            {% endfor %}
+            <p class="ml-2"><small>Minimum 6 characters</small></p>
+
+            <!-- prettier ignore -->
+            {{ form.confirm_password(placeholder="Confirm Password") }} {% for
+            error in form.confirm_password.errors %}
+            <span class="error-message">{{error}}</span>
+            {% endfor %}
+        </div>
+
+        {{ form.submit(class="btn signup-btn")}}
+    </div>
+</form>
+
+{% endblock content %}
