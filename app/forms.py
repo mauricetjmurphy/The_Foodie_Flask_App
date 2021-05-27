@@ -6,6 +6,7 @@ from app.models import User
 from app import mongo
 from flask_login import current_user
 
+#Creating the form classes
 class LoginForm(FlaskForm):
     email = StringField("Email",  validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
@@ -20,6 +21,7 @@ class RegisterForm(FlaskForm):
     last_name = StringField("Last Name", validators=[DataRequired()])
     submit = SubmitField("Register Now")
 
+    #Email validation. Checks if the inputted email has already been used
     def validate_email(self, email):
         user = mongo.db.user.find_one_or_404({"email": email.data})
         if user:
