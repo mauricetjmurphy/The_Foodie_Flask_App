@@ -20,6 +20,10 @@ class RegisterForm(FlaskForm):
     last_name = StringField("Last Name", validators=[DataRequired()])
     submit = SubmitField("Register Now")
 
+    def validate_email(self, email):
+        user = mongo.db.user.find_one_or_404({"email": email.data})
+        if user:
+            raise ValidationError("Email is already in use. Please try another one.")
     
 
 class IngredientsForm(FlaskForm):
