@@ -204,7 +204,12 @@
                                     <div class="form-group col-12 col-md-6">
                                         {{
                                         post_form.full_name(class="login_input",
-                                        size=50, placeholder="Name") }} 
+                                        size=50, placeholder="Name") }} {% for
+                                        error in post_form.full_name.errors %}
+                                        <span class="error-message"
+                                            >{{error}}</span
+                                        >
+                                        {% endfor %}
                                     </div>
                                 </div>
 

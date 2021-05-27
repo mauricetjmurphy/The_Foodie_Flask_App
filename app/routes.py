@@ -65,7 +65,11 @@ def about():
     return render_template('about.html', about=True)
 
 
+@app.route("/recipe/<int:recipe_id>", methods=["GET", "POST"])
+def recipe(recipe_id):
 
+    recipe = Recipe.objects(recipe_id=recipe_id).get_or_404()
+    return render_template('recipe.html', about=True, recipe=recipe)
 
 
 @app.route("/recipe/new", methods=["GET", "POST"])
