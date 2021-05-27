@@ -27,6 +27,10 @@ The Foodie is an online platform where users can share recipes and ideas. The us
     -   [Features](#features)
         -   [Existing features](#existing-features)
         -   [Future features](#future-features)
+    -   [Technologies used](#technologies-used)
+    -   [Testing](#testing)
+    -   [Credits](#credits)
+    -   [Acknowledgements](#acknowledgements)
 
 ---
 
@@ -92,4 +96,59 @@ Defensive design has been achieved by ensuring that:
 
 ### Existing features
 
+-   [x] Users can login to their accounts
+-   [x] Users can register for new accounts
+-   [x] Navigation bar for smooth navigation
+-   [x] Sorting by category by clicking navigation links.
+-   [x] Use of flash messages to inform the user of there actions and errors
+-   [x] Users can add comments to any recipe
+-   [x] User can edit and delete their account
+-   [x] Only users with accounts can view, update and delete recipes and add comments
+-   [x] The user has a section to contact the site admin
+-   [x] Users have access to social media links
+-   [x] Users can click on a dish to reveal the full recipe
+-   [x] Form validation for all form fields
+-   [x] The website includes a about page containing information about the site
+-   [x] Pagination for the recipe pages
+
 ### Future features
+
+-   [ ] Reset password link
+-   [ ] Recipe search function
+-   [ ] Lazy loading images
+-   [ ] Admin console
+-   [ ] Google login
+-   [ ] SSL certificate
+-   [ ] recipe image cropping and saving
+
+## Technologies used
+
+-   HTML 5
+-   CSS 3
+-   jQuery
+-   Python 3
+    -   Flask
+    -   Jinja
+    -   Werkzeug security
+    -   Flask-login
+    -   Flask-restplus
+    -   Flask-wtf
+    -   Flask Paginate
+-   MongoDB and MongoDB Compass
+-   Bootstrap
+-   Google fonts
+-   Slick.js
+-   Fonts Awesome
+-   Git & GitHub
+-   Heroku
+-   Adobe suite
+-   Cloudinary
+-   Google Chrome Developer tools
+-   Firefox Developer tools
+-   Safari Web Inspector
+
+## Testing
+
+## Credits
+
+## Acknowledgements

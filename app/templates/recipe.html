@@ -1,0 +1,286 @@
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="single-page-content">
+                    <div class="blog-info">
+                        <ul class="list-inline meta">
+                            <li class="list-inline-item">
+                                <a
+                                    href="#"
+                                    title=""
+                                    class="post-category"
+                                    tabindex="-1"
+                                    >{{recipe.category}}</a
+                                >
+                            </li>
+
+                            <li class="list-inline-item">
+                                {{recipe.date_added.strftime('%B %d %Y')}}
+                            </li>
+
+                            <li class="list-inline-item">
+                                <i class="fa fa-comments"></i>{{ num_posts }}
+                            </li>
+                        </ul>
+
+                        <h3 class="post-title">{{ recipe['recipe_title'] }}</h3>
+                        <div>
+                            <a
+                                id="update"
+                                class="btn btn-secondary btn-sm m-1"
+                                href="{{url_for('update_recipe', recipe_id=recipe.recipe_id)}}"
+                                >Update</a
+                            >
+                            <button
+                                data-toggle="modal"
+                                data-target="#deleteModal"
+                                class="btn btn-danger btn-sm m-1"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="recipe-img col-md-8">
+                            <img
+                                src="{{recipe['dishImageURL']}}"
+                                alt=""
+                                class=""
+                            />
+                        </div>
+
+                    <div class="blog-content">
+                        <p>{{recipe['description']}}</p>
+
+                        <h4>Ingredients</h4>
+                        <ul>
+                            {% for ingredient in recipe['ingredients'] %}
+                            <li>{{ingredient}}</li>
+                            {% endfor %}
+                        </ul>
+
+                        <h4>Directions</h4>
+                        <ol>
+                            {% for step in recipe['directions'] %}
+                            <li>{{step}}</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+
+                    <div
+                        class="social-share d-flex align-items-center mt-5 mb-5"
+                    >
+                        <p class="mb-0 mr-3">
+                            <strong>Share on:</strong>
+                        </p>
+
+                        <ul class="social-links list-inline mb-0">
+                            <li class="list-inline-item">
+                                <a
+                                    href="https://www.facebook.com/"
+                                    title=""
+                                    class="
+                                        d-inline-flex
+                                        justify-content-center
+                                        align-items-center
+                                    "
+                                >
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a
+                                    href="https://twitter.com/"
+                                    title=""
+                                    class="
+                                        d-inline-flex
+                                        justify-content-center
+                                        align-items-center
+                                    "
+                                >
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a
+                                    href="https://www.linkedin.com/"
+                                    title=""
+                                    class="
+                                        d-inline-flex
+                                        justify-content-center
+                                        align-items-center
+                                    "
+                                >
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a
+                                    href="https://www.pinterest.co.uk/"
+                                    title=""
+                                    class="
+                                        d-inline-flex
+                                        justify-content-center
+                                        align-items-center
+                                    "
+                                >
+                                    <i class="fab fa-pinterest"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="comment-section pt-5 pb-5 pb-md-0">
+                        <div class="comment-list">
+                            <div class="sec-title">
+                                <h3 class="mb-3">{{ num_posts }} Comments</h3>
+                            </div>
+
+                            <ul class="list-unstyled mb-0">
+                                {% for post in posts %} {% if post %}
+                                <li>
+                                    <div class="comment d-flex">
+                                        <div class="comment-img flex-shrink-0">
+                                            <img
+                                                src="{{url_for('static', filename='images/profile-images/user.png')}}"
+                                                alt=""
+                                                class="img-fluid"
+                                            />
+                                        </div>
+
+                                        <div class="comment-info pl-4">
+                                            <div
+                                                class="
+                                                    header
+                                                    d-flex
+                                                    flex-column flex-sm-row
+                                                    justify-content-between
+                                                    align-items-start
+                                                    align-items-sm-center
+                                                    mb-3
+                                                "
+                                            >
+                                                <h3>{{ post.r2.full_name }}</h3>
+
+                                                <div class="extra">
+                                                    <span
+                                                        >{{
+                                                        post.r2.date_added.strftime('%B
+                                                        %d %Y') }}</span
+                                                    >
+                                                </div>
+                                            </div>
+
+                                            <p class="mb-0">
+                                                {{ post.r2.content }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endif %} {% endfor %}
+                            </ul>
+                        </div>
+
+                        <div class="comment-form">
+                            <div class="sec-title">
+                                <h3 class="mb-4">Leave a comment</h3>
+                            </div>
+
+                            <form
+                                name="create_post"
+                                class="create-post-form"
+                                action=""
+                                method="post"
+                                novalidate
+                            >
+                                {{ post_form.hidden_tag() }}
+
+                                <div class="row">
+                                    <div class="form-group col-12 col-md-6">
+                                        {{
+                                        post_form.full_name(class="login_input",
+                                        size=50, placeholder="Name") }} {% for
+                                        error in post_form.full_name.errors %}
+                                        <span class="error-message"
+                                            >{{error}}</span
+                                        >
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col">
+                                        {{
+                                        post_form.content(class="comment-content",
+                                        size=50, placeholder="Comment") }} {%
+                                        for error in post_form.content.errors %}
+                                        <span class="error-message"
+                                            >{{error}}</span
+                                        >
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <!-- prettier ignore -->
+                                {{ post_form.submit_post() }}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div
+    class="modal"
+    id="deleteModal"
+    tabindex="-1"
+    aria-labelledby="deleteModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">
+                    Delete Recipe?
+                </h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                >
+                    Close
+                </button>
+                <form
+                    action="{{url_for('delete_recipe', recipe_id=recipe.recipe_id)}}"
+                    method="POST"
+                >
+                    <input
+                        type="submit"
+                        class="btn btn-danger"
+                        value="Delete"
+                    />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content Section Ends Here -->
+
+{% endblock content %}
