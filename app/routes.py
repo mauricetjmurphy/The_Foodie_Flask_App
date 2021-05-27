@@ -1,7 +1,7 @@
-from app import app, mongo
+from app import app, mongo, login_manager
 from flask import render_template, url_for, request, json, Response, flash, redirect, session, abort
 from flask_login import login_user, current_user, logout_user, login_required
-from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateAccountForm, PostForm
+from app.forms import LoginForm, RegisterForm
 from app.models import User, Recipe, Post, RecipePost
 
 # Decorators (app routes)

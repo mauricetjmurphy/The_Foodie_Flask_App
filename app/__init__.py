@@ -19,5 +19,10 @@ app.config["MONGO_URI"] = "mongodb://localhost:27017/Recipe_App"
 # Instantiate the PyMongo object
 mongo = PyMongo(app)
 
+# Instantiate the login manager object
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'info'
+
 # Import poutes below the app instantiation to prevent circular imports
 from app import routes

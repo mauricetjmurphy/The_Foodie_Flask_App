@@ -1,6 +1,12 @@
-from app import db
+from app import db, login_manager, mongo
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+
+@login_manager.user_loader
+def load_user(user_id):
+
+    return User.objects.get(user_id=user_id)
 
 # Pass to document object to the class  to allow the wtf forms directive to create fields
 class User(db.Document, UserMixin):
@@ -53,6 +59,7 @@ class Post(db.Document):
     content = db.StringField()
     date_added = db.DateTimeField(default=datetime.utcnow)
     
+# This a join table to link the posts to a recipe
 class RecipePost(db.Document):
     recipe_id = db.IntField()
     post_id = db.IntField()
