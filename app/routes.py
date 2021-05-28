@@ -93,6 +93,16 @@ def about():
 
     return render_template('about.html', about=True)
 
+@app.route("/category/<category>")
+@login_required
+def category(category):
+    dish_category = Recipe.objects(category=category)
+    
+    page = get_page()
+    pagination = Pagination(per_page= 12, page=page, total=dish_category.count(), record_name='recipes')
+    page_list = paginate_list(dish_category, page, 12)
+
+    return render_template('category.html', about=True, category=category, dish_category=dish_category, pageData=page_list, pagination=pagination)
 
 @app.route("/recipe/<int:recipe_id>", methods=["GET", "POST"])
 def recipe(recipe_id):
