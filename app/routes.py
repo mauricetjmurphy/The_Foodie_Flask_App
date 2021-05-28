@@ -1,10 +1,15 @@
-from app import app, mongo, login_manager
-from flask import render_template, url_for, request, json, Response, flash, redirect, session, abort
-from flask_login import login_user, current_user, logout_user, login_required
-from app.forms import LoginForm, RegisterForm
-from app.models import User, Recipe, Post, RecipePost
+import unittest
+from app import app, db, mongo
+from flask import request, jsonify, session
 from flask_paginate import Pagination
 import pymongo
+from datetime import datetime
+import os
+from flask import render_template, url_for, request, json, Response, flash, redirect, session, abort
+from app.models import User, Recipe, Post, RecipePost
+from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateAccountForm
+from flask_login import login_user, current_user, logout_user, login_required
+from flask_restplus import Resource
 
 # Decorators (app routes)
 @app.route("/login", methods=["GET", "POST"])

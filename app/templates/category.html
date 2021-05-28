@@ -1,0 +1,49 @@
+{% extends 'layout.html' %} {% block content %}
+
+<!-- Main Content Section Starts Here -->
+
+<section class="main-content pt-0">
+    <div class="container">
+        <div class="">
+            <div class="col-lg-12">
+                <div class="featured-post mb-3">
+                    <div class="sec-title">
+                        <h2 class="category-title">{{ category }}</h2>
+                    </div>
+                </div>
+                <div class="recipe-card-container">
+                    {% for meal in dish_category %}
+
+                    <div class="card">
+                        <img
+                            class="dish-img"
+                            src="{{ meal['dishImageURL']}}"
+                            alt=""
+                        />
+
+                        <div class="card-body-top">
+                            <a
+                                href="{{ url_for('recipe', recipe_id=meal.recipe_id)}}"
+                                title=""
+                                tabindex=""
+                                >{{ meal["recipe_title"]}}</a
+                            >
+                            <p class="card-text">
+                                {{ meal["description"] | truncate(100) }}
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted"
+                                    >Added on {{ meal.date_added.strftime('%B %d
+                                    %Y ') }}</small
+                                >
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{ pagination.links }} {% endblock content %}
