@@ -3,6 +3,8 @@ from flask import render_template, url_for, request, json, Response, flash, redi
 from flask_login import login_user, current_user, logout_user, login_required
 from app.forms import LoginForm, RegisterForm
 from app.models import User, Recipe, Post, RecipePost
+from flask_paginate import Pagination
+import pymongo
 
 # Decorators (app routes)
 @app.route("/login", methods=["GET", "POST"])
@@ -50,10 +52,27 @@ def register():
 
     return render_template('register.html', form=form, login=True)
 
+#This function is used to find what page number the user is currently on in order to help paginate list of results.        
+def get_page():
+    return request.args.get('page', 1, type=int) 
+
+#This function will take the query, page number the user is currently on and the 
+#number of results wanted per page and slice the list of query results accordingly.
+def paginate_list(query, page_number, per_page):
+    array = [item for item in query]
+    paginated_array = array[((page_number*per_page)-per_page):(page_number*per_page)]
+    return paginated_array
+
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template('index.html')
+    page = get_page()
+
+    recipes = mongo.db.recipe.find().sort('recipe_id', pymongo.DESCENDING)
+    pagination = Pagination(per_page= 6, page=page, total=recipes.count(), record_name='recipes')
+    recipe_list = paginate_list(recipes, page, 6)
+
+    return render_template('index.html', index=True, recipeData=recipe_list, pagination=pagination)
 
 
 @app.route("/contact")

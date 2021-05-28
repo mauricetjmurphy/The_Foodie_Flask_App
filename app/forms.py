@@ -41,3 +41,21 @@ class RecipeForm(FlaskForm):
     directions  = FieldList(FormField(DirectionsForm), min_entries=10, max_entries=20)
     dishImageURL = StringField("Image URL")
     submit = SubmitField("Upload Recipe")
+
+class UpdateAccountForm(FlaskForm):
+    first_name = StringField("First Name", validators=[])
+    last_name = StringField("Last Name", validators=[])
+    imageURL = FileField("Image URL", validators=[FileAllowed(["jpg", "png"])])
+    submit = SubmitField("Update")
+
+    def validate_first_name(self, first_name):
+        if first_name.data != current_user.first_name:
+            user = User.objects(first_name=first_name.data).first()
+            if user:
+                raise ValidationError("Please enter a new name")
+
+    def validate_last_name(self, last_name):
+        if last_name.data != current_user.last_name:
+            user = User.objects(last_name=last_name.data).first()
+            if user:
+                raise ValidationError("Please enter a new name")
