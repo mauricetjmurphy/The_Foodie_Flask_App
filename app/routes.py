@@ -4,6 +4,8 @@ from flask import request, jsonify, session
 from flask_paginate import Pagination
 import pymongo
 from datetime import datetime
+from PIL import Image
+import secrets
 import os
 from flask import render_template, url_for, request, json, Response, flash, redirect, session, abort
 from app.models import User, Recipe, Post, RecipePost
@@ -117,8 +119,40 @@ def new_recipe():
 
     return render_template('new_recipe.html', about=True)
 
+
+
+def save_image(form_image):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_image.filename)
+    image_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/images/profile-images', image_fn )
+
+    output_size = (125, 125)
+    i = Image.open(form_image)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return image_fn
+
 @app.route("/account", methods=["GET", "POST"])
-
+@login_required
 def account():
-
-    return render_template('account.html', about=True)
+    imageURL = url_for('static', filename="images/" + current_user.imageURL)
+    user = current_user
+    print(current_user.user_id)
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        if form.imageURL.data:
+            picture_file= save_image(form.imageURL.data)
+            current_user.imageURL = picture_file
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+        
+        current_user.save()
+        flash('Your account has been updated', 'success')
+        return redirect(url_for('account'))
+    elif request.method == "GET":
+        form.first_name.data = current_user.first_name
+        form.last_name.data = current_user.last_name
+  
+    return render_template('account.html',  form=form, imageURL=imageURL, user=user)
