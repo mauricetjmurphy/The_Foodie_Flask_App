@@ -1,0 +1,500 @@
+/*==========================================================
+		General
+	==========================================================*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#submit {
+    background: #fafafa;
+    border: 1px solid #eaeaea;
+    color: #000;
+    font-size: 16px;
+}
+
+#submit:hover {
+    background: #2b2a2a;
+    color: #fff;
+}
+
+.pagination-page-info {
+    padding: 0.6em;
+    padding-left: 0;
+    width: 40em;
+    margin: 0.5em;
+    margin-left: 0;
+    font-size: 12px;
+}
+.pagination-page-info b {
+    color: black;
+    background: #6aa6ed;
+    padding-left: 2px;
+    padding: 0.1em 0.25em;
+    font-size: 150%;
+}
+
+.pagination {
+    justify-content: center;
+}
+
+.pagination ul {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    padding: 0;
+    list-style-type: none;
+}
+
+.pagination ul a {
+    padding: 5px;
+}
+
+/*==========================================================
+            Login Page
+        ==========================================================*/
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: #f0f2f5;
+}
+
+.login-input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    box-sizing: border-box;
+    margin: 60px 0 0;
+    padding: 20px 0 28px;
+}
+
+input.login_input {
+    height: 45px;
+    font-size: 22px;
+    font-size: 17px;
+    padding: 14px 16px;
+    width: 330px !important;
+    border: 1px solid #dddfe2;
+    border-radius: 6px;
+    margin: 6px 0;
+}
+
+input[type="submit"] {
+    margin: 6px 0;
+    padding: 14px 16px;
+    line-height: 10px;
+}
+
+.login-btn {
+    display: block;
+    height: 45px;
+    width: 330px;
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    background: #68cc66;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.forgot-password {
+    height: 45px;
+    width: 330px;
+    text-align: center;
+    line-height: 50px;
+    border-bottom: 1px solid #dddfe2;
+    font-size: 14px;
+}
+
+.new-acc-btn {
+    height: 40px;
+    line-height: 40px;
+    font-size: 22px;
+    font-size: 17px;
+    padding: 0 16px;
+    width: 200px;
+    border-radius: 6px;
+    margin: 6px 0;
+    background: #b1b1b1;
+    color: #fff;
+    margin-top: 15px;
+}
+
+.new-acc-btn:hover {
+    background: #3c3c3c;
+    color: #fff;
+}
+
+.alert {
+    margin: 0 !important;
+    text-align: center !important;
+}
+
+.error-message {
+    color: red;
+}
+
+/*==========================================================
+            Register Page
+        ==========================================================*/
+
+.register-form-container {
+    width: 400px;
+    margin: 50px auto;
+    border: 1px solid #ccd0d5;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+}
+
+.register-form-s1,
+.register-form-s2 {
+    margin: 20px;
+}
+
+.register-form-s1 {
+    border-bottom: 1px solid #dadde1;
+}
+
+.register-form-s1 h1 {
+    margin: 0;
+}
+
+.register-text-input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.register-select-container,
+.register-select-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+select {
+    width: 32%;
+    padding: 0 20px 0 8px !important;
+}
+
+.gender-item {
+    position: relative;
+    width: 32%;
+    height: 40px;
+    display: inline-block;
+}
+
+.gender-item label {
+    padding: 0 28px 0 10px;
+    margin: 0;
+    display: inline-block;
+    width: 100%;
+    line-height: 40px;
+}
+
+.gender-item input {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    margin: 0;
+}
+
+input,
+select,
+label {
+    height: 40px;
+    border: 1px solid #ccd0d5;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 11px;
+}
+
+input[type="text"] {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100% !important;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+#password {
+    margin: 0;
+}
+
+.email-input {
+    width: 100% !important;
+}
+
+.signup-btn {
+    display: block;
+    height: 45px;
+    width: 330px;
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    background: #68cc66;
+    color: #fff;
+    margin: 25px auto !important;
+}
+
+/*==========================================================
+            Recipe Page
+        ==========================================================*/
+.recipe-img img {
+    width: 100%;
+    overflow: hidden;
+}
+
+.blog-content p {
+    padding: 30px 0;
+}
+
+.recipe-nutrition h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+ol,
+ul {
+    padding-left: 25px;
+}
+
+textarea#content.comment-content {
+    width: 100%;
+    height: 200px;
+    padding: 15px !important;
+    border: 1px solid #dddfe2;
+    border-radius: 6px;
+    font-size: 17px;
+}
+
+/*==========================================================
+            Recipe Form
+        ==========================================================*/
+
+.create-recipe-form {
+    margin: 50px auto;
+    width: 60vw !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    font-weight: 100;
+    box-shadow: 0 1px 5px 1px #eaeaea;
+    padding: 28px;
+}
+
+.create-recipe-form input {
+    width: 100%;
+    background: #fafafa;
+    border: 1px solid #eaeaea;
+}
+
+.create-recipe-form input::placeholder {
+    color: #909090 !important;
+}
+
+.create-recipe-form h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+    padding: 5px 0 20px 0;
+}
+
+.direction {
+    width: 100%;
+}
+
+textarea {
+    height: 100px;
+    padding: 10px;
+    background: #fafafa;
+    border: 1px solid #eaeaea;
+    width: 100% !important;
+    margin-bottom: 15px;
+}
+
+textarea.step_input {
+    padding: 10px;
+    background: #fafafa;
+    border: 1px solid #eaeaea;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+textarea#description::placeholder {
+    color: #909090 !important;
+}
+
+input#recipe_title {
+    margin-bottom: 20px;
+}
+
+input.ingredient-input {
+    width: 90% !important;
+}
+
+.create-recipe-form i {
+    margin: 0 0 0 5px;
+    font-size: 0.8rem;
+    color: #3c3c3c;
+    padding-right: 4px;
+}
+
+.recipe-image {
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.add-ingredient {
+    cursor: pointer;
+}
+
+.add-step {
+    cursor: pointer;
+}
+
+button,
+a#update {
+    border-radius: 5px !important;
+    padding: 4px 16px !important;
+}
+
+/*==========================================================
+            Index Page
+        ==========================================================*/
+.recipe-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 30% !important;
+    height: 330px;
+    margin: 10px !important;
+}
+
+.dish-img {
+    width: 100%;
+    overflow: hidden;
+}
+
+.card-img-top {
+    width: 95%;
+}
+
+.card-body-top {
+    padding: 10px;
+}
+
+/*==========================================================
+            Account Page
+        ==========================================================*/
+.account-container {
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+    width: 60vw !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    font-weight: 100;
+    box-shadow: 0 1px 5px 1px #eaeaea;
+    padding: 28px;
+}
+
+.account-container h2 {
+    padding-top: 15px;
+}
+
+.account-container h3 {
+    font-size: 1rem;
+}
+
+.user-img {
+    height: 125px;
+    width: 125px;
+}
+
+.update-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.update-details h1 {
+    font-size: 1.5rem;
+    margin: 15px 0;
+}
+
+.user-update-form {
+    margin-top: 50px;
+    border-radius: 5px;
+}
+
+.user-image-input {
+    height: 50px;
+    width: 100%;
+}
+
+.account-container hr {
+    background-color: red;
+}
+
+.account-container#submit {
+    width: 100% !important;
+    background: #fafafa !important;
+}
+
+.add-profile-label {
+    width: 100%;
+}
+
+.add-profile-label p {
+    margin: 4px;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+/*==========================================================
+            Category Page
+        ==========================================================*/
+.sec-title {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+.category-title {
+    margin: 25px;
+    font-family: "Dancing Script", cursive;
+    font-size: 2.5rem !important;
+}
+
+/*==========================================================
+            Media queries
+        ==========================================================*/
+
+@media (max-width: 768px) {
+    .card {
+        width: 100% !important;
+    }
+}

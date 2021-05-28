@@ -122,10 +122,3 @@ def new_recipe():
 def account():
 
     return render_template('account.html', about=True)
-
-
-@app.route("/category")
-
-def category():
-
-    return render_template('account.html', about=True)

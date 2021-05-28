@@ -47,7 +47,7 @@
                     <div class="blog-item">
                         <div class="blog-img  hero-img">
                             <img
-                                src=""
+                                src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622037956/The%20Foodie/chicken_tikka_vcisoc.jpg"
                                 alt=""
                                 class="img-fluid hero"
                             />
@@ -83,43 +83,7 @@
                     <div class="blog-item">
                         <div class="blog-img  hero-img">
                             <img
-                                src=""
-                                alt=""
-                                class="img-fluid hero"
-                            />
-                        </div>
-
-                        <div class="blog-info">
-                            <a href="#" title="" class="post-category">Foody</a>
-
-                            <h3 class="post-title">
-                                <a href="" title=""
-                                    >Creamy Garlic Parmesan Chicken Salad</a
-                                >
-                            </h3>
-
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Nulla ipsum risus, ultricies eu
-                                ligula.
-                            </p>
-
-                            <ul class="list-inline meta">
-                                <li class="list-inline-item">May 24, 2020</li>
-
-                                <li class="list-inline-item">
-                                    <a href="#" title=""
-                                        ><i class="fa fa-comments"></i>4</a
-                                    >
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="blog-item">
-                        <div class="blog-img  hero-img">
-                            <img
-                                src=""
+                                src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622038199/The%20Foodie/vegtable_samosa_j0xgmi.jpg"
                                 alt=""
                                 class="img-fluid hero"
                             />
@@ -248,7 +212,55 @@
 </section>
 
 <!-- Featured Section Ends Here -->
+
+<!-- Main Content Section Starts Here -->
+
+<section class="main-content pt-0">
+    <div class="container">
+        <div class="">
+            <div class="col-lg-12">
+                <div class="featured-post mb-3">
+                    <div class="sec-title">
+                        <h3 class="mb-3">Featured Recipes</h3>
+                    </div>
+                </div>
+
+                <div class="recipe-card-container">
+                    {% for data in recipeData %}
+
+                    <div class="card">
+                        <img
+                            class="dish-img"
+                            src="{{ data['dishImageURL']}}"
+                            alt=""
+                        />
+
+                        <div class="card-body-top">
+                            <a
+                                href="{{ url_for('recipe', recipe_id=data.recipe_id)}}"
+                                title=""
+                                tabindex=""
+                                >{{ data["recipe_title"]}}</a
+                            >
+                            <p class="card-text">
+                                {{ data["description"] | truncate(100) }}
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted"
+                                    >Added on {{ data.date_added.strftime('%B
+                                    %d %Y ') }}</small
+                                >
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Main Content Section Ends Here -->
+
 {{ pagination.links }}
 
-<!-- Main Content Section Ends Here -->
 {% endblock content %}

@@ -4,9 +4,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 @login_manager.user_loader
-def load_user(user_id):
+def load_user(email):
 
-    return User.objects.get(user_id=user_id)
+    return User.objects.get(email=email)
 
 # Pass to document object to the class  to allow the wtf forms directive to create fields
 class User(db.Document, UserMixin):
@@ -25,8 +25,8 @@ class User(db.Document, UserMixin):
         return True
 
     def get_id(self):
-        """Return the user id to satisfy Flask-Login's requirements."""
-        return self.user_id
+        """Return the email to satisfy Flask-Login's requirements."""
+        return self.email
 
     def is_authenticated(self):
         """Return True if the user is authenticated."""
