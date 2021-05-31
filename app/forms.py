@@ -59,3 +59,8 @@ class UpdateAccountForm(FlaskForm):
             user = User.objects(last_name=last_name.data).first()
             if user:
                 raise ValidationError("Please enter a new name")
+
+class PostForm(FlaskForm):
+    full_name = StringField("Name", validators=[DataRequired()])
+    content = TextAreaField("Ingredients", validators=[DataRequired()])
+    submit_post = SubmitField("Post Comment")
