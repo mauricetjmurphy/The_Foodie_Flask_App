@@ -9,7 +9,7 @@
 
 #submit {
     background: #fafafa;
-    border: 1px solid #eaeaea;
+    border: 1px solid #3c3c3c;
     color: #000;
     font-size: 16px;
 }
@@ -67,7 +67,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0 20px;
+    padding: 25px;
 }
 
 .login-form {
@@ -91,7 +91,7 @@ input.login_input {
     width: 330px !important;
     border: 1px solid #dddfe2;
     border-radius: 6px;
-    margin: 6px 0;
+    margin: 10px 0 !important;
 }
 
 input[type="submit"] {
@@ -130,14 +130,15 @@ input[type="submit"] {
     width: 200px;
     border-radius: 6px;
     margin: 6px 0;
-    background: #b1b1b1;
+    background: #3c3c3c;
     color: #fff;
     margin-top: 15px;
 }
 
 .new-acc-btn:hover {
-    background: #3c3c3c;
-    color: #fff;
+    background: #fff;
+    color: #3c3c3c;
+    border: 1px solid #3c3c3c;
 }
 
 .alert {
