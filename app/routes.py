@@ -201,6 +201,56 @@ def new_recipe():
         return redirect(url_for('index'))
     return render_template("add_recipe.html", title='New Recipe', form=form, post_form=post_form,  login=True, legend='Add a new recipe')
 
+@app.route("/recipe/<int:recipe_id>/update",  methods=["GET", "POST"])
+@login_required
+def update_recipe(recipe_id):
+    recipe = Recipe.objects(recipe_id=recipe_id).get_or_404()
+    if recipe.author != current_user.email:
+            # abort(403)
+        flash("Sorry you can't update a recipe that you havn't created!", "danger")
+        return
+    form = RecipeForm()
+    # Add add fields that you want to update
+    if form.validate_on_submit():
+        recipe_title = form.recipe_title.data
+        description = form.description.data
+
+        ingredients = []
+        for field in form.ingredients:
+            ingredients.append(field.form.ingredient.data)
+
+        directions = []
+        for field in form.directions:
+            directions.append(field.form.direction.data)
+
+        dishImageURL = form.dishImageURL.data
+        category = request.form.get('category')
+        
+        mongo.db.recipe.remove({"recipe_id": recipe_id})
+
+        recipe = Recipe(recipe_id=recipe_id, recipe_title=recipe_title, description=description, ingredients=ingredients, directions=directions, dishImageURL=dishImageURL, category=category)
+        recipe.save()
+
+        flash("Your recipe has been updated!", 'success')
+        return redirect(url_for('recipe', recipe_id=recipe_id))
+    elif request.method == 'GET':
+        form.recipe_title.data = recipe.recipe_title
+        form.description.data =  recipe.description
+
+        ingredients = []
+        for i, field in enumerate(form.ingredients):
+            if i < len(recipe.ingredients):
+                field.form.ingredient.data = recipe.ingredients[i]
+
+        directions = []
+        for i, field in enumerate(form.directions):
+            if i < len(recipe.directions):
+                field.form.direction.data = recipe.directions[i]
+            
+        form.dishImageURL.data = recipe.dishImageURL
+    
+
+    return render_template('add_recipe.html', about=True, recipe=recipe, form=form, legend='Update recipe', post_form=post_form)
 
 
 def save_image(form_image):
