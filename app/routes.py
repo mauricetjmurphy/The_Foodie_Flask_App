@@ -72,6 +72,7 @@ def paginate_list(query, page_number, per_page):
 
 @app.route("/")
 @app.route("/index")
+@login_required
 def index():
     page = get_page()
 
@@ -83,14 +84,13 @@ def index():
 
 
 @app.route("/contact")
-
+@login_required
 def contact():
-    
     return render_template('contact.html', contact=True)
 
 
 @app.route("/about")
-
+@login_required
 def about():
 
     return render_template('about.html', about=True)
@@ -107,6 +107,7 @@ def category(category):
     return render_template('category.html', about=True, category=category, dish_category=dish_category, pageData=page_list, pagination=pagination)
 
 @app.route("/recipe/<int:recipe_id>", methods=["GET", "POST"])
+@login_required
 def recipe(recipe_id):
 
     recipe = Recipe.objects(recipe_id=recipe_id).get_or_404()
@@ -114,7 +115,7 @@ def recipe(recipe_id):
 
 
 @app.route("/recipe/new", methods=["GET", "POST"])
-
+@login_required
 def new_recipe():
 
     return render_template('new_recipe.html', about=True)
