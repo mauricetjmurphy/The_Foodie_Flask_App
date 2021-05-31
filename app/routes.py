@@ -33,7 +33,7 @@ def login():
             return redirect(url_for('index'))
   
         else:
-            flash("Sorry something went wrong", "danger")
+            flash("Login unsuccessful, please check your email and password", "danger")
     return render_template('login.html', form=form, login=True)
 
 @app.route('/logout')
@@ -106,6 +106,38 @@ def category(category):
 
     return render_template('category.html', about=True, category=category, dish_category=dish_category, pageData=page_list, pagination=pagination)
 
+@app.route("/recipe/new", methods=["GET", "POST"])
+@login_required
+def new_recipe():
+    post_form = PostForm()
+    form = RecipeForm()
+    if form.validate_on_submit():
+        recipe_id = Recipe.objects.count()
+        recipe_id += 1
+        recipe_title = form.recipe_title.data
+        description = form.description.data
+        
+        ingredients = []
+        for field in form.ingredients:
+            if field.form.ingredient.data != "":
+                ingredients.append(field.form.ingredient.data)
+
+        directions = []
+        for field in form.directions:
+            if field.form.direction.data != "":
+                directions.append(field.form.direction.data)
+
+        category = request.form.get('category')
+        
+        dishImageURL = form.dishImageURL.data
+        author = current_user.email
+        recipe = Recipe(recipe_id=recipe_id, recipe_title=recipe_title, description=description, ingredients=ingredients, directions=directions, category=category, dishImageURL=dishImageURL, author=author)
+        recipe.save()
+        flash("Another wonderful recipe added to your collection.", "success")
+        return redirect(url_for('index'))
+    return render_template("add_recipe.html", title='New Recipe', form=form, post_form=post_form,  login=True, legend='Add a new recipe')
+
+
 @app.route("/recipe/<int:recipe_id>", methods=["GET", "POST"])
 @login_required
 def recipe(recipe_id):
@@ -170,37 +202,6 @@ def recipe(recipe_id):
     return render_template('recipe.html', about=True, num_posts=num_posts, recipe=recipe, posts=posts, post_form=post_form, user=user)
 
 
-@app.route("/recipe/new", methods=["GET", "POST"])
-@login_required
-def new_recipe():
-    post_form = PostForm()
-    form = RecipeForm()
-    if form.validate_on_submit():
-        recipe_id = Recipe.objects.count()
-        recipe_id += 1
-        recipe_title = form.recipe_title.data
-        description = form.description.data
-        
-        ingredients = []
-        for field in form.ingredients:
-            if field.form.ingredient.data != "":
-                ingredients.append(field.form.ingredient.data)
-
-        directions = []
-        for field in form.directions:
-            if field.form.direction.data != "":
-                directions.append(field.form.direction.data)
-
-        category = request.form.get('category')
-        
-        dishImageURL = form.dishImageURL.data
-        author = current_user.email
-        recipe = Recipe(recipe_id=recipe_id, recipe_title=recipe_title, description=description, ingredients=ingredients, directions=directions, category=category, dishImageURL=dishImageURL, author=author)
-        recipe.save()
-        flash("Another wonderful recipe added to your collection.", "success")
-        return redirect(url_for('index'))
-    return render_template("add_recipe.html", title='New Recipe', form=form, post_form=post_form,  login=True, legend='Add a new recipe')
-
 @app.route("/recipe/<int:recipe_id>/update",  methods=["GET", "POST"])
 @login_required
 def update_recipe(recipe_id):
@@ -249,8 +250,18 @@ def update_recipe(recipe_id):
             
         form.dishImageURL.data = recipe.dishImageURL
     
-
     return render_template('add_recipe.html', about=True, recipe=recipe, form=form, legend='Update recipe', post_form=post_form)
+
+
+@app.route("/recipe/<int:recipe_id>/delete",  methods=["POST"])
+@login_required
+def delete_recipe(recipe_id):
+    recipe = Recipe.objects(recipe_id=recipe_id).get_or_404()
+    if recipe.author != current_user.email:
+        abort(403)
+    mongo.db.recipe.remove({"recipe_id":recipe_id}, True)
+    flash("Your recipe has been deleted!", 'success')
+    return redirect(url_for('index'))
 
 
 def save_image(form_image):
