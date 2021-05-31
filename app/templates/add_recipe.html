@@ -1,0 +1,80 @@
+{% extends 'layout.html' %} {% block content %}
+<form
+    name="create_recipe"
+    class="create-recipe-form"
+    action=""
+    method="post"
+    novalidate
+>
+    <!-- CSRF token ensures that the form is secure -->
+    {{ form.hidden_tag() }} {{ form.csrf_token }}
+
+    <h1>{{ legend }}</h1>
+
+    <!-- prettier ignore -->
+    {{ form.dishImageURL(class="recipe-image", placeholder="Dish image URL") }}
+    {% for error in form.dishImageURL.errors %}
+    <span class="error-message">{{error}}</span>
+    {% endfor %}
+
+    <!-- prettier ignore -->
+    {{ form.recipe_title(size= 30, placeholder="Recipe Title *") }} {% for error
+    in form.recipe_title.errors %}
+    <span class="error-message">{{error}}</span>
+    {% endfor %}
+
+    <!-- prettier ignore -->
+    {{ form.description(size= 30, placeholder="Description *") }} {% for error
+    in form.description.errors %}
+    <span class="error-message">{{error}}</span>
+    {% endfor %}
+    <hr />
+
+    <select name="category" id="category">
+        <option disabled selected value="0">Category</option>
+        <option value="Breakfast">Breakfast</option>
+        <option value="Lunch">Lunch</option>
+        <option value="Dinner">Dinner</option>
+        <option value="Dessert">Dessert</option>
+    </select>
+
+    <!-- prettier ignore -->
+    <p>Add your ingredients one at a time *</p>
+    <div class="ingredients">
+        {% for ingredient in form.ingredients %}
+        <!-- prettier ignore -->
+        {{ ingredient.hidden_tag() }} {{
+        ingredient.form.ingredient(class='ingredient', placeholder="Ingredient")
+        }}
+    </div>
+    <!-- prettier ignore -->
+    {% endfor %}
+    <div>
+        <i class="fas fa-plus add-ingredient"></i>
+        <p class="add-ingredient" style="display: inline">
+            Add another ingredient
+        </p>
+    </div>
+
+    <hr />
+
+    <!-- prettier ignore -->
+    <p>Add your instructions one at a time *</p>
+    <div class="steps">
+        {% for direction in form.directions %}
+        <!-- prettier ignore -->
+        {{ direction.hidden_tag() }} {{
+        direction.form.direction(class="direction", rows=3 ,
+        placeholder="Direction") }} {% endfor %}
+    </div>
+    <div>
+        <i class="fas fa-plus add-step"></i>
+        <p class="add-step" style="display: inline">Add another step</p>
+    </div>
+
+    <hr />
+
+    <!-- prettier ignore -->
+    {{ form.submit() }}
+</form>
+{% endblock content %}
