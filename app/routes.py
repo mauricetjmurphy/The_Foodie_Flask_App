@@ -9,7 +9,7 @@ import secrets
 import os
 from flask import render_template, url_for, request, json, Response, flash, redirect, session, abort
 from app.models import User, Recipe, Post, RecipePost
-from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateAccountForm
+from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateAccountForm, PostForm
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_restplus import Resource
 
@@ -109,16 +109,97 @@ def category(category):
 @app.route("/recipe/<int:recipe_id>", methods=["GET", "POST"])
 @login_required
 def recipe(recipe_id):
+    post_form = PostForm()
+    if post_form.validate_on_submit():
+        post_id = Post.objects.count()
+        post_id += 1
+        full_name = post_form.full_name.data
+        content = post_form.content.data
+        post = Post(post_id=post_id, full_name=full_name, content=content)
+        post.save()
+        recipePost = RecipePost(recipe_id=recipe_id, post_id=post_id)
+        recipePost.save()
 
+        flash('Your post has been added', 'success')
+        return redirect(url_for('index'))
+        form.full_name.data = ''
+        form.content.data = ''
+
+    posts = list( Recipe.objects.aggregate(*[
+        {
+            '$lookup': {
+                'from': 'recipe_post', 
+                'localField': 'recipe_id', 
+                'foreignField': 'recipe_id', 
+                'as': 'r1'
+            }
+        }, {
+            '$unwind': {
+                'path': '$r1', 
+                'includeArrayIndex': 'r1_id', 
+                'preserveNullAndEmptyArrays': False
+            }
+        }, {
+            '$lookup': {
+                'from': 'post', 
+                'localField': 'r1.post_id', 
+                'foreignField': 'post_id', 
+                'as': 'r2'
+            }
+        }, {
+            '$unwind': {
+                'path': '$r2', 
+                'includeArrayIndex': 'string', 
+                'preserveNullAndEmptyArrays': False
+            }
+        }, {
+            '$match': {
+                'recipe_id': recipe_id
+            }
+        }, {
+            '$sort': {
+                'recipe_id': 1
+            }
+        }
+    ]))
+
+    num_posts = len(posts)
+
+    user=current_user
     recipe = Recipe.objects(recipe_id=recipe_id).get_or_404()
-    return render_template('recipe.html', about=True, recipe=recipe)
+    return render_template('recipe.html', about=True, num_posts=num_posts, recipe=recipe, posts=posts, post_form=post_form, user=user)
 
 
 @app.route("/recipe/new", methods=["GET", "POST"])
 @login_required
 def new_recipe():
+    post_form = PostForm()
+    form = RecipeForm()
+    if form.validate_on_submit():
+        recipe_id = Recipe.objects.count()
+        recipe_id += 1
+        recipe_title = form.recipe_title.data
+        description = form.description.data
+        
+        ingredients = []
+        for field in form.ingredients:
+            if field.form.ingredient.data != "":
+                ingredients.append(field.form.ingredient.data)
 
-    return render_template('new_recipe.html', about=True)
+        directions = []
+        for field in form.directions:
+            if field.form.direction.data != "":
+                directions.append(field.form.direction.data)
+
+        category = request.form.get('category')
+        
+        dishImageURL = form.dishImageURL.data
+        author = current_user.email
+        recipe = Recipe(recipe_id=recipe_id, recipe_title=recipe_title, description=description, ingredients=ingredients, directions=directions, category=category, dishImageURL=dishImageURL, author=author)
+        recipe.save()
+        flash("Another wonderful recipe added to your collection.", "success")
+        return redirect(url_for('index'))
+    return render_template("add_recipe.html", title='New Recipe', form=form, post_form=post_form,  login=True, legend='Add a new recipe')
 
 
 

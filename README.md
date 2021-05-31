@@ -14,23 +14,23 @@ The Foodie is an online platform where users can share recipes and ideas. The us
 
 ---
 
--   [The Foodie](#the-foodie)
-    -   [Table of Contents](#table-of-contents)
-    -   [UI/UX](#uiux)
-        -   [Project goals](#project-goals)
-        -   [User Stories](#user-stories)
-    -   [Design](#design)
-        -   [Wireframes](#wireframes)
-        -   [Colour Scheme](#colour-scheme)
-        -   [Database Schema](#database-schema)
-        -   [Defensive Design](#defensive-design)
-    -   [Features](#features)
-        -   [Existing features](#existing-features)
-        -   [Future features](#future-features)
-    -   [Technologies used](#technologies-used)
-    -   [Testing](#testing)
-    -   [Credits](#credits)
-    -   [Acknowledgements](#acknowledgements)
+- [The Foodie](#the-foodie)
+  - [Table of Contents](#table-of-contents)
+  - [UI/UX](#uiux)
+    - [Project goals](#project-goals)
+    - [User Stories](#user-stories)
+  - [Design](#design)
+    - [Wireframes](#wireframes)
+    - [Colour Scheme](#colour-scheme)
+    - [Database Schema](#database-schema)
+    - [Defensive Design](#defensive-design)
+  - [Features](#features)
+    - [Existing features](#existing-features)
+    - [Future features](#future-features)
+  - [Technologies used](#technologies-used)
+  - [Testing](#testing)
+  - [Credits](#credits)
+  - [Acknowledgements](#acknowledgements)
 
 ---
 
@@ -117,6 +117,7 @@ Defensive design has been achieved by ensuring that:
 -   [ ] Recipe search function
 -   [ ] Lazy loading images
 -   [ ] Admin console
+-   [ ] Dynamic form fields
 -   [ ] Google login
 -   [ ] SSL certificate
 -   [ ] recipe image cropping and saving
