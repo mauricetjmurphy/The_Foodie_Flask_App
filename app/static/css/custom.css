@@ -498,4 +498,14 @@ a#update {
     .card {
         width: 100% !important;
     }
+
+    .account-container {
+        border: none;
+        box-shadow: none;
+    }
+
+    .account-container h2 {
+        text-align: center;
+        font-size: 1.4rem;
+    }
 }

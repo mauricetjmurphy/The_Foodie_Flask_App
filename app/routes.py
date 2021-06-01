@@ -54,6 +54,7 @@ def register():
         user = User(user_id=user_id, email=email, first_name=first_name, last_name=last_name)
         user.set_password(password)
         user.save()
+        login_user(user)
         flash("You are successfully registered", "success")
         return redirect(url_for('index'))
 
@@ -153,7 +154,7 @@ def recipe(recipe_id):
         recipePost.save()
 
         flash('Your post has been added', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('recipe', recipe_id=recipe_id))
         form.full_name.data = ''
         form.content.data = ''
 
@@ -207,9 +208,8 @@ def recipe(recipe_id):
 def update_recipe(recipe_id):
     recipe = Recipe.objects(recipe_id=recipe_id).get_or_404()
     if recipe.author != current_user.email:
-            # abort(403)
         flash("Sorry you can't update a recipe that you havn't created!", "danger")
-        return
+        return redirect(url_for('recipe', recipe_id=recipe_id))
     form = RecipeForm()
     # Add add fields that you want to update
     if form.validate_on_submit():
@@ -256,9 +256,10 @@ def update_recipe(recipe_id):
 @app.route("/recipe/<int:recipe_id>/delete",  methods=["POST"])
 @login_required
 def delete_recipe(recipe_id):
-    recipe = Recipe.objects(recipe_id=recipe_id).get_or_404()
+    recipe = Recipe.objects(recipe_id=recipe_id)
     if recipe.author != current_user.email:
-        abort(403)
+        flash("Sorry you can't delete a recipe that you havn't created!", "danger")
+        return redirect(url_for('recipe', recipe_id=recipe_id))
     mongo.db.recipe.remove({"recipe_id":recipe_id}, True)
     flash("Your recipe has been deleted!", 'success')
     return redirect(url_for('index'))
