@@ -250,7 +250,7 @@ def update_recipe(recipe_id):
             
         form.dishImageURL.data = recipe.dishImageURL
     
-    return render_template('add_recipe.html', about=True, recipe=recipe, form=form, legend='Update recipe', post_form=post_form)
+    return render_template('add_recipe.html', about=True, recipe=recipe, form=form, legend='Update recipe')
 
 
 @app.route("/recipe/<int:recipe_id>/delete",  methods=["POST"])
@@ -299,3 +299,11 @@ def account():
         form.last_name.data = current_user.last_name
   
     return render_template('account.html',  form=form, imageURL=imageURL, user=user)
+
+@app.route("/account/delete",  methods=['GET','POST'])
+def delete_account():
+    user_id = current_user.user_id
+    logout_user()
+    mongo.db.user.delete_one({"user_id": user_id})
+    flash("Your account has been deleted!", 'success')
+    return redirect(url_for('login'))
