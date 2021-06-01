@@ -219,18 +219,21 @@ def update_recipe(recipe_id):
 
         ingredients = []
         for field in form.ingredients:
-            ingredients.append(field.form.ingredient.data)
+            if field.form.ingredient.data != "":
+                ingredients.append(field.form.ingredient.data)
 
         directions = []
         for field in form.directions:
-            directions.append(field.form.direction.data)
+            if field.form.direction.data != "":
+                directions.append(field.form.direction.data)
 
         dishImageURL = form.dishImageURL.data
         category = request.form.get('category')
+        author = current_user.email
         
         mongo.db.recipe.remove({"recipe_id": recipe_id})
 
-        recipe = Recipe(recipe_id=recipe_id, recipe_title=recipe_title, description=description, ingredients=ingredients, directions=directions, dishImageURL=dishImageURL, category=category)
+        recipe = Recipe(recipe_id=recipe_id, recipe_title=recipe_title, description=description, ingredients=ingredients, directions=directions, dishImageURL=dishImageURL, category=category, author=author)
         recipe.save()
 
         flash("Your recipe has been updated!", 'success')
