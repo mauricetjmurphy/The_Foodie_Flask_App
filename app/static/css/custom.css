@@ -508,4 +508,12 @@ a#update {
         text-align: center;
         font-size: 1.4rem;
     }
+
+    .create-recipe-form {
+        width: 85vw !important;
+    }
+
+    .update-details {
+        width: 85vw !important;
+    }
 }
