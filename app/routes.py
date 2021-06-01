@@ -18,7 +18,8 @@ from flask_restplus import Resource
 def login():
     # Check if user is already logged in
     if current_user.is_authenticated:
-            return redirect(url_for('index'))
+        flash("User is already logged in!", "danger")
+        return redirect(url_for('index'))
 
     # Assign the login form object to the form variable
     form = LoginForm()
@@ -308,3 +309,8 @@ def delete_account():
     mongo.db.user.delete_one({"user_id": user_id})
     flash("Your account has been deleted!", 'success')
     return redirect(url_for('login'))
+
+@app.route("/contact-form", methods=["GET", "POST"])
+def contact_form():
+    flash("Thank you for your message, we will be in touch as soon as we can!", 'success')
+    return redirect(url_for('contact'))

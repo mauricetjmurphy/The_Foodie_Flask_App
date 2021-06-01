@@ -50,7 +50,7 @@
     error in form.imageURL.errors %}
     <span class="error-message">{{error}}</span>
     {% endfor %} 
-    <p><small>Please upload a square image only</small></p>
+    <p><small>Please upload a square image <span style="color: red; text-transform: uppercase;">only</span></small></p>
 
     {{ form.submit(class="btn signup-btn")}}
 </form>
