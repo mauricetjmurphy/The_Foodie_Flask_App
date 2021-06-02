@@ -83,5 +83,13 @@ class TestCase(unittest.TestCase):
         response = tester.get('/recipe/1', content_type='html/text')
         self.assertEqual(response.status_code, 200)
 
+    def test_recipe_content(self):
+        # This test checks if "Chicken Tikka Masala" is in the response data that we get from the recipe route
+        tester = app.test_client(self)
+        response = tester.get('/recipe/1', content_type='html/text')
+        self.assertTrue(b"Chicken Tikka Masala" in response.data)
+
+    
+
 if __name__ == '__main__':
     unittest.main()
