@@ -23,13 +23,17 @@ class TestCase(unittest.TestCase):
         response = tester.get('/index', content_type='html/text')
         self.assertEqual(response.status_code, 200)
 
-def test_index_content(self):
+    def test_index_content(self):
         #  This test checks if "Featured Categories" is in the response data that we get from the index route
         tester = app.test_client(self)
         response = tester.get('/index', content_type='html/text')
         self.assertTrue(b"Featured Categories" in response.data)
 
-    
+    def test_about(self):
+        # This test checks the about page for a HTTP 200 OK response 
+        tester = app.test_client(self)
+        response = tester.get('/about', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
 
 
 
