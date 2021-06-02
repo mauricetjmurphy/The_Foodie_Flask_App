@@ -89,7 +89,11 @@ class TestCase(unittest.TestCase):
         response = tester.get('/recipe/1', content_type='html/text')
         self.assertTrue(b"Chicken Tikka Masala" in response.data)
 
-    
+    def test_recipe_update(self):
+        # This test checks the update recipe page for a HTTP 200 OK response 
+        tester = app.test_client(self)
+        response = tester.get('/recipe/1/update', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
 
 if __name__ == '__main__':
     unittest.main()
