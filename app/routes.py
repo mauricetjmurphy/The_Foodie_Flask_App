@@ -1,4 +1,3 @@
-import unittest
 from app import app, db, mongo
 from flask import request, jsonify, session
 from flask_paginate import Pagination
