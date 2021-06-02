@@ -59,5 +59,11 @@ class TestCase(unittest.TestCase):
         response = tester.get('/recipe/new', content_type='html/text')
         self.assertEqual(response.status_code, 200)
 
+    def test_add_recipe_content(self):
+        # This test checks if "Add a new recipe" is in the response data that we get from the index route
+        tester = app.test_client(self)
+        response = tester.get('/recipe/new', content_type='html/text')
+        self.assertTrue(b"Add a new recipe" in response.data)
+
 if __name__ == '__main__':
     unittest.main()
