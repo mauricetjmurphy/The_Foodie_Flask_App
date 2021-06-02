@@ -41,5 +41,11 @@ class TestCase(unittest.TestCase):
         response = tester.get('/about', content_type='html/text')
         self.assertTrue(b"About Us" in response.data)
 
+    def test_contact(self):
+        # This test checks the contact page for a HTTP 200 OK response 
+        tester = app.test_client(self)
+        response = tester.get('/contact', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
+
 if __name__ == '__main__':
     unittest.main()
