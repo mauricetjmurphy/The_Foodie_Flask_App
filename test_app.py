@@ -53,5 +53,11 @@ class TestCase(unittest.TestCase):
         response = tester.get('/contact', content_type='html/text')
         self.assertTrue(b"Get In Touch" in response.data)
 
+    def test_add_recipe(self):
+        # This test checks the add recipe page for a HTTP 200 OK response 
+        tester = app.test_client(self)
+        response = tester.get('/recipe/new', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
+
 if __name__ == '__main__':
     unittest.main()
