@@ -11,6 +11,7 @@ load_dotenv()
 
 # Instantiate the flask app object
 app = Flask(__name__)
+app.config.from_object(Config)
 
 # Instantiate the mongo engine object
 db = MongoEngine()
@@ -18,7 +19,7 @@ db.init_app(app)
 
 # Specifing the URI for pymongo
 # app.config["MONGO_URI"] = "mongodb://localhost:27017/Recipe_App"
-app.config["MONGO_URI"] = "mongodb+srv://Maurice:#Firewire69@cluster0.f09a9.mongodb.net/Recipe_app?retryWrites=true&w=majority"
+app.config["MONGO_URI"] = "mongodb+srv://Maurice:Firewire69@cluster0.f09a9.mongodb.net/Recipe_app_atlas?retryWrites=true&w=majority"
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 # Instantiate the PyMongo object
 mongo = PyMongo(app)
