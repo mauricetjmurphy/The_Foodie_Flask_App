@@ -11,8 +11,6 @@ load_dotenv()
 
 # Instantiate the flask app object
 app = Flask(__name__)
-# Configure the app object using the config class
-app.config.from_object(Config)
 
 # Instantiate the mongo engine object
 db = MongoEngine()
