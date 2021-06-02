@@ -11,108 +11,74 @@
                     <div class="blog-item">
                         <div class="blog-img hero-img">
                             <img
-                                src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622038008/The%20Foodie/butter_chicken_hcd99b.jpg"
+                                src="{{all_recipes[0]['dishImageURL']}}"
                                 alt=""
                                 class="img-fluid hero"
                             />
                         </div>
 
                         <div class="blog-info">
-                            <a href="#" title="" class="post-category">Foody</a>
+                            <a href="{{ url_for('category', category="Dessert")}}" title="" class="post-category">Dessert</a>
 
                             <h3 class="post-title">
                                 <a href="#" title=""
-                                    >Creamy Garlic Parmesan Chicken Salad</a
+                                    >{{all_recipes[0]['recipe_title']}}</a
                                 >
                             </h3>
 
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Nulla ipsum risus, ultricies eu
-                                ligula.
+                                {{all_recipes[0]['description']}}
                             </p>
 
-                            <ul class="list-inline meta">
-                                <li class="list-inline-item">May 24, 2020</li>
-
-                                <li class="list-inline-item">
-                                    <a href="#" title=""
-                                        ><i class="fa fa-comments"></i>4</a
-                                    >
-                                </li>
-                            </ul>
                         </div>
                     </div>
 
                     <div class="blog-item">
                         <div class="blog-img  hero-img">
                             <img
-                                src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622037956/The%20Foodie/chicken_tikka_vcisoc.jpg"
+                                src="{{all_recipes[2]['dishImageURL']}}"
                                 alt=""
                                 class="img-fluid hero"
                             />
                         </div>
 
                         <div class="blog-info">
-                            <a href="#" title="" class="post-category">Foody</a>
+                            <a href="{{ url_for('category', category="Breakfast")}}" title="" class="post-category">Breakfast</a>
 
                             <h3 class="post-title">
                                 <a href="#" title=""
-                                    >Creamy Garlic Parmesan Chicken Salad</a
+                                    >{{all_recipes[2]['recipe_title']}}</a
                                 >
                             </h3>
 
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Nulla ipsum risus, ultricies eu
-                                ligula.
+                                {{all_recipes[2]['description']}}
                             </p>
 
-                            <ul class="list-inline meta">
-                                <li class="list-inline-item">May 24, 2020</li>
-
-                                <li class="list-inline-item">
-                                    <a href="#" title=""
-                                        ><i class="fa fa-comments"></i>4</a
-                                    >
-                                </li>
-                            </ul>
                         </div>
                     </div>
 
                     <div class="blog-item">
                         <div class="blog-img  hero-img">
                             <img
-                                src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622038199/The%20Foodie/vegtable_samosa_j0xgmi.jpg"
+                                src="{{all_recipes[4]['dishImageURL']}}"
                                 alt=""
                                 class="img-fluid hero"
                             />
                         </div>
 
                         <div class="blog-info">
-                            <a href="#" title="" class="post-category">Foody</a>
+                            <a href="{{ url_for('category', category="Dinner")}}" title="" class="post-category">Dinner</a>
 
                             <h3 class="post-title">
                                 <a href="" title=""
-                                    >Creamy Garlic Parmesan Chicken Salad</a
+                                    >{{all_recipes[4]['recipe_title']}}</a
                                 >
                             </h3>
 
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Nulla ipsum risus, ultricies eu
-                                ligula.
+                                {{all_recipes[4]['description']}}
                             </p>
-
-                            <ul class="list-inline meta">
-                                <li class="list-inline-item">May 24, 2020</li>
-
-                                <li class="list-inline-item">
-                                    <a href="#" title=""
-                                        ><i class="fa fa-comments"></i>4</a
-                                    >
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>

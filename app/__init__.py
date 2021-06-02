@@ -4,6 +4,7 @@ from app.config import Config
 from flask_mongoengine import MongoEngine
 from flask_pymongo import PyMongo
 from flask_login import LoginManager
+from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
 
@@ -17,9 +18,12 @@ app.config.from_object(Config)
 db = MongoEngine()
 db.init_app(app)
 
+# client = MongoClient("mongodb+srv://Maurice:testpassword@cluster0.f09a9.mongodb.net/Recipe_app_atlas?retryWrites=true&w=majority")
+# db = client.get_database('Recipe_app_atlas')
+
 # Specifing the URI for pymongo
-# app.config["MONGO_URI"] = "mongodb://localhost:27017/Recipe_App"
-app.config["MONGO_URI"] = "mongodb+srv://Maurice:Firewire69@cluster0.f09a9.mongodb.net/Recipe_app_atlas?retryWrites=true&w=majority"
+app.config["MONGO_URI"] = "mongodb://localhost:27017/Recipe_App"
+# app.config["MONGO_URI"] = "mongodb+srv://Maurice:testpassword@cluster0.f09a9.mongodb.net/Recipe_app_atlas?retryWrites=true&w=majority"
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 # Instantiate the PyMongo object
 mongo = PyMongo(app)

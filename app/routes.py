@@ -77,11 +77,12 @@ def paginate_list(query, page_number, per_page):
 def index():
     page = get_page()
 
+    all_recipes = mongo.db.recipe.find().sort('recipe_id', pymongo.DESCENDING)
     recipes = mongo.db.recipe.find().sort('recipe_id', pymongo.DESCENDING)
     pagination = Pagination(per_page= 6, page=page, total=recipes.count(), record_name='recipes')
     recipe_list = paginate_list(recipes, page, 6)
 
-    return render_template('index.html', index=True, recipeData=recipe_list, pagination=pagination)
+    return render_template('index.html', index=True, all_recipes=all_recipes, recipeData=recipe_list, pagination=pagination)
 
 
 @app.route("/contact")
