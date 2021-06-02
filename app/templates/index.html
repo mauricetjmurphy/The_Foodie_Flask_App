@@ -21,7 +21,7 @@
                             <a href="{{ url_for('category', category="Dessert")}}" title="" class="post-category">Dessert</a>
 
                             <h3 class="post-title">
-                                <a href="#" title=""
+                                <a href="{{ url_for('recipe', recipe_id=all_recipes[0]["recipe_id"])}}" title=""
                                     >{{all_recipes[0]['recipe_title']}}</a
                                 >
                             </h3>
@@ -46,7 +46,7 @@
                             <a href="{{ url_for('category', category="Breakfast")}}" title="" class="post-category">Breakfast</a>
 
                             <h3 class="post-title">
-                                <a href="#" title=""
+                                <a href="{{ url_for('recipe', recipe_id=all_recipes[2]["recipe_id"])}}" title=""
                                     >{{all_recipes[2]['recipe_title']}}</a
                                 >
                             </h3>
@@ -71,7 +71,7 @@
                             <a href="{{ url_for('category', category="Dinner")}}" title="" class="post-category">Dinner</a>
 
                             <h3 class="post-title">
-                                <a href="" title=""
+                                <a href="{{ url_for('recipe', recipe_id=all_recipes[4]["recipe_id"])}}" title=""
                                     >{{all_recipes[4]['recipe_title']}}</a
                                 >
                             </h3>
