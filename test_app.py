@@ -65,5 +65,11 @@ class TestCase(unittest.TestCase):
         response = tester.get('/recipe/new', content_type='html/text')
         self.assertTrue(b"Add a new recipe" in response.data)
 
+    def test_account(self):
+        # The homepage should have a list of recipes and this partiular recipe should be there.
+        tester = app.test_client(self) 
+        response = tester.get('/account', content_type='html/text')
+        self.assertEqual(response.status_code, 200)
+
 if __name__ == '__main__':
     unittest.main()
