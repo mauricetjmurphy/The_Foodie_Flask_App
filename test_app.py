@@ -66,10 +66,16 @@ class TestCase(unittest.TestCase):
         self.assertTrue(b"Add a new recipe" in response.data)
 
     def test_account(self):
-        # The homepage should have a list of recipes and this partiular recipe should be there.
+        # This test checks the account page for a HTTP 200 OK response 
         tester = app.test_client(self) 
         response = tester.get('/account', content_type='html/text')
         self.assertEqual(response.status_code, 200)
+
+    def test_account_content(self):
+        # This test checks if "Update Details" is in the response data that we get from the index route
+        tester = app.test_client(self)
+        response = tester.get('/account', content_type='html/text')
+        self.assertTrue(b"Update Details" in response.data)
 
 if __name__ == '__main__':
     unittest.main()
