@@ -35,7 +35,11 @@ class TestCase(unittest.TestCase):
         response = tester.get('/about', content_type='html/text')
         self.assertEqual(response.status_code, 200)
 
-
+    def test_about_content(self):
+        #  This test checks if "About Us" is in the response data that we get from the index route
+        tester = app.test_client(self)
+        response = tester.get('/about', content_type='html/text')
+        self.assertTrue(b"About Us" in response.data)
 
 if __name__ == '__main__':
     unittest.main()
