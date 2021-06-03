@@ -41,14 +41,25 @@
     <!-- prettier ignore -->
     <p>Add your ingredients one at a time *</p>
     <div class="ingredients">
-        {% for ingredient in form.ingredients %}
-        <!-- prettier ignore -->
-        {{ ingredient.hidden_tag() }} {{
-        ingredient.form.ingredient(class='ingredient', placeholder="Ingredient")
-        }}
+        <input
+            value=""
+            type="text"
+            name="ingredient-field[]"
+            class="ingredient_input"
+            placeholder="Ingredient *"
+            required
+        />
+
+        <input
+            value=""
+            type="text"
+            name="ingredient-field[]"
+            class="ingredient_input"
+            placeholder="Ingredient *"
+            required
+        />
     </div>
-    <!-- prettier ignore -->
-    {% endfor %}
+
     <div>
         <i class="fas fa-plus add-ingredient"></i>
         <p class="add-ingredient" style="display: inline">
@@ -61,11 +72,25 @@
     <!-- prettier ignore -->
     <p>Add your instructions one at a time *</p>
     <div class="steps">
-        {% for direction in form.directions %}
-        <!-- prettier ignore -->
-        {{ direction.hidden_tag() }} {{
-        direction.form.direction(class="direction", rows=3 ,
-        placeholder="Direction") }} {% endfor %}
+        <textarea
+            rows="3"
+            value=""
+            type="text"
+            name="step-field[]"
+            class="step_input"
+            placeholder="Step *"
+            required
+        ></textarea>
+
+        <textarea
+            rows="3"
+            value=""
+            type="text"
+            name="step-field[]"
+            class="step_input"
+            placeholder="Step *"
+            required
+        ></textarea>
     </div>
     <div>
         <i class="fas fa-plus add-step"></i>

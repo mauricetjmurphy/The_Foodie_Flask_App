@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationE
 from app.models import User
 from app import mongo
 from flask_login import current_user
+from mongoengine import ListField
 
 #Creating the form classes
 class LoginForm(FlaskForm):
@@ -37,9 +38,9 @@ class DirectionsForm(FlaskForm):
 class RecipeForm(FlaskForm):
     recipe_title = StringField("Name", validators=[DataRequired()])
     description = TextAreaField("Description", validators=[DataRequired(), Length(min=50)])
-    ingredients  = FieldList(FormField(IngredientsForm), min_entries=20, max_entries=20)
-    directions  = FieldList(FormField(DirectionsForm), min_entries=10, max_entries=20)
     dishImageURL = StringField("Image URL")
+    ingredients  = ListField(StringField())
+    directions  = ListField(StringField())
     submit = SubmitField("Upload Recipe")
 
 class UpdateAccountForm(FlaskForm):

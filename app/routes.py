@@ -119,16 +119,8 @@ def new_recipe():
         recipe_title = form.recipe_title.data
         description = form.description.data
         
-        ingredients = []
-        for field in form.ingredients:
-            if field.form.ingredient.data != "":
-                ingredients.append(field.form.ingredient.data)
-
-        directions = []
-        for field in form.directions:
-            if field.form.direction.data != "":
-                directions.append(field.form.direction.data)
-
+        ingredients = request.form.getlist('ingredient-field[]')
+        directions = request.form.getlist('step-field[]')
         category = request.form.get('category')
         
         dishImageURL = form.dishImageURL.data
