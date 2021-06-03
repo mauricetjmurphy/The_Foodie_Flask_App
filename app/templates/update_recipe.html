@@ -43,6 +43,7 @@
     <p>Add your ingredients one at a time *</p>
     <div class="ingredients">
         {% for ingredient in recipe["ingredients"] %}
+        {{ form.hidden_tag() }} {{ form.csrf_token }}
         <input
             value="{{ ingredient }}"
             type="text"
@@ -64,6 +65,7 @@
     <p>Add your instructions one at a time *</p>
     <div class="steps">
         {% for step in recipe["directions"] %}
+        {{ form.hidden_tag() }} {{ form.csrf_token }}
         <textarea
             value="{{ step }}"
             rows="3"
