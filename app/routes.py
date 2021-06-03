@@ -209,15 +209,8 @@ def update_recipe(recipe_id):
         recipe_title = form.recipe_title.data
         description = form.description.data
 
-        ingredients = []
-        for field in form.ingredients:
-            if field.form.ingredient.data != "":
-                ingredients.append(field.form.ingredient.data)
-
-        directions = []
-        for field in form.directions:
-            if field.form.direction.data != "":
-                directions.append(field.form.direction.data)
+        ingredients = request.form.getlist('ingredient-field[]')
+        directions = request.form.getlist('step-field[]')
 
         dishImageURL = form.dishImageURL.data
         category = request.form.get('category')
@@ -232,27 +225,16 @@ def update_recipe(recipe_id):
         return redirect(url_for('recipe', recipe_id=recipe_id))
     elif request.method == 'GET':
         form.recipe_title.data = recipe.recipe_title
-        form.description.data =  recipe.description
-
-        ingredients = []
-        for i, field in enumerate(form.ingredients):
-            if i < len(recipe.ingredients):
-                field.form.ingredient.data = recipe.ingredients[i]
-
-        directions = []
-        for i, field in enumerate(form.directions):
-            if i < len(recipe.directions):
-                field.form.direction.data = recipe.directions[i]
-            
+        form.description.data =  recipe.description          
         form.dishImageURL.data = recipe.dishImageURL
     
-    return render_template('add_recipe.html', about=True, recipe=recipe, form=form, legend='Update recipe')
+    return render_template('update_recipe.html', about=True, recipe=recipe, form=form, legend='Update recipe')
 
 
 @app.route("/recipe/<int:recipe_id>/delete",  methods=["POST"])
 @login_required
 def delete_recipe(recipe_id):
-    recipe = Recipe.objects(recipe_id=recipe_id)
+    recipe = Recipe.objects(recipe_id=recipe_id).first()
     if recipe.author != current_user.email:
         flash("Sorry you can't delete a recipe that you havn't created!", "danger")
         return redirect(url_for('recipe', recipe_id=recipe_id))
