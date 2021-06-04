@@ -291,3 +291,13 @@ def delete_account():
 def contact_form():
     flash("Thank you for your message, we will be in touch as soon as we can!", 'success')
     return redirect(url_for('contact'))
+
+
+@ app.errorhandler(404)
+def not_found(error):
+    return render_template('errors/404.html'), 404
+
+
+@ app.errorhandler(500)
+def internal_error(error):
+    return render_template('errors/500.html'), 500

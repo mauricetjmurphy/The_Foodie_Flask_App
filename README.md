@@ -28,7 +28,18 @@ The Foodie is an online platform where users can share recipes and ideas. The us
     - [Existing features](#existing-features)
     - [Future features](#future-features)
   - [Technologies used](#technologies-used)
+  - [Deployment](#deployment)
   - [Testing](#testing)
+    - [Manual](#manual)
+    - [Automated](#automated)
+    - [Usability testing](#usability-testing)
+    - [Validators](#validators)
+      - [1. HTML5](#1-html5)
+      - [2. CSS3](#2-css3)
+      - [3. JavaScript](#3-javascript)
+      - [4. Browsers](#4-browsers)
+      - [5. Responsivness](#5-responsivness)
+      - [6. Form Validation](#6-form-validation)
   - [Credits](#credits)
   - [Acknowledgements](#acknowledgements)
 
@@ -61,9 +72,9 @@ As an admin I would like to do all of the above plus:
 
 ## Design
 
-A lot of my inspiration and design ideas come from [Yummy](https://www.yummly.co.uk/), a recipe website that allows users search through thousands of recipes.
+A lot of my inspiration and design ideas come from [Yummy](https://www.yummly.co.uk/), a recipe website that allows users to search through thousands of recipes.
 
-To build the website is used bootstrap 5, Fontawsome and fonts from Google Fonts.
+To build the website, I used bootstrap 5, CSS3, Fontawsome and fonts from Google Fonts.
 
 ### Wireframes
 
@@ -148,7 +159,49 @@ Defensive design has been achieved by ensuring that:
 -   Firefox Developer tools
 -   Safari Web Inspector
 
+## Deployment
+
 ## Testing
+
+### Manual
+
+### Automated
+
+### Usability testing
+
+Useability testing for this website was achieved by sending a live link of the site to a selected group of people and setting them a number of navigation tasks to carry out. Users reported that they could easily accomplish their tasks and navigate seemlessly through the site.
+
+### Validators
+
+#### 1. HTML5
+
+-   W3C HTML Validator
+    -   Document checking on HTML. No errors reported. Warnings recommend using headings in my sections. This will be ignored as it is intentional.
+
+#### 2. CSS3
+
+-   W3C CSS Validator
+    -   No errors found
+
+#### 3. JavaScript
+
+-   JsHint Metrics
+    -   There are 19 functions in the file.
+    -   The function with the largest signature takes 5 arguments, while the median is 1.
+    -   The largest function has 12 statements in it while the media is 1.
+    -   The most complex function has a cyclomatic complexity value of 2 while the median is 1.
+
+#### 4. Browsers
+
+-   The app was tested on the four most used browsers Chrome, Safari, Internet Explorer and Firefox, according to W3Counter. The main testing was done with the Chrome DevTools.
+
+#### 5. Responsivness
+
+-   Responsive design was factored in during the design of the app. This was achieved with a combination of Bootstrap, CSS Grid, CSS Flexbox and media queries. The media queries changed the screen layout as the screen size changed.
+
+#### 6. Form Validation
+
+All form fields in this projct are validated using flask wtf form validators. Any form field not using WTF validation, will contain the HTML ‘required’ property for validation. By catching invalid data on the client-side, the user can fix it straight away.
 
 ## Credits
 
