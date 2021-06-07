@@ -1,6 +1,6 @@
 {% extends 'layout.html' %} {% block content %}
 
-<form name="register" action="" method="POST" novalidate>
+<form name="register-user" action="" method="POST" novalidate>
     <!-- Adds the csrf token as a security measure -->
     {{form.hidden_tag()}} {{ form.csrf_token }}
     <div class="register-form-container">

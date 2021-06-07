@@ -1,3 +1,4 @@
+from wtforms.validators import Email
 from app import app, db, mongo
 from flask import request, jsonify, session
 from flask_paginate import Pagination
@@ -12,29 +13,47 @@ from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateAccountForm, Po
 from flask_login import login_user, current_user, logout_user, login_required
 
 # Decorators (app routes)
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    # Check if user is already logged in
-    if current_user.is_authenticated:
-        flash("User is already logged in!", "danger")
-        return redirect(url_for('index'))
+# @app.route("/login", methods=["GET", "POST"])
+# def login():
+#     # Check if user is already logged in
+#     if current_user.is_authenticated:
+#         flash("User is already logged in!", "danger")
+#         return redirect(url_for('index'))
 
-    # Assign the login form object to the form variable
+#     # Assign the login form object to the form variable
+#     form = LoginForm()
+#     if form.validate_on_submit():
+#         email = form.email.data
+#         password = form.password.data
+#         user = User(email = email)
+#         print(user)
+#         if user and user.get_password(password):
+#             login_user(user, remember=False)
+#             flash(f" {user.first_name}, you are successfully logged in!", 'success')
+#             return redirect(url_for('index'))
+
+#     return render_template('login.html', form=form)
+
+@app.route("/login", methods=["GET","POST"])
+def login():
     form = LoginForm()
+    
+    # user = mongo.db.user.find()
+    # user = User.objects().first()
+    # user = User.select().where(User.email == email).first()
+
     if form.validate_on_submit():
         email = form.email.data
         password = form.password.data
-        user = User.objects(email=email).first()
-     
-        if user and user.get_password(password):
+        user = User(email = email)
+        # user = db["user"].find({"email": email})
+        print(user)
+
+        if user:
             login_user(user)
             flash(f" {user.first_name}, you are successfully logged in!", 'success')
-            return redirect(url_for('index'))
-  
-    else:
-        flash("Login unsuccessful, please check your email and password", "danger")
-
-    return render_template('login.html', form=form)
+            return redirect(url_for("index"))
+    return render_template("login.html", form=form)
 
 @app.route('/logout')
 def logout():
@@ -45,20 +64,22 @@ def logout():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        user_id = User.objects.count()
+    
+        user_id = db["user"].count()
+        print(f"user_id: ------------{user_id}---------------")
         user_id += 1
         email = form.email.data
         password = form.password.data
         first_name = form.first_name.data
         last_name = form.last_name.data
-        user = User(user_id=user_id, email=email, first_name=first_name, last_name=last_name, password=password)
-        user.set_password(password)
-        user.save()
-        login_user(user)
+        db["user"].insert_one({"email": email, "first_name": first_name, "last_name": last_name, "password": password})
+        # User( email=email, first_name=first_name, last_name=last_name, password=password).save()
+        # user.set_password(password)
         flash("You are successfully registered", "success")
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     
     return render_template('register.html', form=form)
+
 
 #This function is used to find what page number the user is currently on in order to help paginate list of results.        
 def get_page():
@@ -73,7 +94,7 @@ def paginate_list(query, page_number, per_page):
 
 @app.route("/")
 @app.route("/index")
-# @login_required
+@login_required
 def index():
     page = get_page()
 
@@ -109,7 +130,7 @@ def category(category):
     return render_template('category.html', about=True, category=category, dish_category=dish_category, pageData=page_list, pagination=pagination)
 
 @app.route("/recipe/new", methods=["GET", "POST"])
-@login_required
+# @login_required
 def new_recipe():
     post_form = PostForm()
     form = RecipeForm()
@@ -298,6 +319,6 @@ def contact_form():
 #     return render_template('errors/404.html'), 404
 
 
-# @ app.errorhandler(500)
-# def internal_error(error):
-#     return render_template('errors/500.html'), 500
+@ app.errorhandler(500)
+def internal_error(error):
+    return render_template('errors/500.html'), 500

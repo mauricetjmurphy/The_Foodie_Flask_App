@@ -15,12 +15,15 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 # Instantiate the mongo engine object
-db = MongoEngine()
-db.init_app(app)
+mone = MongoEngine()
+mone.init_app(app)
+
+cluster = MongoClient("mongodb://Maurice:<testpassword@recipeapp-shard-00-00.f09a9.mongodb.net:27017,recipeapp-shard-00-01.f09a9.mongodb.net:27017,recipeapp-shard-00-02.f09a9.mongodb.net:27017/Recipes?ssl=true&replicaSet=atlas-hhj5sz-shard-0&authSource=admin&retryWrites=true&w=majority")
+db = cluster["Recipes"]
+
 
 # Specifing the URI 
-app.config["MONGO_URI"] = "mongodb://Maurice:testpassword@cluster0-shard-00-00.f09a9.mongodb.net:27017,cluster0-shard-00-01.f09a9.mongodb.net:27017,cluster0-shard-00-02.f09a9.mongodb.net:27017/Recipe_app_atlas?ssl=true&replicaSet=atlas-6byso0-shard-0&authSource=admin&retryWrites=true&w=majority"
-# app.config["MONGO_URI"] = "mongodb://localhost:27017/Recipe_App"
+app.config["MONGO_URI"] = "mongodb://Maurice:testpassword@recipeapp-shard-00-00.f09a9.mongodb.net:27017,recipeapp-shard-00-01.f09a9.mongodb.net:27017,recipeapp-shard-00-02.f09a9.mongodb.net:27017/Recipes?ssl=true&replicaSet=atlas-hhj5sz-shard-0&authSource=admin&retryWrites=true&w=majority"
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 # Instantiate the PyMongo object

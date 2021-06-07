@@ -1,4 +1,5 @@
-from app import db, login_manager, mongo
+from pymongo import mongo_client
+from app import db, login_manager, mongo, mone
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -6,16 +7,16 @@ from flask_login import UserMixin
 @login_manager.user_loader
 def load_user(email):
 
-    return User.objects.get(email=email)
+    return  User(email = email)
 
 # Pass to document object to the class  to allow the wtf forms directive to create fields
-class User(db.Document, UserMixin):
-    user_id = db.IntField(unique = True)
-    first_name = db.StringField(max_length=50)
-    last_name = db.StringField(max_length=50)
-    email = db.StringField(max_length=30, unique=True)
-    password = db.StringField()
-    imageURL = db.StringField(max_length=300, default="user.png")
+class User(mone.Document):
+    user_id = mone.IntField(unique = True)
+    first_name = mone.StringField(max_length=50)
+    last_name = mone.StringField(max_length=50)
+    email = mone.StringField(max_length=30, unique=True)
+    password = mone.StringField()
+    imageURL = mone.StringField(max_length=300, default="user.png")
 
     def __repr__(self):
         return f"User('{self.user_id}', '{self.first_name}','{self.last_name}'),'{self.email}') '{self.imageURL}')"
@@ -42,24 +43,24 @@ class User(db.Document, UserMixin):
     def get_password(self, password):
         return check_password_hash(self.password, password)
 
-class Recipe(db.Document): 
-    recipe_id = db.IntField(unique = True)
-    recipe_title = db.StringField(max_length=50)
-    description = db.StringField()
-    ingredients = db.ListField(db.StringField())
-    directions = db.ListField(db.StringField())
-    dishImageURL = db.StringField(max_length=300)
-    category = db.StringField(default="Unassigned")
-    author = db.StringField()
-    date_added = db.DateTimeField(default=datetime.utcnow)
+class Recipe(mone.Document): 
+    recipe_id = mone.IntField(unique = True)
+    recipe_title = mone.StringField(max_length=50)
+    description = mone.StringField()
+    ingredients = mone.ListField(mone.StringField())
+    directions = mone.ListField(mone.StringField())
+    dishImageURL = mone.StringField(max_length=300)
+    category = mone.StringField(default="Unassigned")
+    author = mone.StringField()
+    date_added = mone.DateTimeField(default=datetime.utcnow)
    
-class Post(db.Document):
-    post_id = db.IntField(unique = True)
-    full_name = db.StringField(max_length=50)
-    content = db.StringField()
-    date_added = db.DateTimeField(default=datetime.utcnow)
+class Post(mone.Document):
+    post_id = mone.IntField(unique = True)
+    full_name = mone.StringField(max_length=50)
+    content = mone.StringField()
+    date_added = mone.DateTimeField(default=datetime.utcnow)
     
 # This a join table to link the posts to a recipe
-class RecipePost(db.Document):
-    recipe_id = db.IntField()
-    post_id = db.IntField()
+class RecipePost(mone.Document):
+    recipe_id = mone.IntField()
+    post_id = mone.IntField()

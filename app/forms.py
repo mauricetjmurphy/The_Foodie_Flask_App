@@ -11,7 +11,6 @@ from mongoengine import ListField
 class LoginForm(FlaskForm):
     email = StringField("Email",  validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
-    remember_me = BooleanField("Remember Me")
     submit = SubmitField("Login")
 
 class RegisterForm(FlaskForm):
@@ -23,10 +22,10 @@ class RegisterForm(FlaskForm):
     submit = SubmitField("Register Now")
 
     #Email validation. Checks if the inputted email has already been used
-    def validate_email(self, email):
-        user = mongo.db.user.find_one_or_404({"email": email.data})
-        if user:
-            raise ValidationError("Email is already in use. Please try another one.")
+    # def validate_email(self, email):
+    #     user = mongo.db.user.find_one_or_404({"email": email.data})
+    #     if user:
+    #         raise ValidationError("Email is already in use. Please try another one.")
     
 
 class IngredientsForm(FlaskForm):
