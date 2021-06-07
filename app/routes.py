@@ -10,7 +10,6 @@ from flask import render_template, url_for, request, json, Response, flash, redi
 from app.models import User, Recipe, Post, RecipePost
 from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateAccountForm, PostForm
 from flask_login import login_user, current_user, logout_user, login_required
-from flask_restplus import Resource
 
 # Decorators (app routes)
 @app.route("/login", methods=["GET", "POST"])
@@ -26,15 +25,16 @@ def login():
         email = form.email.data
         password = form.password.data
         user = User.objects(email=email).first()
-        session['user_id'] = user.user_id
+     
         if user and user.get_password(password):
             login_user(user)
             flash(f" {user.first_name}, you are successfully logged in!", 'success')
             return redirect(url_for('index'))
   
-        else:
-            flash("Login unsuccessful, please check your email and password", "danger")
-    return render_template('login.html', form=form, login=True)
+    else:
+        flash("Login unsuccessful, please check your email and password", "danger")
+
+    return render_template('login.html', form=form)
 
 @app.route('/logout')
 def logout():
@@ -51,14 +51,14 @@ def register():
         password = form.password.data
         first_name = form.first_name.data
         last_name = form.last_name.data
-        user = User(user_id=user_id, email=email, first_name=first_name, last_name=last_name)
+        user = User(user_id=user_id, email=email, first_name=first_name, last_name=last_name, password=password)
         user.set_password(password)
         user.save()
         login_user(user)
         flash("You are successfully registered", "success")
         return redirect(url_for('index'))
-
-    return render_template('register.html', form=form, login=True)
+    
+    return render_template('register.html', form=form)
 
 #This function is used to find what page number the user is currently on in order to help paginate list of results.        
 def get_page():
@@ -73,7 +73,7 @@ def paginate_list(query, page_number, per_page):
 
 @app.route("/")
 @app.route("/index")
-@login_required
+# @login_required
 def index():
     page = get_page()
 
@@ -293,11 +293,11 @@ def contact_form():
     return redirect(url_for('contact'))
 
 
-@ app.errorhandler(404)
-def not_found(error):
-    return render_template('errors/404.html'), 404
+# @ app.errorhandler(404)
+# def not_found(error):
+#     return render_template('errors/404.html'), 404
 
 
-@ app.errorhandler(500)
-def internal_error(error):
-    return render_template('errors/500.html'), 500
+# @ app.errorhandler(500)
+# def internal_error(error):
+#     return render_template('errors/500.html'), 500

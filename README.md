@@ -40,6 +40,8 @@ The Foodie is an online platform where users can share recipes and ideas. The us
       - [4. Browsers](#4-browsers)
       - [5. Responsivness](#5-responsivness)
       - [6. Form Validation](#6-form-validation)
+  - [Performance](#performance)
+    - [Lazy Loading](#lazy-loading)
   - [Credits](#credits)
   - [Acknowledgements](#acknowledgements)
 
@@ -165,6 +167,15 @@ Defensive design has been achieved by ensuring that:
 
 ### Manual
 
+1. Register
+
+    - Tried to submit the signup form with blank fields. Received the error "This field is required".
+    - Tried to register with an incorrect email address format. Received the error "Please enter a vlaid email.
+
+2. Login
+    - Tried to submit the login form with blank fields. Received the error "This field is required".
+    - Tried to submit a form with a user that does not exist.
+
 ### Automated
 
 ### Usability testing
@@ -202,6 +213,10 @@ Useability testing for this website was achieved by sending a live link of the s
 #### 6. Form Validation
 
 All form fields in this projct are validated using flask wtf form validators. Any form field not using WTF validation, will contain the HTML ‘required’ property for validation. By catching invalid data on the client-side, the user can fix it straight away.
+
+## Performance
+
+### Lazy Loading
 
 ## Credits
 

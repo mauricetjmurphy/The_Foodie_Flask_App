@@ -3,7 +3,7 @@
 <div class="login-container">
     <form name="login" class="login-form" action="" method="post" novalidate>
         <div class="login-input-container">
-            {{ form.hidden_tag() }}
+            {{form.hidden_tag()}} {{ form.csrf_token }}
             <h1>Login</h1>
             {{ form.email(class="login_input", size=50, placeholder="Email Address") }}
             {% for error in form.email.errors %}

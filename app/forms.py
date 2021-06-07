@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, FileField, DateTimeField, FieldList, FormField
-from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError, InputRequired
 from app.models import User
 from app import mongo
 from flask_login import current_user
@@ -15,7 +15,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Login")
 
 class RegisterForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired(), Email()])
+    email = StringField("Email", validators=[DataRequired("Please enter your email address."), Email("This field requires a valid email address")])
     password = PasswordField("Password", validators=[DataRequired(), Length(min=6, max=30)])
     confirm_password =  PasswordField("Confirm Password", validators=[DataRequired(), Length(min=6, max=30), EqualTo("password")])
     first_name = StringField("First Name", validators=[DataRequired()])

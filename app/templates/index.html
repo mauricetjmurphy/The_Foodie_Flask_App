@@ -11,23 +11,23 @@
                     <div class="blog-item">
                         <div class="blog-img hero-img">
                             <img
-                                src="{{all_recipes[0]['dishImageURL']}}"
+                                src="{{all_recipes[1]['dishImageURL']}}"
                                 alt=""
                                 class="img-fluid hero"
                             />
                         </div>
 
                         <div class="blog-info">
-                            <a href="{{ url_for('category', category="Dessert")}}" title="" class="post-category">Dessert</a>
+                            <a href="{{ url_for('category', category=all_recipes[1]["category"])}}" title="" class="post-category">Dessert</a>
 
                             <h3 class="post-title">
-                                <a href="{{ url_for('recipe', recipe_id=all_recipes[0]["recipe_id"])}}" title=""
+                                <a href="{{ url_for('recipe', recipe_id=all_recipes[1]["recipe_id"])}}" title=""
                                     >{{all_recipes[0]['recipe_title']}}</a
                                 >
                             </h3>
 
                             <p>
-                                {{all_recipes[0]['description']}}
+                                {{all_recipes[1]['description']}}
                             </p>
 
                         </div>
@@ -36,23 +36,23 @@
                     <div class="blog-item">
                         <div class="blog-img  hero-img">
                             <img
-                                src="{{all_recipes[2]['dishImageURL']}}"
+                                src="{{all_recipes[3]['dishImageURL']}}"
                                 alt=""
                                 class="img-fluid hero"
                             />
                         </div>
 
                         <div class="blog-info">
-                            <a href="{{ url_for('category', category="Breakfast")}}" title="" class="post-category">Breakfast</a>
+                            <a href="{{ url_for('category', category=all_recipes[3]['category'])}}" title="" class="post-category">Breakfast</a>
 
                             <h3 class="post-title">
-                                <a href="{{ url_for('recipe', recipe_id=all_recipes[2]["recipe_id"])}}" title=""
+                                <a href="{{ url_for('recipe', recipe_id=all_recipes[3]["recipe_id"])}}" title=""
                                     >{{all_recipes[2]['recipe_title']}}</a
                                 >
                             </h3>
 
                             <p>
-                                {{all_recipes[2]['description']}}
+                                {{all_recipes[3]['description']}}
                             </p>
 
                         </div>
@@ -61,23 +61,23 @@
                     <div class="blog-item">
                         <div class="blog-img  hero-img">
                             <img
-                                src="{{all_recipes[4]['dishImageURL']}}"
+                                src="{{all_recipes[5]['dishImageURL']}}"
                                 alt=""
                                 class="img-fluid hero"
                             />
                         </div>
 
                         <div class="blog-info">
-                            <a href="{{ url_for('category', category="Dinner")}}" title="" class="post-category">Dinner</a>
+                            <a href="{{ url_for('category', category=all_recipes[5]['category'])}}" title="" class="post-category">Dinner</a>
 
                             <h3 class="post-title">
-                                <a href="{{ url_for('recipe', recipe_id=all_recipes[4]["recipe_id"])}}" title=""
+                                <a href="{{ url_for('recipe', recipe_id=all_recipes[5]["recipe_id"])}}" title=""
                                     >{{all_recipes[4]['recipe_title']}}</a
                                 >
                             </h3>
 
                             <p>
-                                {{all_recipes[4]['description']}}
+                                {{all_recipes[5]['description']}}
                             </p>
                         </div>
                     </div>
@@ -109,6 +109,7 @@
                                     src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622038629/The%20Foodie/breakfast_eac71d.jpg"
                                     alt=""
                                     class="img-fluid"
+                                    loading="lazy"
                                 />
                             </div>
 
@@ -127,6 +128,7 @@
                                     src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622038611/The%20Foodie/lunch_dmnayw.jpg"
                                     alt=""
                                     class="img-fluid"
+                                    loading="lazy"
                                 />
                             </div>
 
@@ -145,6 +147,7 @@
                                     src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622038615/The%20Foodie/dinner_hwl41f.jpg"
                                     alt=""
                                     class="img-fluid"
+                                    loading="lazy"
                                 />
                             </div>
 
@@ -163,6 +166,7 @@
                                     src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622038626/The%20Foodie/dessert_wmagl6.jpg"
                                     alt=""
                                     class="img-fluid"
+                                    loading="lazy"
                                 />
                             </div>
 
@@ -199,6 +203,7 @@
                             class="dish-img"
                             src="{{ data['dishImageURL']}}"
                             alt=""
+                            loading="lazy"
                         />
 
                         <div class="card-body-top">

@@ -494,14 +494,60 @@ a#update {
     font-size: 2.5rem !important;
 }
 
-/* .error-container {
-    justify-content: center;
-    align-items: center;
-} */
+/*==========================================================
+            Errors
+        ==========================================================*/
 
 .error-container img {
     display: block;
     margin: 0 auto;
+}
+
+/*==========================================================
+            Tooltip
+        ==========================================================*/
+.tooltip-new {
+    position: relative;
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.tooltip-new i {
+    color: #3c3c3c;
+    font-size: 1rem;
+}
+
+.tooltip-new .tooltiptext-new {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 100;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-new .tooltiptext-new::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip-new:hover .tooltiptext-new {
+    visibility: visible;
+    opacity: 1;
 }
 
 /*==========================================================
