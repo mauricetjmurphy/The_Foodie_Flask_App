@@ -59,7 +59,7 @@ def register():
         first_name = form.first_name.data
         last_name = form.last_name.data
         password = generate_password_hash(password_data)
-        col_user.insert_one({ "email":email, "first_name":first_name, "last_name":last_name, "password":password, "imageURL": ""})
+        col_user.insert_one({ "email":email, "first_name":first_name, "last_name":last_name, "password":password, "imageURL": "user.png"})
 
         login_user(User(email=email))
 
@@ -151,6 +151,13 @@ def new_recipe():
 @login_required
 def recipe(recipe_id):
     post_form = PostForm()
+    email=current_user.email
+    user = col_user.find_one({"email": email})
+    recipe = col_recipe.find_one({"recipe_id": recipe_id})
+
+    if request.method == 'GET':
+        post_form.full_name.data = user["first_name"] + " " + user["last_name"]
+
     if post_form.validate_on_submit():
         full_name = post_form.full_name.data
         content = post_form.content.data
@@ -163,8 +170,6 @@ def recipe(recipe_id):
 
         flash('Your post has been added', 'success')
         return redirect(url_for('recipe', recipe_id=recipe_id))
-        form.full_name.data = ''
-        form.content.data = ''
 
     posts = list(col_recipe.aggregate([
             {
@@ -206,10 +211,8 @@ def recipe(recipe_id):
 
     num_posts = len(list(posts))
 
+    
 
-    email=current_user.email
-    user = col_user.find_one({"email": email})
-    recipe = col_recipe.find_one({"recipe_id": recipe_id})
     return render_template('recipe.html', about=True, recipe=recipe, user=user, post_form=post_form, posts=posts, num_posts=num_posts)
 
 
