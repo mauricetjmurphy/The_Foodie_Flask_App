@@ -3,8 +3,6 @@
 <!-- Main Content Section Starts Here -->
 {% block content %}
 
-<h3 class="text-center">{{ dish_category }}</h3>
-
 <section class="main-content pt-0">
     <div class="container">
         <div class="">
@@ -15,7 +13,7 @@
                     </div>
                 </div>
                 <div class="recipe-card-container">
-                    {% for meal in dish_category %}
+                    {% for meal in pageData %}
 
                     <div class="card">
                         <img
@@ -26,7 +24,7 @@
 
                         <div class="card-body-top">
                             <a
-                                href="{{ url_for('recipe', _id=meal["_id"])}}"
+                                href="{{ url_for('recipe', recipe_id=meal["recipe_id"])}}"
                                 title=""
                                 tabindex=""
                                 >{{ meal["recipe_title"]}}</a

@@ -112,9 +112,6 @@ def category(category):
     page = get_page()
         
     dish_category = col_recipe.find({"category": category})
-    # print(dish_category)
-    # for i in dish_category:
-    #     print(i)
     pagination = Pagination(per_page= 12, page=page, total=dish_category.count(), record_name='category_recipes')
     page_list = paginate_list(dish_category, page, 12)
 
@@ -154,7 +151,8 @@ def recipe(recipe_id):
     if post_form.validate_on_submit():
         full_name = post_form.full_name.data
         content = post_form.content.data
-        col_post.insert_one({"full_name":full_name, "content":content})
+        d = datetime.now()
+        col_post.insert_one({"full_name":full_name, "content":content, "date_added": d})
 
         post = col_post.find_one({"content": content})
         col_post.update_one({"content": content}, { '$set': {"post_id": str(post["_id"])}})
@@ -165,7 +163,7 @@ def recipe(recipe_id):
         form.full_name.data = ''
         form.content.data = ''
 
-    posts = col_recipe.aggregate([
+    posts = list(col_recipe.aggregate([
             {
                 '$lookup': {
                     'from': 'recipePost', 
@@ -200,13 +198,14 @@ def recipe(recipe_id):
                     'post_id': 1
                 }
             }
-        ])
+        ]))
     
 
     num_posts = len(list(posts))
 
 
-    user=current_user
+    email=current_user.email
+    user = col_user.find_one({"email": email})
     recipe = col_recipe.find_one({"recipe_id": recipe_id})
     return render_template('recipe.html', about=True, recipe=recipe, user=user, post_form=post_form, posts=posts, num_posts=num_posts)
 

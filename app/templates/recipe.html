@@ -57,7 +57,7 @@
                         </div>
 
                     <div class="blog-content">
-                        <p>{{recipe['description']}}</p>
+                        <p style="width: 80%;" >{{recipe['description']}}</p>
 
                         <h4>Ingredients</h4>
                         <ul>
@@ -66,10 +66,10 @@
                             {% endfor %}
                         </ul>
 
-                        <h4 class="mt-5">Directions</h4>
+                        <h4  class="mt-5">Directions</h4>
                         <ol>
                             {% for step in recipe['directions'] %}
-                            <li class="mt-2 mb-2"> {{step}}</li>
+                            <li style="width: 80%;" class="mt-2 mb-2"> {{step}}</li>
                             {% endfor %}
                         </ol>
                     </div>
@@ -146,14 +146,13 @@
                                 <h3 class="mb-3">{{ num_posts }} Comments</h3>
                             </div>
 
-                            <h3 class="text-center">{{posts}}</h3>
                             <ul class="list-unstyled mb-0">
                                 {% for post in posts %} {% if post %}
                                 <li>
                                     <div class="comment d-flex">
                                         <div class="comment-img flex-shrink-0">
                                             <img
-                                                src="{{url_for('static', filename='images/profile-images/user.png')}}"
+                                                src="{{url_for('static', filename='images/profile-images/' + user["imageURL"])}}"
                                                 alt=""
                                                 class="img-fluid"
                                             />
@@ -176,7 +175,7 @@
                                                 <div class="extra">
                                                     <span
                                                         >{{
-                                                        post.r2.date_added.strftime('%B
+                                                        post.r2["date_added"].strftime('%B
                                                         %d %Y') }}</span
                                                     >
                                                 </div>
