@@ -112,9 +112,9 @@ def category(category):
     page = get_page()
         
     dish_category = col_recipe.find({"category": category})
-    print(dish_category)
-    for i in dish_category:
-        print(i)
+    # print(dish_category)
+    # for i in dish_category:
+    #     print(i)
     pagination = Pagination(per_page= 12, page=page, total=dish_category.count(), record_name='category_recipes')
     page_list = paginate_list(dish_category, page, 12)
 
@@ -154,19 +154,61 @@ def recipe(recipe_id):
     if post_form.validate_on_submit():
         full_name = post_form.full_name.data
         content = post_form.content.data
-        post = col_post.insert_one({"full_name":full_name, "content":content})
+        col_post.insert_one({"full_name":full_name, "content":content})
 
-        col_recipePost.insert_one({"recipe_id":recipe_id, "post_id":post["_id"]})
+        post = col_post.find_one({"content": content})
+        col_post.update_one({"content": content}, { '$set': {"post_id": str(post["_id"])}})
+        col_recipePost.insert_one({"recipe_id":recipe_id, "post_id": str(post["_id"])})
 
         flash('Your post has been added', 'success')
         return redirect(url_for('recipe', recipe_id=recipe_id))
         form.full_name.data = ''
         form.content.data = ''
 
+    posts = col_recipe.aggregate([
+            {
+                '$lookup': {
+                    'from': 'recipePost', 
+                    'localField': 'recipe_id', 
+                    'foreignField': 'recipe_id', 
+                    'as': 'r1'
+                }
+            }, {
+                '$unwind': {
+                    'path': '$r1', 
+                    'includeArrayIndex': 'r1_id', 
+                    'preserveNullAndEmptyArrays': False
+                }
+            }, {
+                '$lookup': {
+                    'from': 'post', 
+                    'localField': 'r1.post_id', 
+                    'foreignField': 'post_id', 
+                    'as': 'r2'
+                }
+            }, {
+                '$unwind': {
+                    'path': '$r2', 
+                    'preserveNullAndEmptyArrays': False
+                }
+            }, {
+                '$match': {
+                    'recipe_id': recipe_id
+                }
+            }, {
+                '$sort': {
+                    'post_id': 1
+                }
+            }
+        ])
+    
+
+    num_posts = len(list(posts))
+
+
     user=current_user
     recipe = col_recipe.find_one({"recipe_id": recipe_id})
-    print(f"RECIPE: {recipe}")
-    return render_template('recipe.html', about=True, recipe=recipe, user=user, post_form=post_form)
+    return render_template('recipe.html', about=True, recipe=recipe, user=user, post_form=post_form, posts=posts, num_posts=num_posts)
 
 
 @app.route("/recipe/<recipe_id>/update",  methods=["GET", "POST"])

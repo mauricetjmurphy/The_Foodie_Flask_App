@@ -1,6 +1,7 @@
-{% extends 'layout.html' %} {% block content %}
+{% extends 'layout.html' %} 
 
 <!-- Main Content Section Starts Here -->
+{% block content %}
 
 <section class="main-content">
     <div class="container">
@@ -145,6 +146,7 @@
                                 <h3 class="mb-3">{{ num_posts }} Comments</h3>
                             </div>
 
+                            <h3 class="text-center">{{posts}}</h3>
                             <ul class="list-unstyled mb-0">
                                 {% for post in posts %} {% if post %}
                                 <li>
@@ -186,6 +188,8 @@
                                         </div>
                                     </div>
                                 </li>
+                                {% else %}
+                                <h1 class="text-center">No Comments</h1>
                                 {% endif %} {% endfor %}
                             </ul>
                         </div>

@@ -1,7 +1,9 @@
-{% extends 'layout.html' %} {% block content %}
+{% extends 'layout.html' %} 
 
 <!-- Main Content Section Starts Here -->
+{% block content %}
 
+<h3 class="text-center">{{ dish_category }}</h3>
 
 <section class="main-content pt-0">
     <div class="container">
@@ -47,4 +49,6 @@
     </div>
 </section>
 
-{{ pagination.links }} {% endblock content %}
+{{ pagination.links }}
+
+{% endblock content %}
