@@ -7,8 +7,8 @@ load_dotenv()
 class Config(object):
 
     # Set Flask config variables
-    FLASK_ENV = 'production'
-    TESTING = False
+    FLASK_ENV = 'development'
+    TESTING = True
     SECRET_KEY = os.getenv('SECRET_KEY')
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
@@ -16,8 +16,6 @@ class Config(object):
     # Specifing the URI 
     MONGODB_SETTINGS = {
         "db": "Recipes",
-        'host': 'localhost',
-        'port': '0.0.0.0' ,
         'username':'admin',
         'password':'adminpassword'
         }

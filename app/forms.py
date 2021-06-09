@@ -48,17 +48,6 @@ class UpdateAccountForm(FlaskForm):
     imageURL = FileField("Image URL", validators=[FileAllowed(["jpg", "png"])])
     submit = SubmitField("Update")
 
-    # def validate_first_name(self, first_name):
-    #     user = col_user.find_one({"first_name":first_name.data})
-    #     if first_name.data != user["first_name"]:
-    #         if user:
-    #             raise ValidationError("Please enter a new name")
-
-    # def validate_last_name(self, last_name):
-    #     user = col_user.find_one({"last_name":last_name.data})
-    #     if last_name.data != user["last_name"]:
-    #         if user:
-    #             raise ValidationError("Please enter a new name")
 
 class PostForm(FlaskForm):
     full_name = StringField("Name", validators=[DataRequired()])
