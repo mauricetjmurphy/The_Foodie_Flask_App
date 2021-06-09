@@ -2,6 +2,12 @@
 
 <!-- Main Content Section Starts Here -->
 
+<h1>{{dish_category}}</h1>
+
+{% for i in dish_category %}
+    <h1>i.description</h1>
+{% endfor %}
+
 <section class="main-content pt-0">
     <div class="container">
         <div class="">
@@ -23,7 +29,7 @@
 
                         <div class="card-body-top">
                             <a
-                                href="{{ url_for('recipe', recipe_id=meal.recipe_id)}}"
+                                href="{{ url_for('recipe', _id=meal["_id"])}}"
                                 title=""
                                 tabindex=""
                                 >{{ meal["recipe_title"]}}</a

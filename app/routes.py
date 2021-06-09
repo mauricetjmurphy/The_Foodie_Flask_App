@@ -1,5 +1,6 @@
+from logging import disable
 from wtforms.validators import Email
-from app import app, db, mongo
+from app import app, db, col_recipe, col_user, col_post, col_recipePost
 from flask import request, jsonify, session
 from flask_paginate import Pagination
 import pymongo
@@ -11,72 +12,56 @@ from flask import render_template, url_for, request, json, Response, flash, redi
 from app.models import User, Recipe, Post, RecipePost
 from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateAccountForm, PostForm
 from flask_login import login_user, current_user, logout_user, login_required
+from werkzeug.security import generate_password_hash, check_password_hash
+
+
+
 
 # Decorators (app routes)
-# @app.route("/login", methods=["GET", "POST"])
-# def login():
-#     # Check if user is already logged in
-#     if current_user.is_authenticated:
-#         flash("User is already logged in!", "danger")
-#         return redirect(url_for('index'))
-
-#     # Assign the login form object to the form variable
-#     form = LoginForm()
-#     if form.validate_on_submit():
-#         email = form.email.data
-#         password = form.password.data
-#         user = User(email = email)
-#         print(user)
-#         if user and user.get_password(password):
-#             login_user(user, remember=False)
-#             flash(f" {user.first_name}, you are successfully logged in!", 'success')
-#             return redirect(url_for('index'))
-
-#     return render_template('login.html', form=form)
-
-@app.route("/login", methods=["GET","POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    form = LoginForm()
-    
-    # user = mongo.db.user.find()
-    # user = User.objects().first()
-    # user = User.select().where(User.email == email).first()
+    # Check if user is already logged in
+    if current_user.is_authenticated:
+        flash("User is already logged in!", "danger")
+        return redirect(url_for('index'))
 
+    # Assign the login form object to the form variable
+    form = LoginForm()
     if form.validate_on_submit():
         email = form.email.data
-        password = form.password.data
-        user = User(email = email)
-        # user = db["user"].find({"email": email})
-        print(user)
+        user = User(email=email)
+        u = col_user.find_one({"email" :email})
 
-        if user:
+        if user and check_password_hash(u["password"], form.password.data):
             login_user(user)
-            flash(f" {user.first_name}, you are successfully logged in!", 'success')
-            return redirect(url_for("index"))
-    return render_template("login.html", form=form)
+            flash(f" {u['first_name']}, you are successfully logged in!", 'success')
+            return redirect(url_for('index'))
+
+    return render_template('login.html', form=form)
+
 
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
     
-        user_id = db["user"].count()
-        print(f"user_id: ------------{user_id}---------------")
-        user_id += 1
         email = form.email.data
-        password = form.password.data
+        password_data = form.password.data
         first_name = form.first_name.data
         last_name = form.last_name.data
-        db["user"].insert_one({"email": email, "first_name": first_name, "last_name": last_name, "password": password})
-        # User( email=email, first_name=first_name, last_name=last_name, password=password).save()
-        # user.set_password(password)
+        password = generate_password_hash(password_data)
+        col_user.insert_one({ "email":email, "first_name":first_name, "last_name":last_name, "password":password, "imageURL": ""})
+
+        login_user(User(email=email))
+
         flash("You are successfully registered", "success")
-        return redirect(url_for('login'))
+        return redirect(url_for('index'))
     
     return render_template('register.html', form=form)
 
@@ -85,6 +70,7 @@ def register():
 def get_page():
     return request.args.get('page', 1, type=int) 
 
+
 #This function will take the query, page number the user is currently on and the 
 #number of results wanted per page and slice the list of query results accordingly.
 def paginate_list(query, page_number, per_page):
@@ -92,14 +78,15 @@ def paginate_list(query, page_number, per_page):
     paginated_array = array[((page_number*per_page)-per_page):(page_number*per_page)]
     return paginated_array
 
+
 @app.route("/")
 @app.route("/index")
 @login_required
 def index():
     page = get_page()
 
-    all_recipes = mongo.db.recipe.find().sort('recipe_id', pymongo.DESCENDING)
-    recipes = mongo.db.recipe.find().sort('recipe_id', pymongo.DESCENDING)
+    all_recipes = col_recipe.find().sort('_id', pymongo.DESCENDING)
+    recipes = col_recipe.find().sort('_id', pymongo.DESCENDING)
     pagination = Pagination(per_page= 6, page=page, total=recipes.count(), record_name='recipes')
     recipe_list = paginate_list(recipes, page, 6)
 
@@ -121,22 +108,25 @@ def about():
 @app.route("/category/<category>")
 @login_required
 def category(category):
-    dish_category = Recipe.objects(category=category)
-    
+
     page = get_page()
-    pagination = Pagination(per_page= 12, page=page, total=dish_category.count(), record_name='recipes')
+        
+    dish_category = col_recipe.find({"category": category})
+    print(dish_category)
+    for i in dish_category:
+        print(i)
+    pagination = Pagination(per_page= 12, page=page, total=dish_category.count(), record_name='category_recipes')
     page_list = paginate_list(dish_category, page, 12)
 
-    return render_template('category.html', about=True, category=category, dish_category=dish_category, pageData=page_list, pagination=pagination)
+    return render_template('category.html', about=True, category=category,  pageData=page_list, pagination=pagination, dish_category=dish_category)
 
 @app.route("/recipe/new", methods=["GET", "POST"])
-# @login_required
+@login_required
 def new_recipe():
     post_form = PostForm()
     form = RecipeForm()
     if form.validate_on_submit():
-        recipe_id = Recipe.objects.count()
-        recipe_id += 1
+        
         recipe_title = form.recipe_title.data
         description = form.description.data
         
@@ -146,82 +136,44 @@ def new_recipe():
         
         dishImageURL = form.dishImageURL.data
         author = current_user.email
-        recipe = Recipe(recipe_id=recipe_id, recipe_title=recipe_title, description=description, ingredients=ingredients, directions=directions, category=category, dishImageURL=dishImageURL, author=author)
-        recipe.save()
+
+        d = datetime.now()
+
+        col_recipe.insert_one({"recipe_id": "", "recipe_title":recipe_title, "description":description, "ingredients":ingredients, "directions":directions, "dishImageURL":dishImageURL, "category":category, "author":author, "date_added": d})
+        recipe = col_recipe.find_one({"recipe_title":recipe_title})
+        col_recipe.update_one({"recipe_title":recipe_title},  {"$set" : {"recipe_id": str(recipe["_id"])}})
         flash("Another wonderful recipe added to your collection.", "success")
         return redirect(url_for('index'))
     return render_template("add_recipe.html", title='New Recipe', form=form, post_form=post_form,  login=True, legend='Add a new recipe')
 
 
-@app.route("/recipe/<int:recipe_id>", methods=["GET", "POST"])
+@app.route("/recipe/<recipe_id>", methods=["GET", "POST"])
 @login_required
 def recipe(recipe_id):
     post_form = PostForm()
     if post_form.validate_on_submit():
-        post_id = Post.objects.count()
-        post_id += 1
         full_name = post_form.full_name.data
         content = post_form.content.data
-        post = Post(post_id=post_id, full_name=full_name, content=content)
-        post.save()
-        recipePost = RecipePost(recipe_id=recipe_id, post_id=post_id)
-        recipePost.save()
+        post = col_post.insert_one({"full_name":full_name, "content":content})
+
+        col_recipePost.insert_one({"recipe_id":recipe_id, "post_id":post["_id"]})
 
         flash('Your post has been added', 'success')
         return redirect(url_for('recipe', recipe_id=recipe_id))
         form.full_name.data = ''
         form.content.data = ''
 
-    posts = list( Recipe.objects.aggregate(*[
-        {
-            '$lookup': {
-                'from': 'recipe_post', 
-                'localField': 'recipe_id', 
-                'foreignField': 'recipe_id', 
-                'as': 'r1'
-            }
-        }, {
-            '$unwind': {
-                'path': '$r1', 
-                'includeArrayIndex': 'r1_id', 
-                'preserveNullAndEmptyArrays': False
-            }
-        }, {
-            '$lookup': {
-                'from': 'post', 
-                'localField': 'r1.post_id', 
-                'foreignField': 'post_id', 
-                'as': 'r2'
-            }
-        }, {
-            '$unwind': {
-                'path': '$r2', 
-                'includeArrayIndex': 'string', 
-                'preserveNullAndEmptyArrays': False
-            }
-        }, {
-            '$match': {
-                'recipe_id': recipe_id
-            }
-        }, {
-            '$sort': {
-                'recipe_id': 1
-            }
-        }
-    ]))
-
-    num_posts = len(posts)
-
     user=current_user
-    recipe = Recipe.objects(recipe_id=recipe_id).get_or_404()
-    return render_template('recipe.html', about=True, num_posts=num_posts, recipe=recipe, posts=posts, post_form=post_form, user=user)
+    recipe = col_recipe.find_one({"recipe_id": recipe_id})
+    print(f"RECIPE: {recipe}")
+    return render_template('recipe.html', about=True, recipe=recipe, user=user, post_form=post_form)
 
 
-@app.route("/recipe/<int:recipe_id>/update",  methods=["GET", "POST"])
+@app.route("/recipe/<recipe_id>/update",  methods=["GET", "POST"])
 @login_required
 def update_recipe(recipe_id):
-    recipe = Recipe.objects(recipe_id=recipe_id).get_or_404()
-    if recipe.author != current_user.email:
+    recipe = col_recipe.find_one({"recipe_id": recipe_id})
+    if recipe["author"] != current_user.email:
         flash("Sorry you can't update a recipe that you havn't created!", "danger")
         return redirect(url_for('recipe', recipe_id=recipe_id))
     form = RecipeForm()
@@ -236,30 +188,28 @@ def update_recipe(recipe_id):
         dishImageURL = form.dishImageURL.data
         category = request.form.get('category')
         author = current_user.email
-        
-        mongo.db.recipe.remove({"recipe_id": recipe_id})
+        d = datetime.now()
 
-        recipe = Recipe(recipe_id=recipe_id, recipe_title=recipe_title, description=description, ingredients=ingredients, directions=directions, dishImageURL=dishImageURL, category=category, author=author)
-        recipe.save()
+        col_recipe.update_one({"recipe_id": recipe_id}, {"$set" : { "recipe_title":recipe_title, "description":description, "ingredients":ingredients, "directions":directions, "dishImageURL":dishImageURL, "category":category, "author":author, "date_added": d}})
 
         flash("Your recipe has been updated!", 'success')
         return redirect(url_for('recipe', recipe_id=recipe_id))
     elif request.method == 'GET':
-        form.recipe_title.data = recipe.recipe_title
-        form.description.data =  recipe.description          
-        form.dishImageURL.data = recipe.dishImageURL
+        form.recipe_title.data = recipe["recipe_title"]
+        form.description.data =  recipe["description"]          
+        form.dishImageURL.data = recipe["dishImageURL"]
     
     return render_template('update_recipe.html', about=True, recipe=recipe, form=form, legend='Update recipe')
 
 
-@app.route("/recipe/<int:recipe_id>/delete",  methods=["POST"])
+@app.route("/recipe/<recipe_id>/delete",  methods=["POST"])
 @login_required
 def delete_recipe(recipe_id):
-    recipe = Recipe.objects(recipe_id=recipe_id).first()
-    if recipe.author != current_user.email:
+    recipe = col_recipe.find_one({"recipe_id":recipe_id})
+    if recipe["author"] != current_user.email:
         flash("Sorry you can't delete a recipe that you havn't created!", "danger")
         return redirect(url_for('recipe', recipe_id=recipe_id))
-    mongo.db.recipe.remove({"recipe_id":recipe_id}, True)
+    col_recipe.remove({"recipe_id":recipe_id}, True)
     flash("Your recipe has been deleted!", 'success')
     return redirect(url_for('index'))
 
@@ -281,30 +231,33 @@ def save_image(form_image):
 @login_required
 def account():
     imageURL = url_for('static', filename="images/" + current_user.imageURL)
-    user = current_user
-    print(current_user.user_id)
+    email = current_user.email
+    user = col_user.find_one({"email": email})
+    picture_file = ""
+
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.imageURL.data:
             picture_file= save_image(form.imageURL.data)
-            current_user.imageURL = picture_file
-        current_user.first_name = form.first_name.data
-        current_user.last_name = form.last_name.data
-        
-        current_user.save()
+
+        user_filter = {"email": user["email"]}
+        col_user.update_one(user_filter, {"$set" : {"first_name": form.first_name.data, "imageURL": picture_file, "last_name":form.last_name.data,  "email": user["email"]}})
         flash('Your account has been updated', 'success')
         return redirect(url_for('account'))
     elif request.method == "GET":
-        form.first_name.data = current_user.first_name
-        form.last_name.data = current_user.last_name
+        form.first_name.data = user["first_name"]
+        form.last_name.data = user["last_name"]
   
-    return render_template('account.html',  form=form, imageURL=imageURL, user=user)
+    return render_template('account.html',  form=form, user=user)
 
 @app.route("/account/delete",  methods=['GET','POST'])
 def delete_account():
-    user_id = current_user.user_id
+    email = current_user.email
+    user = col_user.find_one({"email": email})
+
+    _id = user["_id"]
     logout_user()
-    mongo.db.user.delete_one({"user_id": user_id})
+    col_user.delete_one({"_id": _id})
     flash("Your account has been deleted!", 'success')
     return redirect(url_for('login'))
 
@@ -314,9 +267,9 @@ def contact_form():
     return redirect(url_for('contact'))
 
 
-# @ app.errorhandler(404)
-# def not_found(error):
-#     return render_template('errors/404.html'), 404
+@ app.errorhandler(404)
+def not_found(error):
+    return render_template('errors/404.html'), 404
 
 
 @ app.errorhandler(500)

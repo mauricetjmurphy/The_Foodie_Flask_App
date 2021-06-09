@@ -22,7 +22,7 @@
 
                             <h3 class="post-title">
                                 <a href="{{ url_for('recipe', recipe_id=all_recipes[1]["recipe_id"])}}" title=""
-                                    >{{all_recipes[0]['recipe_title']}}</a
+                                    >{{all_recipes[1]['recipe_title']}}</a
                                 >
                             </h3>
 
@@ -208,7 +208,7 @@
 
                         <div class="card-body-top">
                             <a
-                                href="{{ url_for('recipe', recipe_id=data.recipe_id)}}"
+                                href="{{ url_for('recipe', recipe_id=data["recipe_id"])}}"
                                 title=""
                                 tabindex=""
                                 >{{ data["recipe_title"]}}</a
@@ -218,7 +218,7 @@
                             </p>
                             <p class="card-text">
                                 <small class="text-muted"
-                                    >Added on {{ data.date_added.strftime('%B
+                                        >Added on {{ data["date_added"].strftime('%B
                                     %d %Y ') }}</small
                                 >
                             </p>

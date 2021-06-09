@@ -226,6 +226,14 @@ textarea {
     color: #68cc66;
 }
 
+.fa-user:hover {
+    color: #68cc66 !important;
+}
+
+.fa-sign-out-alt:hover {
+    color: #68cc66;
+}
+
 .navbar .navbar-nav .nav-item.active a {
     color: #68cc66;
 }

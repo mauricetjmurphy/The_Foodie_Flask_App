@@ -3,7 +3,7 @@ from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, FileField, DateTimeField, FieldList, FormField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError, InputRequired
 from app.models import User
-from app import mongo
+from app import  col_user
 from flask_login import current_user
 from mongoengine import ListField
 
@@ -15,17 +15,17 @@ class LoginForm(FlaskForm):
 
 class RegisterForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired("Please enter your email address."), Email("This field requires a valid email address")])
-    password = PasswordField("Password", validators=[DataRequired(), Length(min=6, max=30)])
-    confirm_password =  PasswordField("Confirm Password", validators=[DataRequired(), Length(min=6, max=30), EqualTo("password")])
+    password = PasswordField("Password", validators=[DataRequired(), Length(min=6)])
+    confirm_password =  PasswordField("Confirm Password", validators=[DataRequired(), Length(min=6), EqualTo("password")])
     first_name = StringField("First Name", validators=[DataRequired()])
     last_name = StringField("Last Name", validators=[DataRequired()])
     submit = SubmitField("Register Now")
 
     #Email validation. Checks if the inputted email has already been used
-    # def validate_email(self, email):
-    #     user = mongo.db.user.find_one_or_404({"email": email.data})
-    #     if user:
-    #         raise ValidationError("Email is already in use. Please try another one.")
+    def validate_email(self, email):
+        user = col_user.find_one({"email": email.data})
+        if user:
+            raise ValidationError("Email is already in use. Please try another one.")
     
 
 class IngredientsForm(FlaskForm):
@@ -48,17 +48,17 @@ class UpdateAccountForm(FlaskForm):
     imageURL = FileField("Image URL", validators=[FileAllowed(["jpg", "png"])])
     submit = SubmitField("Update")
 
-    def validate_first_name(self, first_name):
-        if first_name.data != current_user.first_name:
-            user = User.objects(first_name=first_name.data).first()
-            if user:
-                raise ValidationError("Please enter a new name")
+    # def validate_first_name(self, first_name):
+    #     user = col_user.find_one({"first_name":first_name.data})
+    #     if first_name.data != user["first_name"]:
+    #         if user:
+    #             raise ValidationError("Please enter a new name")
 
-    def validate_last_name(self, last_name):
-        if last_name.data != current_user.last_name:
-            user = User.objects(last_name=last_name.data).first()
-            if user:
-                raise ValidationError("Please enter a new name")
+    # def validate_last_name(self, last_name):
+    #     user = col_user.find_one({"last_name":last_name.data})
+    #     if last_name.data != user["last_name"]:
+    #         if user:
+    #             raise ValidationError("Please enter a new name")
 
 class PostForm(FlaskForm):
     full_name = StringField("Name", validators=[DataRequired()])

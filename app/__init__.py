@@ -2,9 +2,11 @@
 from flask import Flask
 from app.config import Config
 from flask_mongoengine import MongoEngine
-from flask_pymongo import PyMongo
 from flask_login import LoginManager
 from pymongo import MongoClient
+from bson.json_util import dumps
+import json
+from flask_pymongo import PyMongo
 from dotenv import load_dotenv
 import os
 
@@ -15,19 +17,27 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 # Instantiate the mongo engine object
-mone = MongoEngine()
-mone.init_app(app)
+mdb = MongoEngine()
+mdb.init_app(app)
+# mdb = PyMongo()
+# mdb.init_app(app)
 
-cluster = MongoClient("mongodb://Maurice:<testpassword@recipeapp-shard-00-00.f09a9.mongodb.net:27017,recipeapp-shard-00-01.f09a9.mongodb.net:27017,recipeapp-shard-00-02.f09a9.mongodb.net:27017/Recipes?ssl=true&replicaSet=atlas-hhj5sz-shard-0&authSource=admin&retryWrites=true&w=majority")
+cluster = MongoClient("mongodb://admin:adminpassword@recipeapp-shard-00-00.f09a9.mongodb.net:27017,recipeapp-shard-00-01.f09a9.mongodb.net:27017,recipeapp-shard-00-02.f09a9.mongodb.net:27017/Recipes?ssl=true&replicaSet=atlas-hhj5sz-shard-0&authSource=admin&retryWrites=true&w=majority")
 db = cluster["Recipes"]
+col_recipe = db["recipe"]
+col_user = db['user']
+col_post = db['post']
+col_recipePost = db['recipePost']
 
-
-# Specifing the URI 
-app.config["MONGO_URI"] = "mongodb://Maurice:testpassword@recipeapp-shard-00-00.f09a9.mongodb.net:27017,recipeapp-shard-00-01.f09a9.mongodb.net:27017,recipeapp-shard-00-02.f09a9.mongodb.net:27017/Recipes?ssl=true&replicaSet=atlas-hhj5sz-shard-0&authSource=admin&retryWrites=true&w=majority"
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+# mongo = pymongo.MongoClient('mongodb://admin:adminpassword@recipeapp-shard-00-00.f09a9.mongodb.net:27017,recipeapp-shard-00-01.f09a9.mongodb.net:27017,recipeapp-shard-00-02.f09a9.mongodb.net:27017/Recipes?ssl=true&replicaSet=atlas-hhj5sz-shard-0&authSource=admin&retryWrites=true&w=majority', maxPoolSize=50, connect=False)
+# db = pymongo.database.Database(mongo, 'Recipes')
+# col_recipe = pymongo.collection.Collection(db, 'recipe')
+# col_user = pymongo.collection.Collection(db, 'user')
 
 # Instantiate the PyMongo object
-mongo = PyMongo(app)
+# mongodb_client = PyMongo(app)
+# db = mongodb_client.db
+# mongo = PyMongo(app)
 
 # Instantiate the login manager object
 login_manager = LoginManager(app)

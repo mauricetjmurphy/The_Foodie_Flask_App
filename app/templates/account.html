@@ -3,17 +3,17 @@
 <div class="container account-container">
     <img
         class="rounded-circle user-img"
-        {% if current_user.imageURL == ""%}
+        {% if user["imageURL"] == ""%}
         src="{{ url_for('static', filename = 'images/profile-images/user.png')  }}"
         {% else %}
-        src="{{ url_for('static', filename = 'images/profile-images/' + current_user.imageURL)  }}"
+        src="{{ url_for('static', filename = 'images/profile-images/' + user["imageURL"])  }}"
         {% endif %}
         alt="user image"
     />
 
-    <h2>{{current_user.first_name}} {{current_user.last_name}}</h2>
+    <h2>{{user["first_name"]}} {{user["last_name"]}}</h2>
 
-    <h3>{{current_user.email}}</h3>
+    <h3>{{user["email"]}}</h3>
     
 
 <form
@@ -59,7 +59,7 @@
     <a
         id=""
         class="btn btn-danger btn-sm m-1 mb-3"
-        href="{{url_for('delete_account', user_id=user.user_id)}}"
+        href="{{url_for('delete_account', _id=user["_id"])}}"
         >Delete Account</a
     >
 </div>

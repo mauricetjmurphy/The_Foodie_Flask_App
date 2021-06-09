@@ -15,12 +15,12 @@
                                     title=""
                                     class="post-category"
                                     tabindex="-1"
-                                    >{{recipe.category}}</a
+                                    >{{recipe["category"]}}</a
                                 >
                             </li>
 
                             <li class="list-inline-item">
-                                {{recipe.date_added.strftime('%B %d %Y')}}
+                                {{recipe["date_added"].strftime('%B %d %Y')}}
                             </li>
 
                             <li class="list-inline-item">
@@ -33,7 +33,7 @@
                             <a
                                 id="update"
                                 class="btn btn-secondary btn-sm m-1"
-                                href="{{url_for('update_recipe', recipe_id=recipe.recipe_id)}}"
+                                href="{{url_for('update_recipe', recipe_id=recipe["recipe_id"])}}"
                                 >Update</a
                             >
                             <button
@@ -265,7 +265,7 @@
                     Close
                 </button>
                 <form
-                    action="{{url_for('delete_recipe', recipe_id=recipe.recipe_id)}}"
+                    action="{{url_for('delete_recipe', recipe_id=recipe["recipe_id"])}}"
                     method="POST"
                 >
                     <input
