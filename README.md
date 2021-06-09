@@ -8,7 +8,7 @@
 
 The Foodie is an online platform where users can share recipes and ideas. The user can create their own personal account where they can add, edit and delete recipies at their leisure. They can also leave commments on any shared recipe on the site.
 
-[Visit deployed website]()
+[Visit deployed website](https://the-foodie-app.herokuapp.com/login?next=%2F)
 
 ## Table of Contents
 
@@ -29,10 +29,13 @@ The Foodie is an online platform where users can share recipes and ideas. The us
     - [Future features](#future-features)
   - [Technologies used](#technologies-used)
   - [Deployment](#deployment)
+    - [Heroku](#heroku)
   - [Testing](#testing)
+    - [Usability testing](#usability-testing)
+    - [Non existing endpoints](#non-existing-endpoints)
     - [Manual](#manual)
     - [Automated](#automated)
-    - [Usability testing](#usability-testing)
+      - [Unittesting](#unittesting)
     - [Validators](#validators)
       - [1. HTML5](#1-html5)
       - [2. CSS3](#2-css3)
@@ -163,24 +166,157 @@ Defensive design has been achieved by ensuring that:
 
 ## Deployment
 
+This project can be ran locally by following the following steps:
+(Steps may differ in GitPod/Windows/Linux. I used Visual Studio Code on MacOS)
+
+Create a free account on Cloudinary.com download my media or create your own.
+
+Visit this [repository link](https://github.com/mauricetjmurphy/The_Foodie_Flask_App.git) and click on the Clone or Download button to copy the link provided.
+
+![clone](https://res.cloudinary.com/gemtech-solutions/image/upload/v1623260440/The%20Foodie/Screenshot_2021-06-09_at_18.40.25_jmjmf9.png)
+
+In your IDE, open a Terminal window and change to the directory where you want to clone this [repository](https://github.com/sabinemm/recipe-site-ms3.git) and type:
+
+for macOS:
+
+```
+$ cd /Users/user/my_project
+```
+
+for Windows:
+
+```
+$ cd C:/Users/user/my_project
+```
+
+and type:
+
+```
+$ git init
+```
+
+```
+$ git clone https://github.com/mauricetjmurphy/The_Foodie_Flask_App.git
+```
+
+After pressing Enter the project will be created and cloned locally.
+
+(Alternatively you can download the zipped file, decompress it and use your IDE of choice to access it.)
+
+Create a free account on MongoDb and reproduce the 4 collections as described [here](#Information-Architecture).
+
+Make sure to upgrade PIP.
+
+```
+$ pip install -U pip
+```
+
+Install all dependencies
+
+```
+$ pip3 install -r requirements.txt
+```
+
+Activate virtual environment
+
+```
+$ source env/bin/activate
+```
+
+Create .env file with following data
+
+```
+MONGO_URI=mongodb+srv://...
+SECRET_KEY=superdupersecretkey
+```
+
+Add your .env file to .gitignore
+
+You will then be able to run the app locally by typing `python app.py` or `flask run`.
+
+### Heroku
+
+Heroku was chosen as the deployment platform for this project. The steps to deploy the local app to Heroku were as follow:
+
+In Heroku, create an app. The app must have a unique name.
+
+Link that app to the GitHub repository by going to the "Deploy" tab in the main app menu.
+
+In the Settings tab, add the corresponding Config Variables as present in local development:
+
+```
+MONGO_URI mongodb+srv://...
+IP 0.0.0.0
+SECRET_KEY superdupersecretkey
+```
+
+Created "Procfile" and add the following line to the file:
+
+```
+web: python app.py
+```
+
+Click Deploy Branch in Heroku
+
+![Deploy Branch](https://res.cloudinary.com/gemtech-solutions/image/upload/v1623260875/The%20Foodie/Screenshot_2021-06-09_at_18.47.34_iuiofr.png)
+
+After these steps the app is live and running remotely in Heroku's servers.
+
 ## Testing
+
+### Usability testing
+
+Useability testing for this website was achieved by sending a live link of the site to a selected group of people and setting them a number of navigation tasks to carry out. Users reported that they could easily accomplish their tasks and navigate seemlessly through the site.
+
+### Non existing endpoints
+
+I have added custom 404 and 500 error pages
+
+![Error page](https://res.cloudinary.com/gemtech-solutions/image/upload/v1622798866/The%20Foodie/404_e17smz.jpg)
 
 ### Manual
 
 1. Register
 
-    - Tried to submit the signup form with blank fields. Received the error "This field is required".
-    - Tried to register with an incorrect email address format. Received the error "Please enter a vlaid email.
+    - Tested to submit the signup form with blank fields. Received the error "This field is required".
+    - Tested to register with an incorrect email address format. Received the error "Please enter a vlaid email.
 
 2. Login
-    - Tried to submit the login form with blank fields. Received the error "This field is required".
-    - Tried to submit a form with a user that does not exist.
+
+    - Tested to submit the login form with blank fields. Received the error "This field is required".
+    - Tested to submit a form with a user detail that do not exist in the database. Flash message warns the user to check username and password
+
+3. Recipe Form
+
+    - Tested to submit empty form and verify that no recipe has been added to any category page.
+    - Tested to submit filled out form with data in all fields.
+    - Tested to submit the form with empty fields. Some fields have been intenionally left open to blank data.
+
+4. Update Recipe
+
+    - Tested to change some data on the form and resubmit the form.
+    - Tested to submit filled out form with data in all fields.
+    - Tested to submit the form with empty fields. Some fields have been intenionally left open to blank data.
+
+5. Delete Recipe
+
+    - Tested to delete a recipe.
+    - The delete button opens a modal that asks the user if they would like to delete or not.
+
+![Main responsive image](https://res.cloudinary.com/gemtech-solutions/image/upload/v1623258547/The%20Foodie/Screenshot_2021-06-09_at_18.08.45_wdqpau.png)
+
+6. Logout
+
+    - Tested the logout route
+    - If the user is logged out the Flask-login "@Login_required" redirects the user back to the login page and displays a flash messages to say that login is required.
 
 ### Automated
 
-### Usability testing
+#### Unittesting
 
-Useability testing for this website was achieved by sending a live link of the site to a selected group of people and setting them a number of navigation tasks to carry out. Users reported that they could easily accomplish their tasks and navigate seemlessly through the site.
+Automated testing was carried out on specific parts of the application. Python comes with a built in set of tools and libraries that can be used to test for your application.
+
+I mainly trsted the http routes and checked for a 200 success response. I also tested for specific response data on all routes. Flask-login auth blocked the test response so I temporarily disabled the @Login_required decorators before running the tests.
 
 ### Validators
 

@@ -60,23 +60,29 @@
                             >Add Recipe</a
                         >
                     </li>
-                   
+                
                 </ul>
-                <div class="tooltip-new">
-                    <a href="{{ url_for('account') }}"
-                    ><i class="fas fa-user"></i
-                ></a>
-                <span class="tooltiptext-new">Account</span>
+
+                <div class="logout-account-container">
+                    <div class="tooltip-new">
+                        <a href="{{ url_for('account') }}"
+                        ><i class="fas fa-user"></i
+                    ></a>
+                    <span class="tooltiptext-new">Account</span>
+                    </div>
+                      
+                    <div class="tooltip-new">
+                        {% if current_user.is_authenticated%}
+                        <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i></a>
+                        <span class="tooltiptext-new">Logout</span>
+                        {% else %}
+                        <a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i></a>
+                        <span class="tooltiptext-new">Login</span>
+                        {% endif %}
                 </div>
-                  
-                <div class="tooltip-new">
-                    {% if current_user.is_authenticated%}
-                    <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i></a>
-                    <span class="tooltiptext-new">Logout</span>
-                    {% else %}
-                    <a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i></a>
-                    <span class="tooltiptext-new">Login</span>
-                    {% endif %}
+                
+            </div>
+                
                 </div>
                 </div>
             </div>

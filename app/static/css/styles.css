@@ -209,6 +209,7 @@ textarea {
 
 .navbar .navbar-nav {
     width: 100%;
+    margin-left: 74px;
 }
 
 .navbar .navbar-nav .dropdown-menu .dropdown-item {
@@ -249,7 +250,7 @@ textarea {
 
 .navbar .navbar-toggler {
     position: relative;
-    background: #000;
+    background: #3c3c3c;
     width: 40px;
     height: 40px;
 }
@@ -453,6 +454,14 @@ footer .footer-credit p {
 ==========================================================*/
 
 /*===== Main Content =====*/
+
+.logout-account-container {
+    width: 74px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 
 .main-content {
     padding-top: 20px;
@@ -1167,8 +1176,8 @@ footer .footer-credit p {
         max-width: 200px;
         width: 100%;
     }
-    .navbar .navbar-nav .nav-item:not(:last-child) {
-        margin-right: 1.5rem;
+    .navbar .navbar-nav .nav-item {
+        margin: 0 0.8rem;
     }
     .navbar .navbar-nav .nav-item .nav-link {
         border-bottom: none !important;
@@ -1342,5 +1351,23 @@ footer .footer-credit p {
 
     .card {
         width: 90% !important;
+    }
+
+    .tooltiptext-new {
+        display: none;
+    }
+
+    .navbar-nav {
+        width: 90vw !important;
+        margin: 0 !important;
+    }
+
+    .logout-account-container {
+        width: 100vw;
+        margin: 15px 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
     }
 }
