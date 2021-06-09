@@ -32,10 +32,13 @@ def login():
         user = User(email=email)
         u = col_user.find_one({"email" :email})
 
-        if user and check_password_hash(u["password"], form.password.data):
+        if u and check_password_hash(u["password"], form.password.data):
             login_user(user)
             flash(f" {u['first_name']}, you are successfully logged in!", 'success')
             return redirect(url_for('index'))
+        else:
+            flash("Unsuccessful, please check username and password", 'danger')
+            return redirect(url_for('login'))
 
     return render_template('login.html', form=form)
 
