@@ -38,12 +38,11 @@
         <option value="Dessert">Dessert</option>
     </select>
 
-    
     <!-- prettier ignore -->
     <p>Add your ingredients one at a time *</p>
     <div class="ingredients">
-        {% for ingredient in recipe["ingredients"] %}
-        {{ form.hidden_tag() }} {{ form.csrf_token }}
+        {% for ingredient in recipe["ingredients"] %} {{ form.hidden_tag() }} {{
+        form.csrf_token }}
         <input
             value="{{ ingredient }}"
             type="text"
@@ -52,6 +51,7 @@
             placeholder="Ingredient *"
         />
         {% endfor %}
+    </div>
     <div>
         <i class="fas fa-plus add-ingredient"></i>
         <p class="add-ingredient" style="display: inline">
@@ -64,8 +64,8 @@
     <!-- prettier ignore -->
     <p>Add your instructions one at a time *</p>
     <div class="steps">
-        {% for step in recipe["directions"] %}
-        {{ form.hidden_tag() }} {{ form.csrf_token }}
+        {% for step in recipe["directions"] %} {{ form.hidden_tag() }} {{
+        form.csrf_token }}
         <textarea
             value="{{ step }}"
             rows="3"
@@ -73,7 +73,9 @@
             name="step-field[]"
             class="step_input"
             placeholder="Step *"
-        >{{ step }}</textarea>
+        >
+{{ step }}</textarea
+        >
         {% endfor %}
     </div>
     <div>
