@@ -2,7 +2,7 @@
 <form
     name="create_recipe"
     class="create-recipe-form"
-    action=""
+    action="post"
     method="post"
     novalidate
 >
@@ -31,7 +31,7 @@
     <hr />
 
     <select name="category" id="category" required>
-        <option disabled selected value="0">Category</option>
+        <option disabled selected value="">Category</option>
         <option value="Breakfast">Breakfast</option>
         <option value="Lunch">Lunch</option>
         <option value="Dinner">Dinner</option>
@@ -67,9 +67,7 @@
         {% for step in recipe["directions"] %} {{ form.hidden_tag() }} {{
         form.csrf_token }}
         <textarea
-            value="{{ step }}"
             rows="3"
-            type="text"
             name="step-field[]"
             class="step_input"
             placeholder="Step *"

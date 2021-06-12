@@ -46,6 +46,8 @@ The Foodie is an online platform where users can share recipes and ideas. The us
   - [Performance](#performance)
     - [Lazy Loading](#lazy-loading)
   - [Credits](#credits)
+    - [Code](#code)
+    - [Images](#images)
   - [Acknowledgements](#acknowledgements)
 
 ---
@@ -91,7 +93,7 @@ I developed my wireframes using the Figma browser based design tool. Initially I
 
 ### Database Schema
 
-My MongoDB database consists of 4 collections, one for each of the following:
+My MongoDB Atlas cloud database consists of 4 collections, one for each of the following:
 
 -   Recipe
 -   Post
@@ -99,6 +101,8 @@ My MongoDB database consists of 4 collections, one for each of the following:
 -   Recipe_Post
 
 The first three colllections hold data about the user. The fourth collection is a collect that joins the two collections, post and recipe. It allows us to populate each recipe with the coorect user posts.
+
+The database configuration is set in the config file. Its connected using a connection string provided by MongoDB Atlas. All queries to the database are done through the pymongo library. This is ititialized in the **init**.py file.
 
 ### Defensive Design
 
@@ -120,23 +124,26 @@ Defensive design has been achieved by ensuring that:
 -   [x] Users can add comments to any recipe
 -   [x] User can edit and delete their account
 -   [x] Only users with accounts can view, update and delete recipes and add comments
+-   [x] User authentication using Flask-login extension
+-   [x] Password hashing using Werkzeug-security
 -   [x] The user has a section to contact the site admin
 -   [x] Users have access to social media links
 -   [x] Users can click on a dish to reveal the full recipe
 -   [x] Form validation for all form fields
 -   [x] The website includes a about page containing information about the site
 -   [x] Pagination for the recipe pages
+-   [x] Lazy loading images
 
 ### Future features
 
 -   [ ] Reset password link
 -   [ ] Recipe search function
--   [ ] Lazy loading images
 -   [ ] Admin console
 -   [ ] Dynamic form fields
 -   [ ] Google login
 -   [ ] SSL certificate
 -   [ ] recipe image cropping and saving
+-   [ ] Lighthouse performance improvement
 
 ## Technologies used
 
@@ -220,14 +227,14 @@ $ pip3 install -r requirements.txt
 Activate virtual environment
 
 ```
-$ source env/bin/activate
+$ source venv/bin/activate
 ```
 
 Create .env file with following data
 
 ```
 MONGO_URI=mongodb+srv://...
-SECRET_KEY=superdupersecretkey
+SECRET_KEY=***
 ```
 
 Add your .env file to .gitignore
@@ -247,7 +254,7 @@ In the Settings tab, add the corresponding Config Variables as present in local 
 ```
 MONGO_URI mongodb+srv://...
 IP 0.0.0.0
-SECRET_KEY superdupersecretkey
+SECRET_KEY = ***
 ```
 
 Created "Procfile" and add the following line to the file:
@@ -318,12 +325,14 @@ Automated testing was carried out on specific parts of the application. Python c
 
 I mainly trsted the http routes and checked for a 200 success response. I also tested for specific response data on all routes. Flask-login auth blocked the test response so I temporarily disabled the @Login_required decorators before running the tests.
 
+All tests can be found in the test_app.py file.
+
 ### Validators
 
 #### 1. HTML5
 
 -   W3C HTML Validator
-    -   Document checking on HTML. No errors reported. Warnings recommend using headings in my sections. This will be ignored as it is intentional.
+    -   Document checking on HTML. All warning that remain are related to the Jinja templating and cannot be avoided.
 
 #### 2. CSS3
 
@@ -333,10 +342,14 @@ I mainly trsted the http routes and checked for a 200 success response. I also t
 #### 3. JavaScript
 
 -   JsHint Metrics
-    -   There are 19 functions in the file.
-    -   The function with the largest signature takes 5 arguments, while the median is 1.
-    -   The largest function has 12 statements in it while the media is 1.
+
+    -   There are 5 functions in this file.
+    -   Function with the largest signature take 0 arguments, while the median is 0.
+    -   Largest function has 6 statements in it, while the median is 3.
     -   The most complex function has a cyclomatic complexity value of 2 while the median is 1.
+
+-   Warnings
+    -   'template literal syntax' is only available in ES6 (use 'esversion: 6').
 
 #### 4. Browsers
 
@@ -352,8 +365,24 @@ All form fields in this projct are validated using flask wtf form validators. An
 
 ## Performance
 
+I user the chrome browsers Lighthouse tool to check performance. There were several areas which needed improvement. These are areas that would require future improvement.
+
 ### Lazy Loading
 
+I have use the new html "loading=lazy" attribute throughout the app. The loading attribute specifies whether a browser should load an image immediately or to defer loading of off-screen images until for example the user scrolls near them.
+
 ## Credits
+
+### Code
+
+-   Stack Overflow
+-   W3Schools
+-   MDN Web Docs
+
+### Images
+
+-   Pexels
+-   Unsplash
+-   Stocksnap
 
 ## Acknowledgements

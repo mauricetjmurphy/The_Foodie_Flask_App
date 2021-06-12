@@ -1,7 +1,6 @@
-from logging import disable
 from wtforms.validators import Email
 from app import app, db, col_recipe, col_user, col_post, col_recipePost
-from flask import request, jsonify, session
+from flask import request
 from flask_paginate import Pagination
 import pymongo
 from datetime import datetime
@@ -314,11 +313,11 @@ def contact_form():
     return redirect(url_for('contact'))
 
 
-@ app.errorhandler(404)
+@app.errorhandler(404)
 def not_found(error):
     return render_template('errors/404.html'), 404
 
 
-@ app.errorhandler(500)
+@app.errorhandler(500)
 def internal_error(error):
     return render_template('errors/500.html'), 500

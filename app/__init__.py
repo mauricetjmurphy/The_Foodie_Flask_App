@@ -4,9 +4,6 @@ from app.config import Config
 from flask_mongoengine import MongoEngine
 from flask_login import LoginManager
 from pymongo import MongoClient
-from bson.json_util import dumps
-import json
-from flask_pymongo import PyMongo
 from dotenv import load_dotenv
 import os
 

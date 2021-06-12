@@ -12,7 +12,7 @@
                         <ul class="list-inline meta">
                             <li class="list-inline-item">
                                 <a
-                                    href="#"
+                                    href="{{ url_for('category', category=recipe["category"])}}"
                                     title=""
                                     class="post-category"
                                     tabindex="-1"
@@ -51,7 +51,7 @@
                         <div class="recipe-img col-md-8">
                             <img
                                 src="{{recipe['dishImageURL']}}"
-                                alt=""
+                                alt="Recipe Image"
                                 class=""
                             />
                         </div>
@@ -153,7 +153,7 @@
                                         <div class="comment-img flex-shrink-0">
                                             <img
                                                 src="{{url_for('static', filename='images/profile-images/' + user["imageURL"])}}"
-                                                alt=""
+                                                alt="User's profile image"
                                                 class="img-fluid"
                                             />
                                         </div>

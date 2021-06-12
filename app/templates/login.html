@@ -1,7 +1,7 @@
 {% extends 'layout.html' %} {% block content %}
 
 <div class="login-container">
-    <form name="login" class="login-form" action="" method="post" novalidate>
+    <form name="login" class="login-form" action='post' method="post" novalidate>
         <div class="login-input-container">
             {{form.hidden_tag()}} {{ form.csrf_token }}
             <h1>Login</h1>
