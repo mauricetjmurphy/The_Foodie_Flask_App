@@ -85,7 +85,7 @@ To build the website, I used bootstrap 5, CSS3, Fontawsome and fonts from Google
 
 ### Wireframes
 
-I developed my wireframes using the Figma browser based design tool. Initially I created wirframes for the [homepage](), [recipe page](), [recipe form]() and [contact page]().
+I developed my wireframes using the Figma browser based design tool. Initially I created wirframes for the login page, homepage, recipe page, add recipe page, about and contact page.
 
 ### Colour Scheme
 

@@ -1370,4 +1370,8 @@ footer .footer-credit p {
         justify-content: center;
         align-items: center;
     }
+
+    select#category {
+        width: 150px;
+    }
 }

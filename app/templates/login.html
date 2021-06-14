@@ -1,6 +1,7 @@
 {% extends 'layout.html' %} {% block content %}
 
 <div class="login-container">
+    <!-- The action attribute has been intentionally left blank as Flask-WTF does not require it -->
     <form name="login" class="login-form" action='' method="post" novalidate>
         <div class="login-input-container">
             {{form.hidden_tag()}} {{ form.csrf_token }}

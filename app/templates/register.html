@@ -1,5 +1,6 @@
 {% extends 'layout.html' %} {% block content %}
 
+<!-- The action attribute has been intentionally left blank as Flask-WTF does not require it -->
 <form name="register-user" action="" method="POST" novalidate>
     <!-- Adds the csrf token as a security measure -->
     {{form.hidden_tag()}} {{ form.csrf_token }}

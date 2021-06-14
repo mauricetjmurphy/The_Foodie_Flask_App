@@ -1,14 +1,6 @@
 import unittest
-from flask_testing import TestCase
-from flask import Flask, g
-from app import app, db, mongo
-from flask_mongoengine import MongoEngine
-from flask_login import LoginManager
-from app.models import User, Recipe, Post, RecipePost
-from flask_login import login_user, current_user, logout_user, login_required
-from flask import  session, render_template, url_for, request, json, Response, flash, redirect, session, abort
+from app import app
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
