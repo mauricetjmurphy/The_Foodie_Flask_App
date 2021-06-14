@@ -1,18 +1,17 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, FileField, DateTimeField, FieldList, FormField
-from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError, InputRequired
-from app.models import User
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, FileField
+from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
 from app import  col_user
-from flask_login import current_user
 from mongoengine import ListField
 
-#Creating the form classes
+#Creating the login form class
 class LoginForm(FlaskForm):
     email = StringField("Email",  validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Login")
 
+#Creating the registration form class
 class RegisterForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired("Please enter your email address."), Email("This field requires a valid email address")])
     password = PasswordField("Password", validators=[DataRequired(), Length(min=6)])
@@ -28,12 +27,7 @@ class RegisterForm(FlaskForm):
             raise ValidationError("Email is already in use. Please try another one.")
     
 
-class IngredientsForm(FlaskForm):
-        ingredient = StringField()
-
-class DirectionsForm(FlaskForm):
-    direction = TextAreaField()
-
+#Creating the recipe form class
 class RecipeForm(FlaskForm):
     recipe_title = StringField("Name", validators=[DataRequired()])
     description = TextAreaField("Description", validators=[DataRequired(), Length(min=50)])
@@ -42,13 +36,14 @@ class RecipeForm(FlaskForm):
     directions  = ListField(StringField())
     submit = SubmitField("Upload Recipe")
 
+#Creating the update account form class
 class UpdateAccountForm(FlaskForm):
     first_name = StringField("First Name", validators=[])
     last_name = StringField("Last Name", validators=[])
     imageURL = FileField("Image URL", validators=[FileAllowed(["jpg", "png"])])
     submit = SubmitField("Update")
 
-
+#Creating the post form class
 class PostForm(FlaskForm):
     full_name = StringField("Name", validators=[DataRequired()])
     content = TextAreaField("Ingredients", validators=[DataRequired()])

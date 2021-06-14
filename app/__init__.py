@@ -17,7 +17,7 @@ app.config.from_object(Config)
 mdb = MongoEngine()
 mdb.init_app(app)
 
-
+# Instantiate the mongo client object, datebase and collections
 cluster = MongoClient("mongodb://admin:adminpassword@recipeapp-shard-00-00.f09a9.mongodb.net:27017,recipeapp-shard-00-01.f09a9.mongodb.net:27017,recipeapp-shard-00-02.f09a9.mongodb.net:27017/Recipes?ssl=true&replicaSet=atlas-hhj5sz-shard-0&authSource=admin&retryWrites=true&w=majority")
 db = cluster["Recipes"]
 col_recipe = db["recipe"]

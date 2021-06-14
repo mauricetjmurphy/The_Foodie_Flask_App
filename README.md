@@ -144,6 +144,7 @@ Defensive design has been achieved by ensuring that:
 -   [ ] SSL certificate
 -   [ ] recipe image cropping and saving
 -   [ ] Lighthouse performance improvement
+-   [ ] API
 
 ## Technologies used
 
@@ -155,7 +156,6 @@ Defensive design has been achieved by ensuring that:
     -   Jinja
     -   Werkzeug security
     -   Flask-login
-    -   Flask-restplus
     -   Flask-wtf
     -   Flask Paginate
 -   MongoDB and MongoDB Compass
@@ -386,3 +386,9 @@ I have use the new html "loading=lazy" attribute throughout the app. The loading
 -   Stocksnap
 
 ## Acknowledgements
+
+This app was built using the Flask Framework. I would like to give a big thanks to the creator of Flask and all the Flask community that help developer like myself become better ones.
+
+I would also like to thank the stack overflow community that helped me to solve the issues that I faced throughout this project.
+
+Finally, I would like to thank all the Youtube contributors, providing endless amounts of educational content. Particularly Corey Shafer for his amazimg in depth video tutorials on the Flask Framework.

@@ -1,16 +1,16 @@
 
-from app import  login_manager, mdb, col_user
+from app import  login_manager, mdb
 from datetime import datetime
 from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
 
-
+# The user loader is registered with Flask-Login. The id that Flask-Login passes to the function as an argument is going to be a string, so databases that use numeric IDs need to convert the string to integer as you see above.
 @login_manager.user_loader
 def load_user(email):
 
     return  User(email=email)
 
-# Pass to document object to the class  to allow the wtf forms directive to create fields
+# Passing the document object to the class  to allow the wtf forms directive to create fields
+#User class to store data about the user
 class User(mdb.Document,UserMixin):
     user_id = mdb.IntField(unique = True)
     first_name = mdb.StringField(max_length=50)
@@ -38,14 +38,8 @@ class User(mdb.Document,UserMixin):
         """False, as anonymous users aren't supported."""
         return False  
 
-    # def set_password(self, password):
-    #     self.password = generate_password_hash(password)
-
-    # def check_password(self, password):
-    #     return check_password_hash(self.password, password)
-
     
-
+# Recipe class for storing recipe data in the database    
 class Recipe(mdb.Document): 
     recipe_id = mdb.IntField(unique = True)
     recipe_title = mdb.StringField(max_length=50)
@@ -57,6 +51,7 @@ class Recipe(mdb.Document):
     author = mdb.StringField()
     date_added = mdb.DateTimeField(default=datetime.utcnow)
    
+# Post class for storing post data in the database    
 class Post(mdb.Document):
     post_id = mdb.IntField(unique = True)
     full_name = mdb.StringField(max_length=50)
