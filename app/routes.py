@@ -227,17 +227,19 @@ def update_recipe(recipe_id):
         return redirect(url_for('recipe', recipe_id=recipe_id))
     form = RecipeForm()
     # Form for updating the recipe
-    if form.validate_on_submit():
-        recipe_title = form.recipe_title.data
-        description = form.description.data
-
+    if request.method == "POST":
+        recipe_title = request.form.get('recipe_title')
+        description = request.form.get('description')
+        # Get list method is used to collect the list of dynamic form field data
         ingredients = request.form.getlist('ingredient-field[]')
         directions = request.form.getlist('step-field[]')
-
-        dishImageURL = form.dishImageURL.data
         category = request.form.get('category')
+        
+        dishImageURL = request.form.get('dishImageURL')
         author = current_user.email
+        # datetime sets the current date and time
         d = datetime.now()
+
 
         col_recipe.update_one({"recipe_id": recipe_id}, {"$set" : { "recipe_title":recipe_title, "description":description, "ingredients":ingredients, "directions":directions, "dishImageURL":dishImageURL, "category":category, "author":author, "date_added": d}})
 
@@ -245,9 +247,10 @@ def update_recipe(recipe_id):
         return redirect(url_for('recipe', recipe_id=recipe_id))
         # If its a get request the form will auto-fill the fields with the current data
     elif request.method == 'GET':
+        
         form.recipe_title.data = recipe["recipe_title"]
-        form.description.data =  recipe["description"]          
-        form.dishImageURL.data = recipe["dishImageURL"]
+        description =  recipe["description"]          
+        dishImageURL = recipe["dishImageURL"]
     
     return render_template('update_recipe.html', about=True, recipe=recipe, form=form, legend='Update recipe')
 
