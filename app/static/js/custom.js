@@ -24,6 +24,14 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    var add_input = $(".remove-ingredient");
+    var input_wrapper = $(".ingredients");
+    $(add_input).click(function () {
+        $(input_wrapper).children().last().remove();
+    });
+});
+
+$(document).ready(function () {
     var max_input_fields = 10;
     var add_input = $(".add-step");
     var input_wrapper = $(".steps");
@@ -42,5 +50,13 @@ $(document).ready(function () {
             add_input_count++;
             $(input_wrapper).append(new_input);
         }
+    });
+});
+
+$(document).ready(function () {
+    var add_input = $(".remove-step");
+    var input_wrapper = $(".steps");
+    $(add_input).click(function () {
+        $(input_wrapper).children().last().remove();
     });
 });

@@ -22,20 +22,18 @@
             >
                 <ul class="social-links list-inline">
                     <li class="list-inline-item">
-                        <a href="https://www.facebook.com" title=""
-                            ><i class="fab fa-facebook-f"></i
+                        <a href="https://www.facebook.com"  target="_blank"><i class="fab fa-facebook-f"></i
                         ></a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="https://twitter.com" title=""><i class="fab fa-twitter"></i></a>
+                        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="https://www.instagram.com" title=""
-                            ><i class="fab fa-instagram"></i
+                        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i
                         ></a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="https://www.youtube.com" title=""><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
                     </li>
                 </ul>
                 <ul class="navbar-nav justify-content-center">
@@ -56,7 +54,7 @@
                         >
                     </li>
                     <li class="nav-item {% if new_recipe %} active {% endif %}">
-                        <a class="nav-link" href="{{ url_for('new_recipe') }}"
+                        <a class="nav-link add-recipe" href="{{ url_for('new_recipe') }}"
                             >Add Recipe</a
                         >
                     </li>

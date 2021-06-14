@@ -19,7 +19,15 @@ The Foodie is an online platform where users can share recipes and ideas. The us
   - [UI/UX](#uiux)
     - [Project goals](#project-goals)
     - [User Stories](#user-stories)
-  - [Design](#design)
+  - [Design Features](#design-features)
+    - [Login](#login)
+    - [Registration page](#registration-page)
+    - [Homepage](#homepage)
+    - [About](#about)
+    - [Contact](#contact)
+    - [Add recipe](#add-recipe)
+    - [Account](#account)
+    - [Recipe](#recipe)
     - [Wireframes](#wireframes)
     - [Colour Scheme](#colour-scheme)
     - [Database Schema](#database-schema)
@@ -73,19 +81,65 @@ As a user I would like to:
 -   [x] I want to be able to comment on any recipe on the site.
 -   [x] I want to be able you update my account information.
 
-As an admin I would like to do all of the above plus:
-
--   [x] Delete all recipes
-
-## Design
+## Design Features
 
 A lot of my inspiration and design ideas come from [Yummy](https://www.yummly.co.uk/), a recipe website that allows users to search through thousands of recipes.
 
-To build the website, I used bootstrap 5, CSS3, Fontawsome and fonts from Google Fonts.
+### Login
+
+-   Login form for the user to enter their credentials and login in.
+-   Submit button with hover effect.
+-   New account button to take the user to the registration page.
+-   Form fields are all validated by flask-WTF extension.
+
+### Registration page
+
+-   Registration form for te user to sign up and login.
+-   Form fields are all validated by flask-WTF extension.
+-   The user will have to enter a unique email addess that does not already exist in the database.
+
+### Homepage
+
+-   Navigation bar with links to each page.
+-   Slick slide carousel that shows several featured recipes.
+-   Categories section where each recipe is categorised into specific meals
+-   Featured recipe section where recipes paginated and displayed.
+-   Click on the recipes to navigate to the specific recipe page.
+
+### About
+
+-   About page contains information about the app and its history
+
+### Contact
+
+-   The contact page contains a contact form that the user can submit any query to.
+-   The form containes field validation.
+-   The pages contains a google map displaying the business location.
+
+### Add recipe
+
+-   Recipe form for user to submit new recipes. Form uses javascript validation.
+-   Recipe will be displayed on the app once submitted.
+-   Dynamic form fields allow the user to add/remove ingredient and direction input fields.
+
+### Account
+
+-   The account page displays the current users details.
+-   Provides the user a form to update details.
+-   Profile image upload.
+-   Delete account button.
+
+### Recipe
+
+-   The recipe page displays all the recipe data.
+-   User has the option to update or delete the recipe only if the recipe was created by hte user.
+-   Update displays an auto-filled form. The user then can edit the data and resubmit the form.
+-   Delete route will warn the user with a modal popup. If the user wishes to proceed, they can click delete again.
+-   The user can also add a post to the recipe. The post submit form is at the bottom of the page.
 
 ### Wireframes
 
-I developed my wireframes using the Figma browser based design tool. Initially I created wirframes for the login page, homepage, recipe page, add recipe page, about and contact page.
+I developed my wireframes using the Figma browser based design tool. Initially I created wirframes for the login page, homepage, recipe page, add recipe page, about and contact page. Wireframes can be found in the wireframe directory.
 
 ### Colour Scheme
 
@@ -133,15 +187,15 @@ Defensive design has been achieved by ensuring that:
 -   [x] The website includes a about page containing information about the site
 -   [x] Pagination for the recipe pages
 -   [x] Lazy loading images
+-   [x] Dynamic form fields
 
 ### Future features
 
 -   [ ] Reset password link
+-   [ ] Remove posts
 -   [ ] Recipe search function
 -   [ ] Admin console
--   [ ] Dynamic form fields
 -   [ ] Google login
--   [ ] SSL certificate
 -   [ ] recipe image cropping and saving
 -   [ ] Lighthouse performance improvement
 -   [ ] API

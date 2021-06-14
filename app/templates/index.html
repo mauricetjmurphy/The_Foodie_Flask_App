@@ -199,21 +199,23 @@
                     {% for data in recipeData %}
 
                     <div class="card">
-                        <img
+                        <a href="{{ url_for('recipe', recipe_id=data["recipe_id"])}}">
+                            <img
                             class="dish-img"
                             src="{{ data['dishImageURL']}}"
                             alt="Recipe image"
                             loading="lazy"
                         />
+                        </a>
+                       
 
                         <div class="card-body-top">
                             <a
                                 href="{{ url_for('recipe', recipe_id=data["recipe_id"])}}"
-                                title=""
                                 tabindex=""
                                 >{{ data["recipe_title"]}}</a
                             >
-                            <p class="card-text">
+                            <p style="font-size: 14px;" class="card-text  text-secondary">
                                 {{ data["description"] | truncate(100) }}
                             </p>
                             <p class="card-text">

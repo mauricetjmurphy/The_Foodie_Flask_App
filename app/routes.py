@@ -6,6 +6,7 @@ from datetime import datetime
 from PIL import Image
 import secrets
 import os
+import glob
 from flask import render_template, url_for, request, flash, redirect
 from app.models import User
 from app.forms import LoginForm, RegisterForm, RecipeForm, UpdateAccountForm, PostForm
@@ -100,7 +101,9 @@ def index():
 @app.route("/contact")
 @login_required
 def contact():
-    return render_template('contact.html', contact=True)
+    email=current_user.email
+    user = col_user.find_one({"email": email})
+    return render_template('contact.html', user=user, contact=True)
 
 
 # About route
@@ -126,16 +129,16 @@ def category(category):
 def new_recipe():
     post_form = PostForm()
     form = RecipeForm()
-    if form.validate_on_submit():
-        
-        recipe_title = form.recipe_title.data
-        description = form.description.data
+    
+    if request.method == "POST":
+        recipe_title = request.form.get('recipe_title')
+        description = request.form.get('description')
         # Get list method is used to collect the list of dynamic form field data
         ingredients = request.form.getlist('ingredient-field[]')
         directions = request.form.getlist('step-field[]')
         category = request.form.get('category')
         
-        dishImageURL = form.dishImageURL.data
+        dishImageURL = request.form.get('dishImageURL')
         author = current_user.email
         # datetime sets the current date and time
         d = datetime.now()
@@ -220,7 +223,7 @@ def recipe(recipe_id):
 def update_recipe(recipe_id):
     recipe = col_recipe.find_one({"recipe_id": recipe_id})
     if recipe["author"] != current_user.email:
-        flash("Sorry you can't update a recipe that you havn't created!", "danger")
+        flash("Sorry you can't update a recipe that you have not created!", "danger")
         return redirect(url_for('recipe', recipe_id=recipe_id))
     form = RecipeForm()
     # Form for updating the recipe
@@ -282,15 +285,16 @@ def account():
     imageURL = url_for('static', filename="images/" + current_user.imageURL)
     email = current_user.email
     user = col_user.find_one({"email": email})
-    picture_file = ""
+    user_filter = {"email": user["email"]}
 
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.imageURL.data:
             picture_file= save_image(form.imageURL.data)
+            col_user.update_one(user_filter, {"$set" : {"imageURL": picture_file}})
 
-        user_filter = {"email": user["email"]}
-        col_user.update_one(user_filter, {"$set" : {"first_name": form.first_name.data, "imageURL": picture_file, "last_name":form.last_name.data,  "email": user["email"]}})
+        
+        col_user.update_one(user_filter, {"$set" : {"first_name": form.first_name.data, "last_name":form.last_name.data,  "email": user["email"]}})
         flash('Your account has been updated', 'success')
         return redirect(url_for('account'))
     # Get request auto-completes the users details

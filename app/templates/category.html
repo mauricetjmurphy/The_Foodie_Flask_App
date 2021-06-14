@@ -16,12 +16,14 @@
                     {% for meal in pageData %}
 
                     <div class="card">
-                        <img
+                        <a href="{{ url_for('recipe', recipe_id=meal["recipe_id"])}}">
+                            <img
                             class="dish-img"
                             src="{{ meal['dishImageURL']}}"
                             alt=""
                         />
-
+                        </a>
+                        
                         <div class="card-body-top">
                             <a
                                 href="{{ url_for('recipe', recipe_id=meal["recipe_id"])}}"

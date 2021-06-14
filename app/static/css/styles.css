@@ -1340,9 +1340,17 @@ footer .footer-credit p {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 770px) {
+    .social-share {
+        padding: 0 30px;
+    }
+
     .social-links {
         display: none;
+    }
+
+    .social-links.lower-social {
+        display: block !important;
     }
 
     ul.slick-dots {
@@ -1360,6 +1368,10 @@ footer .footer-credit p {
     .navbar-nav {
         width: 90vw !important;
         margin: 0 !important;
+    }
+
+    a.nav-link.add-recipe {
+        width: 120px !important;
     }
 
     .logout-account-container {

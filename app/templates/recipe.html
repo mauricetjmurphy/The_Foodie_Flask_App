@@ -30,6 +30,7 @@
                         </ul>
 
                         <h3 class="post-title">{{ recipe['recipe_title'] }}</h3>
+                        {% if recipe['author'] == user['email'] %}
                         <div>
                             <a
                                 id="update"
@@ -45,6 +46,7 @@
                                 Delete
                             </button>
                         </div>
+                        {% endif %}
                     </div>
 
                     <div class="row">
@@ -81,11 +83,11 @@
                             <strong>Share on:</strong>
                         </p>
 
-                        <ul class="social-links list-inline mb-0">
+                        <ul class="social-links list-inline lower-social mb-0">
                             <li class="list-inline-item">
                                 <a
                                     href="https://www.facebook.com/"
-                                    title=""
+                                    target="_blank"
                                     class="
                                         d-inline-flex
                                         justify-content-center
@@ -99,7 +101,7 @@
                             <li class="list-inline-item">
                                 <a
                                     href="https://twitter.com/"
-                                    title=""
+                                    target="_blank"
                                     class="
                                         d-inline-flex
                                         justify-content-center
@@ -113,7 +115,7 @@
                             <li class="list-inline-item">
                                 <a
                                     href="https://www.linkedin.com/"
-                                    title=""
+                                    target="_blank"
                                     class="
                                         d-inline-flex
                                         justify-content-center
@@ -127,7 +129,7 @@
                             <li class="list-inline-item">
                                 <a
                                     href="https://www.pinterest.co.uk/"
-                                    title=""
+                                    target="_blank"
                                     class="
                                         d-inline-flex
                                         justify-content-center
@@ -172,7 +174,7 @@
                                             >
                                                 <h3>{{ post.r2.full_name }}</h3>
 
-                                                <div class="extra">
+                                                <div class="extra ml-3">
                                                     <span
                                                         >{{
                                                         post.r2["date_added"].strftime('%B
