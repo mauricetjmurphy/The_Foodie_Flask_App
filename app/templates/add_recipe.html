@@ -1,72 +1,107 @@
 {% extends 'layout.html' %} {% block content %}
 
 <!-- The action attribute has been intentionally left blank as Flask-WTF does not require it -->
-<form name="create_recipe" class="create-recipe-form" action="" method="post">
+<form
+    id="recipeForm"
+    name="create_recipe"
+    class="create-recipe-form"
+    action=""
+    method="post"
+    novalidate
+>
     <h1>{{ legend }}</h1>
 
     <!-- prettier ignore -->
-    <input
-        type="text"
-        class="recipe-image"
-        placeholder="Dish image URL"
-        name="dishImageURL"
-        required
-    />
+    <div class="input-container">
+        <input
+            type="text"
+            id="dishImage"
+            class="recipe-image mb-4"
+            placeholder="Dish image URL"
+            name="dishImageURL"
+            required
+        />
+
+        <div class="error-message hidden mb-4 mt-2 ml-2">
+            <span>This field is required.</span>
+        </div>
+    </div>
 
     <!-- prettier ignore -->
-    <input
-        type="text"
-        class="mb-4"
-        placeholder="Recipe Title *"
-        required
-        name="recipe_title"
-    />
+    <div class="input-container">
+        <input
+            type="text"
+            id="recipeTitle"
+            class="mb-4"
+            placeholder="Recipe Title *"
+            required
+            name="recipe_title"
+        />
+
+        <div class="error-message hidden mb-4 mt-2 ml-2">
+            <span>The field is required.</span>
+        </div>
+    </div>
 
     <!-- prettier ignore -->
-    <textarea
-        name="description"
-        rows="3"
-        value=""
-        type="text"
-        class="step_input"
-        placeholder="Description"
-        required
-        minlength="100"
-    ></textarea>
+    <div class="input-container">
+        <textarea
+            name="description"
+            id="description"
+            rows="3"
+            value=""
+            type="text"
+            class="step_input mb-1"
+            placeholder="Description"
+            required
+            minlength="100"
+        ></textarea>
+        <p id="min-char" class="ml-2 mb-4">
+            <small>Please enter a minimum of 100 characters</small>
+        </p>
+
+        <div class="error-message hidden mb-4 mt-2 ml-2">
+            <span>This field is required.</span>
+        </div>
+    </div>
 
     <hr />
 
-    <select name="category" id="category" required>
-        <option disabled value="0">Category</option>
-        <option value="Breakfast">Breakfast</option>
-        <option value="Lunch">Lunch</option>
-        <option value="Dinner">Dinner</option>
-        <option value="Dessert">Dessert</option>
-    </select>
+    <div class="input-container">
+        <select class="mt-4 mb-4" name="category" id="category" required>
+            <option disabled selected value="">Category</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Dessert">Dessert</option>
+        </select>
+
+        <div class="error-message hidden mb-4 mt-2 ml-2">
+            <span>This field is required.</span>
+        </div>
+    </div>
 
     <!-- prettier ignore -->
     <p>Add your ingredients one at a time *</p>
     <div class="ingredients">
-        <input
-            value=""
-            type="text"
-            name="ingredient-field[]"
-            class="ingredient_input"
-            placeholder="Ingredient *"
-            required
-        />
+        <div class="input-container">
+            <input
+                value=""
+                id="ingredient"
+                type="text"
+                name="ingredient-field[]"
+                class="ingredient_input mb-3"
+                placeholder="Ingredient *"
+                required
+            />
 
-        <input
-            value=""
-            type="text"
-            name="ingredient-field[]"
-            class="ingredient_input"
-            placeholder="Ingredient *"
-            required
-        />
+            <div class="error-message hidden mb-4 mt-2 ml-2">
+                <span>This field is required.</span>
+            </div>
+        </div>
     </div>
 
-    <div>
+    <div class="mt-2">
         <i class="ml-2 fas fa-plus add-ingredient"></i>
         <i class="fas fa-minus remove-ingredient"></i>
         <p class="ml-2 add-step" style="display: inline">
@@ -79,25 +114,22 @@
     <!-- prettier ignore -->
     <p>Add your instructions one at a time *</p>
     <div class="steps">
-        <textarea
-            rows="3"
-            value=""
-            type="text"
-            name="step-field[]"
-            class="step_input"
-            placeholder="Step *"
-            required
-        ></textarea>
+        <div class="input-container">
+            <textarea
+                rows="3"
+                id="step"
+                value=""
+                type="text"
+                name="step-field[]"
+                class="step_input mb-4"
+                placeholder="Step *"
+                required
+            ></textarea>
 
-        <textarea
-            rows="3"
-            value=""
-            type="text"
-            name="step-field[]"
-            class="step_input"
-            placeholder="Step *"
-            required
-        ></textarea>
+            <div class="error-message hidden mb-4 mt-2 ml-2">
+                <span>This field is required.</span>
+            </div>
+        </div>
     </div>
     <div>
         <i class="ml-2 fas fa-plus add-step"></i>

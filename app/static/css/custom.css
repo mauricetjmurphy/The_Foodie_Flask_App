@@ -51,6 +51,10 @@
     padding: 5px;
 }
 
+.hidden {
+    display: none;
+}
+
 /*==========================================================
             Login Page
         ==========================================================*/
@@ -196,35 +200,12 @@ select {
     padding: 0 20px 0 8px !important;
 }
 
-.gender-item {
-    position: relative;
-    width: 32%;
-    height: 40px;
-    display: inline-block;
-}
-
-.gender-item label {
-    padding: 0 28px 0 10px;
-    margin: 0;
-    display: inline-block;
-    width: 100%;
-    line-height: 40px;
-}
-
-.gender-item input {
-    position: absolute;
-    right: 10px;
-    top: 0;
-    margin: 0;
-}
-
 input,
 select,
 label {
     height: 40px;
     border: 1px solid #ccd0d5;
     border-radius: 4px;
-    margin-bottom: 10px;
     padding: 11px;
 }
 
@@ -348,16 +329,11 @@ textarea.step_input {
     padding: 10px;
     background: #fafafa;
     border: 1px solid #eaeaea;
-    margin-bottom: 10px;
     width: 100%;
 }
 
 textarea#description::placeholder {
     color: #909090 !important;
-}
-
-input#recipe_title {
-    margin-bottom: 20px;
 }
 
 input.ingredient-input {
@@ -420,6 +396,10 @@ a#update {
 .dish-img {
     width: 100%;
     overflow: hidden;
+}
+
+img.dish-img {
+    height: 180px;
 }
 
 .card-img-top {
@@ -581,7 +561,7 @@ a#update {
 
 @media (max-width: 768px) {
     .card {
-        width: 100% !important;
+        width: 80% !important;
     }
 
     .account-container {
