@@ -1,7 +1,9 @@
+// Function for timed slide-out of the flash messages
 $(document).ready(function () {
     $(".alert").delay(3000).slideUp(400);
 });
 
+//Event listener injects HTML into the document as the user clicks on the add ingredient button.
 $(document).ready(function () {
     var max_input_fields = 10;
     var add_input = $(".add-ingredient");
@@ -23,14 +25,18 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    var add_input = $(".remove-ingredient");
-    var input_wrapper = $(".ingredients");
-    $(add_input).click(function () {
-        $(input_wrapper).children().last().remove();
-    });
+// Selecting elements and assigning them to variables
+const remove_ingred = document.querySelector(".remove-ingredient");
+const input_ingred_wrapper = document.querySelector(".ingredients");
+
+// Event listener for removing the ingredient form fields. There must be at least one field on the page at all time
+remove_ingred.addEventListener("click", () => {
+    if (input_ingred_wrapper.childElementCount >= 2) {
+        $(input_ingred_wrapper).children().last().remove();
+    }
 });
 
+//Event listener injects HTML into the document as the user clicks on the add step button.
 $(document).ready(function () {
     var max_input_fields = 10;
     var add_input = $(".add-step");
@@ -53,12 +59,15 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    var add_input = $(".remove-step");
-    var input_wrapper = $(".steps");
-    $(add_input).click(function () {
-        $(input_wrapper).children().last().remove();
-    });
+// Selecting elements and assigning them to variables
+const remove_step = document.querySelector(".remove-step");
+const input_step_wrapper = document.querySelector(".steps");
+
+// Event listener for removing the step form fields. There must be at least one field on the page at all time
+remove_step.addEventListener("click", () => {
+    if (input_step_wrapper.childElementCount >= 2) {
+        $(input_step_wrapper).children().last().remove();
+    }
 });
 
 // Element selectors for the recipe form
