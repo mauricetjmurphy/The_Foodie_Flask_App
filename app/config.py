@@ -7,8 +7,8 @@ load_dotenv()
 class Config(object):
 
     # Set Flask config variables
-    FLASK_ENV = 'development'
-    TESTING = True
+    FLASK_ENV = 'production'
+    TESTING = False
     SECRET_KEY = os.getenv('SECRET_KEY')
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
