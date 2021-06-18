@@ -18,7 +18,7 @@
                         </div>
 
                         <div class="blog-info">
-                            <a href="{{ url_for('category', category=all_recipes[1]["category"])}}" title="" class="post-category">Dessert</a>
+                            <a href="{{ url_for('category', category=all_recipes[1]["category"])}}" title="" class="post-category">{{all_recipes[1]["category"]}}</a>
 
                             <h3 class="post-title">
                                 <a href="{{ url_for('recipe', recipe_id=all_recipes[1]["recipe_id"])}}" title=""
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="blog-info">
-                            <a href="{{ url_for('category', category=all_recipes[3]['category'])}}" title="" class="post-category">Breakfast</a>
+                            <a href="{{ url_for('category', category=all_recipes[3]['category'])}}" title="" class="post-category">{{all_recipes[3]["category"]}}</a>
 
                             <h3 class="post-title">
                                 <a href="{{ url_for('recipe', recipe_id=all_recipes[3]["recipe_id"])}}" title=""
@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="blog-info">
-                            <a href="{{ url_for('category', category=all_recipes[5]['category'])}}" title="" class="post-category">Dinner</a>
+                            <a href="{{ url_for('category', category=all_recipes[5]['category'])}}" title="" class="post-category">{{all_recipes[5]["category"]}}</a>
 
                             <h3 class="post-title">
                                 <a href="{{ url_for('recipe', recipe_id=all_recipes[5]["recipe_id"])}}" title=""
