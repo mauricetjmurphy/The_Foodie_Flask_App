@@ -17,8 +17,8 @@ class Config(object):
     MONGODB_SETTINGS = {
         "db": "Recipes",
         'username':'admin',
-        'password':'adminpassword'
+        'password': os.getenv('MONGODB_PASSWORD')
         }
-    MONGO_URI = "mongodb://admin:adminpassword@recipeapp-shard-00-00.f09a9.mongodb.net:27017,recipeapp-shard-00-01.f09a9.mongodb.net:27017,recipeapp-shard-00-02.f09a9.mongodb.net:27017/Recipes?ssl=true&replicaSet=atlas-hhj5sz-shard-0&authSource=admin&retryWrites=true&w=majority"
-    SECRET_KEY = os.getenv('SECRET_KEY')
+    MONGO_URI = os.getenv('MONGO_URI')
+    
     
