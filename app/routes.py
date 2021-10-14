@@ -101,7 +101,7 @@ def index():
 def contact():
     email=current_user.email
     user = col_user.find_one({"email": email})
-    return render_template('contact.html', contact=True)
+    return render_template('contact.html',user=user, contact=True)
 
 
 # About route
