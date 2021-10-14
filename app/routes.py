@@ -85,7 +85,6 @@ def paginate_list(query, page_number, per_page):
 @app.route("/")
 @app.route("/index")
  # The @login_required decorator ensures the user is logged in before being able to access this page.
-@login_required
 def index():
     page = get_page()
 
@@ -99,7 +98,6 @@ def index():
 
 # Contact route 
 @app.route("/contact")
-@login_required
 def contact():
     email=current_user.email
     user = col_user.find_one({"email": email})
@@ -108,13 +106,11 @@ def contact():
 
 # About route
 @app.route("/about")
-@login_required
 def about():
     return render_template('about.html', about=True)
 
 # Category route queries all recipes of a certain category, paginates them and display them in the template.
 @app.route("/category/<category>")
-@login_required
 def category(category):
     page = get_page()
     
