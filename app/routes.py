@@ -99,9 +99,9 @@ def index():
 # Contact route 
 @app.route("/contact")
 def contact():
-    email=current_user.email
-    user = col_user.find_one({"email": email})
-    return render_template('contact.html', user=user, contact=True)
+    # email=current_user.email
+    # user = col_user.find_one({"email": email})
+    return render_template('contact.html',  contact=True)
 
 
 # About route
@@ -121,7 +121,7 @@ def category(category):
 
 # New recipe route contains a form for submitting new recipe data
 @app.route("/recipe/new", methods=["GET", "POST"])
-@login_required
+# @login_required
 def new_recipe():
     post_form = PostForm()
     form = RecipeForm()
@@ -149,7 +149,7 @@ def new_recipe():
 
 #Recipe route displays a selected recipe. Route template also includes a form for submitting posts.
 @app.route("/recipe/<recipe_id>", methods=["GET", "POST"])
-@login_required
+# @login_required
 def recipe(recipe_id):
     post_form = PostForm()
     email=current_user.email
@@ -215,7 +215,7 @@ def recipe(recipe_id):
 
 #Route for updating a recipe
 @app.route("/recipe/<recipe_id>/update",  methods=["GET", "POST"])
-@login_required
+# @login_required
 def update_recipe(recipe_id):
     recipe = col_recipe.find_one({"recipe_id": recipe_id})
     if recipe["author"] != current_user.email:
@@ -252,7 +252,7 @@ def update_recipe(recipe_id):
 
 #Route deletes the recipe from the database only if the current user is the author
 @app.route("/recipe/<recipe_id>/delete",  methods=["POST"])
-@login_required
+# @login_required
 def delete_recipe(recipe_id):
     recipe = col_recipe.find_one({"recipe_id":recipe_id})
     if recipe["author"] != current_user.email:
@@ -279,7 +279,7 @@ def save_image(form_image):
 
 # Account route. User can update their account details and profile imageß by submitting the update form
 @app.route("/account", methods=["GET", "POST"])
-@login_required
+# @login_required
 def account():
     imageURL = url_for('static', filename="images/" + current_user.imageURL)
     email = current_user.email
