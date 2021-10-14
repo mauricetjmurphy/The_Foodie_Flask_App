@@ -99,9 +99,9 @@ def index():
 # Contact route 
 @app.route("/contact")
 def contact():
-    # email=current_user.email
-    # user = col_user.find_one({"email": email})
-    return render_template('contact.html',  contact=True)
+    email=current_user.email
+    user = col_user.find_one({"email": email})
+    return render_template('contact.html', contact=True)
 
 
 # About route
