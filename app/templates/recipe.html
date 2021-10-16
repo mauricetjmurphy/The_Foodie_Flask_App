@@ -30,7 +30,7 @@
                         </ul>
 
                         <h3 class="post-title">{{ recipe['recipe_title'] }}</h3>
-                        {% if recipe['author'] == user['email'] %}
+                        {% if user and recipe['author'] == user['email'] %}
                         <div>
                             <a
                                 id="update"
@@ -142,6 +142,7 @@
                         </ul>
                     </div>
 
+                    {% if current_user.is_authenticated%}
                     <div class="comment-section pt-5 pb-5 pb-md-0">
                         <div class="comment-list">
                             <div class="sec-title">
@@ -154,7 +155,7 @@
                                     <div class="comment d-flex">
                                         <div class="comment-img flex-shrink-0">
                                             <img
-                                                src="{{url_for('static', filename='images/profile-images/' + user["imageURL"])}}"
+                                                src="{{ url_for('static', filename = 'images/profile-images/user.png') }}"
                                                 alt="User's profile image"
                                                 class="img-fluid"
                                             />
@@ -284,7 +285,7 @@
         </div>
     </div>
 </div>
-
+{% endif %}
 <!-- Main Content Section Ends Here -->
 
 {% endblock content %}

@@ -3,11 +3,7 @@
 <div class="container account-container">
     <img
         class="rounded-circle user-img"
-        {% if user["imageURL"] == ""%}
         src="{{ url_for('static', filename = 'images/profile-images/user.png')  }}"
-        {% else %}
-        src="{{ url_for('static', filename = 'images/profile-images/' + user["imageURL"])  }}"
-        {% endif %}
         alt="user image"
     />
 
@@ -41,16 +37,16 @@
         {% endfor %}
     </div>
 
-    <div class="add-profile-label">
+    <!-- <div class="add-profile-label">
         <p>Add a new profile picture</p>
-    </div>
+    </div> -->
     
     <!-- prettier ignore -->
-    {{ form.imageURL(placeholder="Profile image", class="user-image-input") }} {% for
+    <!-- {{ form.imageURL(placeholder="Profile image", class="user-image-input") }} {% for
     error in form.imageURL.errors %}
     <span class="error-message">{{error}}</span>
     {% endfor %} 
-    <p><small>Please upload a square image <span style="color: red; text-transform: uppercase;">only</span></small></p>
+    <p><small>Please upload a square image <span style="color: red; text-transform: uppercase;">only</span></small></p> -->
 
     {{ form.submit(class="btn signup-btn")}}
 </form>
