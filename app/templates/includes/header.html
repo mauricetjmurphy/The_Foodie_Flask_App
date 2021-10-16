@@ -62,12 +62,14 @@
                 </ul>
 
                 <div class="logout-account-container">
+                    {% if current_user.is_authenticated%}
                     <div class="tooltip-new">
                         <a href="{{ url_for('account') }}"
                         ><i class="fas fa-user"></i
                     ></a>
                     <span class="tooltiptext-new">Account</span>
                     </div>
+                    {% endif %}
                       
                     <div class="tooltip-new">
                         {% if current_user.is_authenticated%}

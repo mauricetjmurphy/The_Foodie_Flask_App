@@ -27,7 +27,7 @@ col_recipePost = db['recipePost']
 
 # Instantiate the login manager object
 login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+# login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
 # Import poutes below the app instantiation to prevent circular imports

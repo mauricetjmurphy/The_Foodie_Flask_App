@@ -1,5 +1,5 @@
 from app import app, col_recipe, col_user, col_post, col_recipePost
-from flask import request
+from flask import request, session
 from flask_paginate import Pagination
 import pymongo
 from datetime import datetime
@@ -27,9 +27,11 @@ def login():
     # Assign the login form object to the form variable
     form = LoginForm()
     if form.validate_on_submit():
-        email = form.email.data
+        email = form.email.data.lower()
         user = User(email=email)
         u = col_user.find_one({"email" :email})
+        session['current_user'] = user
+        session['user_email'] = email
 
         #Checking hashed password
         if u and check_password_hash(u["password"], form.password.data):
@@ -56,7 +58,7 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
     
-        email = form.email.data
+        email = form.email.data.lower()
         password_data = form.password.data
         first_name = form.first_name.data
         last_name = form.last_name.data
@@ -99,9 +101,9 @@ def index():
 # Contact route 
 @app.route("/contact")
 def contact():
-    email=current_user.email
-    user = col_user.find_one({"email": email})
-    return render_template('contact.html',user=user, contact=True)
+    # email=current_user.email
+    # user = col_user.find_one({"email": email})
+    return render_template('contact.html', contact=True)
 
 
 # About route
@@ -123,6 +125,10 @@ def category(category):
 @app.route("/recipe/new", methods=["GET", "POST"])
 # @login_required
 def new_recipe():
+    if not current_user.is_authenticated:
+        flash("Please login or register to add a recipe", "warning")
+        return redirect(url_for('login'))
+
     post_form = PostForm()
     form = RecipeForm()
     
@@ -151,67 +157,71 @@ def new_recipe():
 @app.route("/recipe/<recipe_id>", methods=["GET", "POST"])
 # @login_required
 def recipe(recipe_id):
-    post_form = PostForm()
-    email=current_user.email
-    user = col_user.find_one({"email": email})
     recipe = col_recipe.find_one({"recipe_id": recipe_id})
+    if current_user.is_authenticated:
+        post_form = PostForm()
+        email=current_user.email
+        user = col_user.find_one({"email": email})
+        
 
-    if request.method == 'GET':
-        post_form.full_name.data = user["first_name"] + " " + user["last_name"]
+        if request.method == 'GET':
+            post_form.full_name.data = user["first_name"] + " " + user["last_name"]
 
-    if post_form.validate_on_submit():
-        full_name = post_form.full_name.data
-        content = post_form.content.data
-        d = datetime.now()
-        col_post.insert_one({"full_name":full_name, "content":content, "date_added": d})
+        if post_form.validate_on_submit():
+            full_name = post_form.full_name.data
+            content = post_form.content.data
+            d = datetime.now()
+            col_post.insert_one({"full_name":full_name, "content":content, "date_added": d})
 
-        post = col_post.find_one({"content": content})
-        col_post.update_one({"content": content}, { '$set': {"post_id": str(post["_id"])}})
-        col_recipePost.insert_one({"recipe_id":recipe_id, "post_id": str(post["_id"])})
+            post = col_post.find_one({"content": content})
+            col_post.update_one({"content": content}, { '$set': {"post_id": str(post["_id"])}})
+            col_recipePost.insert_one({"recipe_id":recipe_id, "post_id": str(post["_id"])})
 
-        flash('Your post has been added', 'success')
-        return redirect(url_for('recipe', recipe_id=recipe_id))
+            flash('Your post has been added', 'success')
+            return redirect(url_for('recipe', recipe_id=recipe_id))
 
-    # MongoDB aggregatiuon filters and matches recipe using the  join collection recipePost
-    posts = list(col_recipe.aggregate([
-            {
-                '$lookup': {
-                    'from': 'recipePost', 
-                    'localField': 'recipe_id', 
-                    'foreignField': 'recipe_id', 
-                    'as': 'r1'
+        # MongoDB aggregatiuon filters and matches recipe using the  join collection recipePost
+        posts = list(col_recipe.aggregate([
+                {
+                    '$lookup': {
+                        'from': 'recipePost', 
+                        'localField': 'recipe_id', 
+                        'foreignField': 'recipe_id', 
+                        'as': 'r1'
+                    }
+                }, {
+                    '$unwind': {
+                        'path': '$r1', 
+                        'includeArrayIndex': 'r1_id', 
+                        'preserveNullAndEmptyArrays': False
+                    }
+                }, {
+                    '$lookup': {
+                        'from': 'post', 
+                        'localField': 'r1.post_id', 
+                        'foreignField': 'post_id', 
+                        'as': 'r2'
+                    }
+                }, {
+                    '$unwind': {
+                        'path': '$r2', 
+                        'preserveNullAndEmptyArrays': False
+                    }
+                }, {
+                    '$match': {
+                        'recipe_id': recipe_id
+                    }
+                }, {
+                    '$sort': {
+                        'post_id': 1
+                    }
                 }
-            }, {
-                '$unwind': {
-                    'path': '$r1', 
-                    'includeArrayIndex': 'r1_id', 
-                    'preserveNullAndEmptyArrays': False
-                }
-            }, {
-                '$lookup': {
-                    'from': 'post', 
-                    'localField': 'r1.post_id', 
-                    'foreignField': 'post_id', 
-                    'as': 'r2'
-                }
-            }, {
-                '$unwind': {
-                    'path': '$r2', 
-                    'preserveNullAndEmptyArrays': False
-                }
-            }, {
-                '$match': {
-                    'recipe_id': recipe_id
-                }
-            }, {
-                '$sort': {
-                    'post_id': 1
-                }
-            }
-        ]))
-    
-    num_posts = len(list(posts))
-    return render_template('recipe.html', about=True, recipe=recipe, user=user, post_form=post_form, posts=posts, num_posts=num_posts)
+            ]))
+        
+        num_posts = len(list(posts))
+        return render_template('recipe.html', about=True, recipe=recipe, user=user, post_form=post_form, posts=posts, num_posts=num_posts)
+
+    return render_template('recipe.html', recipe=recipe, about=True)
 
 #Route for updating a recipe
 @app.route("/recipe/<recipe_id>/update",  methods=["GET", "POST"])
@@ -281,10 +291,10 @@ def save_image(form_image):
 @app.route("/account", methods=["GET", "POST"])
 # @login_required
 def account():
-    imageURL = url_for('static', filename="images/" + current_user.imageURL)
-    email = current_user.email
-    user = col_user.find_one({"email": email})
-    user_filter = {"email": user["email"]}
+    if current_user.is_authenticated:
+        email = current_user.email
+        user = col_user.find_one({"email": email})
+        user_filter = {"email": user["email"]}
 
     form = UpdateAccountForm()
     if form.validate_on_submit():
