@@ -1,0 +1,104 @@
+{% extends 'layout.html' %} {% block content %}
+
+<!-- The action attribute has been intentionally left blank as Flask-WTF does not require it -->
+<form name="create_recipe" class="create-recipe-form" action="" method="post">
+    <h1>{{ legend }}</h1>
+
+    <!-- prettier ignore -->
+    <input
+        type="text"
+        class="recipe-image"
+        placeholder="Dish image URL"
+        name="dishImageURL"
+        required
+        value="{{recipe['dishImageURL']}}"
+    />
+
+    <!-- prettier ignore -->
+    <input
+        type="text"
+        class="mb-4"
+        placeholder="Recipe Title *"
+        required
+        name="recipe_title"
+        value="{{recipe['recipe_title']}}"
+    />
+
+    <!-- prettier ignore -->
+    <textarea
+        name="description"
+        rows="3"
+        value=""
+        type="text"
+        class="step_input"
+        placeholder="Description"
+        required
+        minlength="100"
+    >
+{{recipe['description']}}</textarea
+    >
+
+    <hr />
+
+    <select name="category" id="category" required>
+        <option disabled value="0">Category</option>
+        <option value="Breakfast">Breakfast</option>
+        <option value="Lunch">Lunch</option>
+        <option value="Dinner">Dinner</option>
+        <option value="Dessert">Dessert</option>
+    </select>
+
+    <!-- prettier ignore -->
+    <p>Add your ingredients one at a time *</p>
+    <div class="ingredients">
+        {% for i in recipe['ingredients'] %}
+        <input
+            type="text"
+            name="ingredient-field[]"
+            class="ingredient_input"
+            placeholder="Ingredient *"
+            value="{{i}}"
+            required
+        />
+        {% endfor %}
+    </div>
+
+    <div>
+        <i class="ml-2 fas fa-plus add-ingredient"></i>
+        <i class="fas fa-minus remove-ingredient"></i>
+        <p class="ml-2 add-step" style="display: inline">
+            Add/Remove ingredient
+        </p>
+    </div>
+
+    <hr />
+
+    <!-- prettier ignore -->
+    <p>Add your instructions one at a time *</p>
+    <div class="steps">
+        {% for i in recipe['directions'] %}
+        <textarea
+            rows="3"
+            value=""
+            type="text"
+            name="step-field[]"
+            class="step_input"
+            placeholder="Step *"
+            required
+        >
+{{i}}</textarea
+        >
+        {% endfor %}
+    </div>
+    <div>
+        <i class="ml-2 fas fa-plus add-step"></i>
+        <i class="fas fa-minus remove-step"></i>
+        <p class="ml-2 add-step" style="display: inline">Add/Remove step</p>
+    </div>
+
+    <hr />
+
+    <!-- prettier ignore -->
+    <button class="recipe-submit" type="submit">Upload Recipe</button>
+</form>
+{% endblock content %}
