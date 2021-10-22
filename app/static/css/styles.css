@@ -251,16 +251,15 @@ textarea {
 
 .navbar .navbar-toggler {
   position: relative;
-
   width: 40px;
   height: 40px;
+  background: #fff;
 }
 
 .navbar .navbar-toggler .navbar-toggler-icon {
   position: absolute;
   width: 20px;
   height: 2px;
-  background-color: #fff;
   left: 50%;
   -webkit-transform: translateX(-50%);
   -moz-transform: translateX(-50%);
@@ -349,17 +348,12 @@ textarea {
   border: 0;
 }
 
-.navbar .search .search-field button:hover {
-  background: #3c3c3c;
-}
-
 .navbar .navbar-toggler .navbar-toggler-icon:after,
 .navbar .navbar-toggler .navbar-toggler-icon:before {
   content: "";
   position: absolute;
   width: 20px;
   height: 2px;
-  background-color: #fff;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
@@ -774,26 +768,6 @@ footer .footer-credit p {
   border: 0;
   height: 100%;
   width: 40px;
-}
-
-button:focus {
-  outline: none !important;
-}
-
-button.navbar-toggler {
-  border: none !important;
-}
-
-span:focus {
-  outline: none !important;
-}
-
-.navbar-toggler {
-  outline: none !important;
-}
-button:focus:not(:focus-visible) {
-  outline: none !important;
-  border: none !important;
 }
 
 .sidebar .widget #recent-post-slider .slick-dots li button:before {
