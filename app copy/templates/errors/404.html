@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>404</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/custom.css') }}"
+        />
+        <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+    </head>
+
+    <body>
+        <div class="error-container">
+            <img
+                src="https://res.cloudinary.com/gemtech-solutions/image/upload/v1622798866/The%20Foodie/404_e17smz.jpg"
+                alt="404"
+                style="margin: 0 auto"
+            />
+            <p class="text-center pt-2">Woops, something went wrong!</p>
+            <p class="text-center">
+                <a href="{{ url_for('index') }}">Take me back home!</a>
+            </p>
+        </div>
+
+        <script src="{{ url_for('static', filename = 'js/jquery.js') }}"></script>
+
+        <script src="{{ url_for('static', filename = 'js/jquery-migrate.js') }}"></script>
+
+        <script src="{{ url_for('static', filename = 'js/bootstrap.js') }}"></script>
+    </body>
+</html>
