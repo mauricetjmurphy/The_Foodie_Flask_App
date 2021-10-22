@@ -8,7 +8,7 @@
 
 The Foodie is an online platform where users can share recipes and ideas. The user can create their own personal account where they can add, edit and delete recipies at their leisure. They can also leave commments on any shared recipe on the site.
 
-[Visit deployed website](https://the-foodie-app.herokuapp.com/login?next=%2F)
+[Visit deployed website](https://the-foodie-app.herokuapp.com)
 
 ## Table of Contents
 
